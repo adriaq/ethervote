@@ -1,3 +1,23 @@
+Que fa cada carpeta:
+    -build/             -> contractes compilats
+    -contracts/         -> contractes sense compilar (.sol)
+    -dist/              -> es on estara el projecte "compilat", falta afegir els smart contracts     
+    -frontend/          -> carpeta amb el frontend amb react
+    -migrations/        -> carpeta de truffle
+    -node_modules/      -> moduls de npm del projecte
+    -scripts/           -> no estic segur
+    -server/            -> backend
+    -test/              -> tests del truffle
+
+
+El primer a executar al clonar el projecte es  npm install per descarregar les dependencies necesaries
+Per executar el projecte npm start
+i per fer la build final npm run build
+
+
+
+
+Coses extres:
 
 # create-express-react
 
@@ -71,7 +91,7 @@ Run ESLint on all backend code. The config files can be found in `root/.eslintrc
 
 - `npm run build`
 
-Build all the server side code into `root/dist`, then build react and move all built files (index.html, javascript, css, images, etc.) to `root/dist/public` for production 
+Build all the server side code into `root/dist`, then build react and move all built files (index.html, javascript, css, images, etc.) to `root/dist/public` for production
 
 - `npm run deploy`
 
@@ -105,7 +125,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors
 
@@ -114,5 +134,3 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## License
 
 This project is licensed under the MIT License.
-
-
