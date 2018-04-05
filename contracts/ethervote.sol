@@ -12,8 +12,10 @@ contract ethervote {
     string name;
     string description;
     uint votingDeadline;
+    string options;
   }
   //fi Data structures
+
     // Variables Globals
     address public owner;   //administrador de aquesta instancia, tindra el control
     mapping(address => Voter) private census;               //conjunt de adreces que podran votar
@@ -22,9 +24,6 @@ contract ethervote {
     string public name;
     uint defaultVotingTime;
     //Fi Variables Globals
-
-
-
 
 
     //Modifiers
@@ -77,13 +76,14 @@ contract ethervote {
         emit deleteVoterResult(true);
     }
 
-    function newProposal(string _name, string _description, uint _votingTime, address _creator) canCreate(_creator) public {
-      uint proposalID = ++proposals.length;
+    function newProposal(string _name, string _description, uint _votingTime, address _creator, string _options) canCreate(_creator) public returns(bool succes) {
       Proposal storage p;
       p.name = _name;
       p.description = _description;
       p.votingDeadline = now + _votingTime;
       p.creator = _creator;
-      proposals[proposalID] = p;
+      p.options = _options;
+      proposals.push(p);
+      return true;
     }
 }
