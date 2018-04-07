@@ -9,20 +9,63 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 80px;
   padding: 20px;
   color: white;
 }
 
+.App-body {
+  background-color: #8fb9fc;
+  height: 500px;
+  padding: 20px;
+  color: black;
+}
 .App-title {
-  font-size: 1.5em;
+  font-size: 2.5em;
+  font-style: italic;
+  font-family: "DejaVu Serif";
+}
+
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 70px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 70px;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
 }
 
 .App-intro {
   font-size: large;
 }
 
+
+.component-app {
+  display: flex;
+  flex-direction: column;;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
