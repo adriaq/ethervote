@@ -6,6 +6,11 @@ contract ethervote {
   struct Voter {
       int privilege;      //Privilegi: 0 usuari no valid, 1 pot votar, 2 pot crear votacions
   }
+
+  struct Option{
+    string name;
+    int votes;
+  }
   struct Proposal{
     int proposalID;
     address creator;
@@ -17,12 +22,12 @@ contract ethervote {
   //fi Data structures
 
     // Variables Globals
-    address public owner;   //administrador de aquesta instancia, tindra el control
-    mapping(address => Voter) private census;               //conjunt de adreces que podran votar
-    Proposal[] proposals;
-    uint public creationTime;
-    string public name;
-    uint defaultVotingTime;
+    address public owner;                      //administrador de aquesta instancia, tindra el control
+    mapping(address => Voter) private census;  //conjunt de adreces que podran votar
+    Proposal[] proposals;                      //conjunt de proposals a votar
+    uint public creationTime;                  //Quan es va crear el contracte
+    string public name;                        //Nom de la organització
+    uint defaultVotingTime;                    //Temps per defecte de les votacions
     //Fi Variables Globals
 
 
@@ -52,15 +57,13 @@ contract ethervote {
     //Afegir votant
     function addVoter(address _voter, int _privilege) onlyOwner public {
       if((_privilege >= 1) && (_privilege <=3)) {
-        Voter storage new_voter;
-        new_voter.privilege = _privilege;
-        census[_voter] = new_voter;
+        census[_voter] = Voter({privilege: _privilege});
         emit addVoterResult(_voter);
       }
       emit addVoterResult(address(0));
     }
 
-    function getPrivilege(address _voter) public returns (int){
+    function getPrivilege(address _voter) public view returns (int){
       return census[_voter].privilege;
     }
 
@@ -77,13 +80,28 @@ contract ethervote {
     }
 
     function newProposal(string _name, string _description, uint _votingTime, address _creator, string _options) canCreate(_creator) public returns(bool succes) {
-      Proposal storage p;
-      p.name = _name;
-      p.description = _description;
-      p.votingDeadline = now + _votingTime;
-      p.creator = _creator;
-      p.options = _options;
-      proposals.push(p);
-      return true;
+        int proposalID = int(proposals.length);
+        if( (bytes(_name).length > 0) &&
+            (bytes(_description).length > 0) &&
+            (_votingTime > 0) &&
+            (census[_creator].privilege >= 2)
+            //Falta comprovar options
+        ){
+            proposals.push(
+                Proposal({
+                     proposalID: proposalID,
+                     creator: _creator,
+                     name: _name,
+                     description: _description,
+                     votingDeadline: _votingTime,
+                     options: _options
+            }));
+            return true;
+        } else return false;
     }
+//    function deleteProposal() public{}
+//    function vote(int proposalID, string option) public returns(int){}
+//    function deleteVote(int proposalID) public{}
+//    function getVote(int proposalID) public{}
+
 }
