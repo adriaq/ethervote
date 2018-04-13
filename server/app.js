@@ -7,7 +7,11 @@ import compression from 'compression';
 import path from 'path';
 
 import env from './config/env';
-import routes from './routes';
+import admin_routes from './routes';
+import user_routes from './routes';
+import smart_contract_routes from './routes';
+import audit_routes from './routes';
+import votation_routes from './routes';
 
 const app = express();
 
@@ -41,9 +45,40 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 
 /*=====  End of COR  ======*/
 
-// Routes
+/*===========================
+=           ROUTES          =
+===========================*/
 app.use('/api/v1', routes.api_v1);
 app.use('/page', routes.page);
+
+/********** Admin **********/
+app.get('/admin/', admin_routes.getAllAdmins);
+app.get('/admin/:adminId', admin_routes.getAdmin);
+
+
+/********** User **********/
+app.get('/user/', user_routes.getAllUsers);
+app.get('/user/:userId', user_routes.getUser);
+app.get('/user/:userId/openVotes', user_routes.getOpenVotes);
+app.get('/user/:userId/results', user_routes.getResults);
+
+
+/********** Smart Contracts **********/
+app.get('/smartContract/', smart_contract_routes.getAllSmartContracts);
+app.get('/smartContract/:smId', smart_contract_routes.getSmartContract);
+app.post('/smartContract/:smId', smart_contract_routes.postSmartContract);
+
+
+/********** Audits **********/
+app.get('audit/:auditId', audit_routes.getAuditResults);
+
+
+/********** Votations **********/
+app.get('/votation', votation_routes.getAllVotations);
+app.get('/votation/:userId', votation_routes.getUserVotations);
+
+
+/*=====  End of Routes  ======*/
 
 // Load React App
 // Serve HTML file for production
