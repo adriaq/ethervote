@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-//import Display from './Display';
-//import ButtonPanel from './ButtonPanel';
-//import calculate from '../logic/calculate';
+import Menu, {SubMenu, MenuItem} from 'rc-menu';
+
 
 class App extends Component {
   render() {
@@ -17,16 +16,7 @@ class App extends Component {
                 <p className="App-intro">
                     Hola! proves de reactjs!
                 </p>
-
-                <div className="game">
-                    <div className="game-board">
-                        <Board />
-                    </div>
-                    <div className="game-info">
-                    </div>
-                </div>
-
-
+                <MenuContainer />
             </body>
         </div>
 
@@ -47,15 +37,37 @@ class App extends Component {
 }
 
 
-function Square(props) {
+class MenuContainer extends Component {
+    render() {
+        return (
+            <div>
+                <div >
+                    <p className="TitolMenu">Select an open vote</p>
+                    <ul className="Menu">
+                        <li className="llista" >USA PRESIDENT</li>
+                        <li className="llista" >CEO ELECTION</li>
+                        <li className="llista" >MY DOG'S NAME</li>
+                        <li className="llista">NEW HARRY POTTER FILM?</li>
+                        <li className="llista">SHOULD TAXES INCREASE?</li>
+                        <li className="llista" >GRUPS FESTA FIB 2018</li>
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+}
+
+
+
+/*function Square(props) {
     return (
         <button className="square" onClick={props.onClick}>
             {props.value}
         </button>
     );
-}
+}*/
 
-class Board extends React.Component {
+/*class Board extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -107,7 +119,7 @@ class Board extends React.Component {
             </div>
         );
     }
-}
+}*/
 
 
 
