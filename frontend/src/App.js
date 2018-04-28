@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import construction from './contruction.gif';
+
 import './App.css';
 import Menu, {SubMenu, MenuItem} from 'rc-menu';
 
@@ -14,8 +16,10 @@ class App extends Component {
             </header>
             <body className="App-body">
                 <p className="App-intro">
-                    Hola! proves de reactjs!
+                    Pàgina en construcció
+                    <img src={construction} className="App-logo" alt="construction" />
                 </p>
+
                 <MenuContainer />
             </body>
         </div>
@@ -44,6 +48,7 @@ class MenuContainer extends Component {
                 <div >
                     <p className="TitolMenu">Select an open vote</p>
                     <ul className="Menu">
+                        <Button bsStyle="primary" />
                         <li className="llista" >USA PRESIDENT</li>
                         <li className="llista" >CEO ELECTION</li>
                         <li className="llista" >MY DOG'S NAME</li>
@@ -56,6 +61,14 @@ class MenuContainer extends Component {
         );
     }
 }
+
+class Button extends Component {
+    render() {
+        return (
+            <li className="llista" >Hola, soc un boto pero encara no faig res</li>
+        );
+    }
+ }
 
 
 
