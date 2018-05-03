@@ -17,7 +17,7 @@ contract ethervote {
     string name;
     string description;
     uint votingDeadline;
-    string options;
+    Option[] options;
   }
   //fi Data structures
 
@@ -93,13 +93,19 @@ contract ethervote {
                      creator: _creator,
                      name: _name,
                      description: _description,
-                     votingDeadline: _votingTime,
+                     votingDeadline: now+_votingTime,
                      options: _options
             }));
             return true;
         } else return false;
     }
 //    function deleteProposal() public{}
+      function getNumberOfProposals() public returns (int) {
+        return int(proposals.length);
+      }
+      //function getProposal(int _proposalID) public returns(int, address, string, string, uint){}
+
+
 //    function vote(int proposalID, string option) public returns(int){}
 //    function deleteVote(int proposalID) public{}
 //    function getVote(int proposalID) public{}
