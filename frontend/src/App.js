@@ -4,25 +4,38 @@ import construction from './contruction.gif';
 import ListGroup from 'react-bootstrap/lib/ListGroup'
 import ListGroupItem from 'react-bootstrap/lib/ListGroup'
 import './App.css';
+import Header from "./objects/Header";
+import MenuVotacions from "./objects/MenuVotacions";
 
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+
+
+        };
+    }
+
+
   render() {
+
     return (
 
-        <div className="App">
-            <header className="App-header">
-                <h1 className="App-title">Welcome USER!</h1>
-            </header>
-            <body className="App-body">
+
+            <div className="App">
+                <Header/>
+                <body className="App-body">
                 <p className="App-intro">
                     Pàgina en construcció
-                    <img src={construction} className="App-logo" alt="construction" />
+                    <img src={construction} className="App-logo" alt="construction"/>
                 </p>
 
-                <MenuContainer />
-            </body>
-        </div>
+                <MenuVotacions/>
+                <MenuContainer/>
+                </body>
+            </div>
 
 
 
@@ -57,7 +70,8 @@ class MenuContainer extends Component {
                     <p className="TitolMenu">Select an open vote</p>
                     <ul className="Menu">
                         <ListGroup>
-                        <ListGroupItem onClick={() => alertClicked("USA PRESIDENT")} href="#" active className="llista" >USA PRESIDENT</ListGroupItem>
+                        <ListGroupItem onClick={() => alertClicked("USA PRESIDENT")}
+                                       href="#" active className="llista" >USA PRESIDENT</ListGroupItem>
                         <ListGroupItem onClick={() => alertClicked("CEO ELECTION")} className="llista" >CEO ELECTION</ListGroupItem>
                         <ListGroupItem onClick={() => alertClicked("MY DOG'S NAME")} className="llista" >MY DOG'S NAME</ListGroupItem>
                         <ListGroupItem onClick={() => alertClicked("NEW HARRY POTTER FILM?")} className="llista">NEW HARRY POTTER FILM?</ListGroupItem>
