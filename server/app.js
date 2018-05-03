@@ -7,11 +7,7 @@ import compression from 'compression';
 import path from 'path';
 
 import env from './config/env';
-import admin_routes from './routes';
-import user_routes from './routes';
-import smart_contract_routes from './routes';
-import audit_routes from './routes';
-import votation_routes from './routes';
+const routes = './routes'
 
 const app = express();
 
@@ -30,10 +26,10 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 /*=====  End of Middleware  ======*/
 
 /*===========================================
-=            Baic Authentication            =
+=            Basic Authentication            =
 ===========================================*/
 
-// app.use(require('node-basicauth')({'haochuan': 'password'}));
+//app.use(require('node-basicauth')({'haochuan': 'password'}));
 
 /*=====  End of Baic Authentication  ======*/
 
@@ -48,35 +44,13 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 /*===========================
 =           ROUTES          =
 ===========================*/
-app.use('/api/v1', routes.api_v1);
-app.use('/page', routes.page);
-
-/********** Admin **********/
-app.get('/admin/', admin_routes.getAllAdmins);
-app.get('/admin/:adminId', admin_routes.getAdmin);
-
-
-/********** User **********/
-app.get('/user/', user_routes.getAllUsers);
-app.get('/user/:userId', user_routes.getUser);
-app.get('/user/:userId/openVotes', user_routes.getOpenVotes);
-app.get('/user/:userId/results', user_routes.getResults);
-
-
-/********** Smart Contracts **********/
-app.get('/smartContract/', smart_contract_routes.getAllSmartContracts);
-app.get('/smartContract/:smId', smart_contract_routes.getSmartContract);
-app.post('/smartContract/:smId', smart_contract_routes.postSmartContract);
-
-
-/********** Audits **********/
-app.get('audit/:auditId', audit_routes.getAuditResults);
-
-
-/********** Votations **********/
-app.get('/votation', votation_routes.getAllVotations);
-app.get('/votation/:userId', votation_routes.getUserVotations);
-
+//app.use('/api/v1', routes.api_v1);
+//app.use('/page', routes.page);
+app.use('/admin_routes', routes.admin_routes);
+app.use('/audit_routes', routes.audit_routes);
+app.use('/smart_contract_routes', routes.smart_contract_routes);
+app.use('/user_routes', routes.user_routes);
+app.use('/votation_routes', routes.votation_routes);
 
 /*=====  End of Routes  ======*/
 

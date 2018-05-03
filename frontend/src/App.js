@@ -40,8 +40,9 @@ class App extends Component {
   }
 }
 
-function alertClicked() {
-    alert('Has seleccionat una votació');
+function alertClicked(i) {
+    alert(i);
+    return 2;
 }
 
 
@@ -56,13 +57,13 @@ class MenuContainer extends Component {
                     <p className="TitolMenu">Select an open vote</p>
                     <ul className="Menu">
                         <ListGroup>
-                        <ListGroupItem onClick={() => alertClicked()} href="#" active className="llista" >USA PRESIDENT</ListGroupItem>
-                            <ListGroupItem className="llista" >CEO ELECTION</ListGroupItem>
-                            <ListGroupItem className="llista" >MY DOG'S NAME</ListGroupItem>
-                        <ListGroupItem className="llista">NEW HARRY POTTER FILM?</ListGroupItem>
-                        <ListGroupItem className="llista">SHOULD TAXES INCREASE?</ListGroupItem>
-                        <ListGroupItem className="llista" >GRUPS FESTA FIB 2018</ListGroupItem>
-                            </ListGroup>
+                        <ListGroupItem onClick={() => alertClicked("USA PRESIDENT")} href="#" active className="llista" >USA PRESIDENT</ListGroupItem>
+                        <ListGroupItem onClick={() => alertClicked("CEO ELECTION")} className="llista" >CEO ELECTION</ListGroupItem>
+                        <ListGroupItem onClick={() => alertClicked("MY DOG'S NAME")} className="llista" >MY DOG'S NAME</ListGroupItem>
+                        <ListGroupItem onClick={() => alertClicked("NEW HARRY POTTER FILM?")} className="llista">NEW HARRY POTTER FILM?</ListGroupItem>
+                        <ListGroupItem onClick={() => alertClicked("SHOULD TAXES INCREASE?")} className="llista">SHOULD TAXES INCREASE?</ListGroupItem>
+                        <ListGroupItem onClick={() => alertClicked("GRUPS FESTA FIB 2018")} className="llista" >GRUPS FESTA FIB 2018</ListGroupItem>
+                        </ListGroup>
                     </ul>
                 </div>
             </div>
