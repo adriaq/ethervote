@@ -4,7 +4,6 @@ import construction from './contruction.gif';
 import ListGroup from 'react-bootstrap/lib/ListGroup'
 import ListGroupItem from 'react-bootstrap/lib/ListGroup'
 import './App.css';
-import Menu, {SubMenu, MenuItem} from 'rc-menu';
 
 
 class App extends Component {
@@ -41,12 +40,14 @@ class App extends Component {
   }
 }
 
+function alertClicked() {
+    alert('Has seleccionat una votació');
+}
+
+
 
 class MenuContainer extends Component {
 
-    alertClicked() {
-    alert('Has seleccionat una votació');
-    }
 
     render() {
         return (
@@ -55,7 +56,7 @@ class MenuContainer extends Component {
                     <p className="TitolMenu">Select an open vote</p>
                     <ul className="Menu">
                         <ListGroup>
-                        <ListGroupItem onClick={this.alertClicked()} href="#" active className="llista" >USA PRESIDENT</ListGroupItem>
+                        <ListGroupItem onClick={() => alertClicked()} href="#" active className="llista" >USA PRESIDENT</ListGroupItem>
                             <ListGroupItem className="llista" >CEO ELECTION</ListGroupItem>
                             <ListGroupItem className="llista" >MY DOG'S NAME</ListGroupItem>
                         <ListGroupItem className="llista">NEW HARRY POTTER FILM?</ListGroupItem>
