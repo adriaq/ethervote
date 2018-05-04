@@ -9,22 +9,27 @@ contract ethervote {
 
   struct Option{
     string name;
-    int votes;
+    string description;
+    bool exists;
+    address[] votes;
   }
   struct Proposal{
-    int proposalID;
     address creator;
     string name;
     string description;
     uint votingDeadline;
-    Option[] options;
+    bool exists;
+    int n_options;
+    mapping (int => Option) options;
   }
   //fi Data structures
 
     // Variables Globals
     address public owner;                      //administrador de aquesta instancia, tindra el control
     mapping(address => Voter) private census;  //conjunt de adreces que podran votar
-    Proposal[] proposals;                      //conjunt de proposals a votar
+    address[] private voters;
+    mapping (int => Proposal) private proposals;       //conjunt de proposals a votar
+    int public n_proposals;
     uint public creationTime;                  //Quan es va crear el contracte
     string public name;                        //Nom de la organització
     uint defaultVotingTime;                    //Temps per defecte de les votacions
@@ -36,6 +41,10 @@ contract ethervote {
         require(msg.sender == owner);
         _;
     }
+    modifier onlyCreator(int _proposalID) {
+      require(proposals[_proposalID].creator == msg.sender);
+      _;
+    }
     modifier canVote(address _voter) {
         require(census[_voter].privilege >= 1);
         _;
@@ -45,7 +54,7 @@ contract ethervote {
       _;
     }
     //Creadora
-    function ethervote(string _name, uint _defaultVotingTime) public {
+    constructor(string _name, uint _defaultVotingTime) public {
       owner = msg.sender;
       creationTime = now;
       name = _name;
@@ -58,6 +67,7 @@ contract ethervote {
     function addVoter(address _voter, int _privilege) onlyOwner public {
       if((_privilege >= 1) && (_privilege <=3)) {
         census[_voter] = Voter({privilege: _privilege});
+        voters.push(_voter);
         emit addVoterResult(_voter);
       }
       emit addVoterResult(address(0));
@@ -78,30 +88,65 @@ contract ethervote {
         census[_voter].privilege = 0;
         emit deleteVoterResult(true);
     }
-
-    function newProposal(string _name, string _description, uint _votingTime, address _creator, string _options) canCreate(_creator) public returns(bool succes) {
-        int proposalID = int(proposals.length);
+    function getNumberOfVoters() public view returns (int){
+        return int(voters.length);
+    }
+    function newProposal(string _name, string _description, uint _votingTime, address _creator) canCreate(_creator) public returns(bool succes) {
+        int proposalID = ++n_proposals;
         if( (bytes(_name).length > 0) &&
             (bytes(_description).length > 0) &&
-            (_votingTime > 0) &&
-            (census[_creator].privilege >= 2)
-            //Falta comprovar options
+            (_votingTime > 0)
         ){
-            proposals.push(
-                Proposal({
-                     proposalID: proposalID,
-                     creator: _creator,
-                     name: _name,
-                     description: _description,
-                     votingDeadline: now+_votingTime,
-                     options: _options
-            }));
+            proposals[proposalID].creator = _creator;
+            proposals[proposalID].name = _name;
+            proposals[proposalID].description = _description;
+            proposals[proposalID].creator = _creator;
+            proposals[proposalID].votingDeadline = now+_votingTime;
+            proposals[proposalID].exists = true;
             return true;
         } else return false;
     }
+
+    function addOption(int _proposalID, string _name, string _description) public onlyOwner onlyCreator(_proposalID) returns(bool)  {
+        if( (bytes(_name).length > 0) && //si el nom no esta buit
+            (proposals[_proposalID].exists) //si la proposal existeix
+        ){
+            int n_options = proposals[_proposalID].n_options;
+            proposals[_proposalID].options[++n_options].name = _name;
+            proposals[_proposalID].options[++n_options].description  = _description;
+            return true;
+        } else return false;
+    }
+    function getNumberOfOptions(int _proposalID) public view returns(int) {
+      if(proposals[_proposalID].exists){
+          return proposals[_proposalID].n_options;
+      } else return -1;
+    }
+    function getNumberOfVotes(int _proposalID, int _n_option) public view returns(int){
+      if(proposals[_proposalID].exists &&
+         proposals[_proposalID].options[_n_option].exists
+        ){
+          return int(proposals[_proposalID].options[_n_option].votes.length);
+      } else return -1;
+    }
+    function getOptionName(int _proposalID, int _n_option) public view returns(string) {
+      if(proposals[_proposalID].exists &&
+         proposals[_proposalID].options[_n_option].exists
+        ){
+          return proposals[_proposalID].options[_n_option].name;
+      } else return "";
+    }
+    function getOptionName(int _proposalID, int _n_option) public view returns(string) {
+      if(proposals[_proposalID].exists &&
+         proposals[_proposalID].options[_n_option].exists
+        ){
+          return proposals[_proposalID].options[_n_option].description;
+      } else return "";
+    }
+
 //    function deleteProposal() public{}
-      function getNumberOfProposals() public returns (int) {
-        return int(proposals.length);
+      function getNumberOfProposals() public view returns (int) {
+        return n_proposals;
       }
       //function getProposal(int _proposalID) public returns(int, address, string, string, uint){}
 
