@@ -1,23 +1,34 @@
+# ethervote
+
 Que fa cada carpeta:
-    -build/             -> contractes compilats
-    -contracts/         -> contractes sense compilar (.sol)
-    -dist/              -> es on estara el projecte "compilat", falta afegir els smart contracts     
-    -frontend/          -> carpeta amb el frontend amb react
-    -migrations/        -> carpeta de truffle
-    -node_modules/      -> moduls de npm del projecte
-    -scripts/           -> no estic segur
-    -server/            -> backend
-    -test/              -> tests del truffle
 
+    - build/             -> contractes compilats
+    - contracts/         -> contractes sense compilar (.sol)
+    - dist/              -> es on estara el projecte "compilat", falta afegir els smart contracts     
+    - frontend/          -> carpeta amb el frontend amb react
+    - migrations/        -> carpeta de truffle
+    - node_modules/      -> moduls de npm del projecte
+    - scripts/           -> no estic segur
+    - server/            -> backend
+    - test/              -> tests del truffle
+    
+Install the dependencies in the local node_modules folder. By default, npm install will install all modules listed as dependencies in package.json.
 
-El primer a executar al clonar el projecte es  npm install per descarregar les dependencies necesaries
-Per executar el projecte npm start
-i per fer la build final npm run build
+```
+npm install
+```
 
+Finally, you can start your app:
 
+```
+npm start
+```
+Build: 
 
+```
+npm build
+```
 
-Coses extres:
 
 # create-express-react
 
