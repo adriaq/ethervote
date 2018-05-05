@@ -32,8 +32,8 @@ class App extends Component {
                     <img src={construction} className="App-logo" alt="construction"/>
                 </p>
 
-                <MenuVotacions/>
-                <MenuContainer/>
+                     <MenuVotacions/>
+
                 </body>
             </div>
 
@@ -53,38 +53,6 @@ class App extends Component {
   }
 }
 
-function alertClicked(i) {
-    alert(i);
-    return 2;
-}
-
-
-
-class MenuContainer extends Component {
-
-
-    render() {
-        return (
-            <div>
-                <div >
-                    <p className="TitolMenu">Select an open vote</p>
-                    <ul className="Menu">
-                        <ListGroup>
-                        <ListGroupItem onClick={() => alertClicked("USA PRESIDENT")}
-                                       href="#" active className="llista" >USA PRESIDENT</ListGroupItem>
-                        <ListGroupItem onClick={() => alertClicked("CEO ELECTION")} className="llista" >CEO ELECTION</ListGroupItem>
-                        <ListGroupItem onClick={() => alertClicked("MY DOG'S NAME")} className="llista" >MY DOG'S NAME</ListGroupItem>
-                        <ListGroupItem onClick={() => alertClicked("NEW HARRY POTTER FILM?")} className="llista">NEW HARRY POTTER FILM?</ListGroupItem>
-                        <ListGroupItem onClick={() => alertClicked("SHOULD TAXES INCREASE?")} className="llista">SHOULD TAXES INCREASE?</ListGroupItem>
-                        <ListGroupItem onClick={() => alertClicked("GRUPS FESTA FIB 2018")} className="llista" >GRUPS FESTA FIB 2018</ListGroupItem>
-                        </ListGroup>
-                    </ul>
-                </div>
-            </div>
-        );
-    }
-
- }
 
 
 

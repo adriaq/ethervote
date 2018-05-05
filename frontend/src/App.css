@@ -14,6 +14,14 @@
   color: white;
 }
 
+.MenuVotacions {
+  float:right;
+}
+
+.MenuVotacions2 {
+  float:left;
+}
+
 .Menu {
   background-color: #abe33fce;
   font-family: sans-serif;
