@@ -1,3 +1,5 @@
+# ethervote
+
 Que fa cada carpeta:
 
     - build/             -> contractes compilats
