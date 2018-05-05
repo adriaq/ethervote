@@ -9,7 +9,9 @@ Que fa cada carpeta:
     - scripts/           -> no estic segur
     - server/            -> backend
     - test/              -> tests del truffle
-
+    
+Install the dependencies in the local node_modules folder. By default, npm install will install all modules listed as dependencies in package.json.
+- `npm run setup`
 
 El primer a executar al clonar el projecte es npm install per descarregar les dependencies necesaries
 Per executar el projecte npm start
