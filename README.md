@@ -13,11 +13,21 @@ Que fa cada carpeta:
     - test/              -> tests del truffle
     
 Install the dependencies in the local node_modules folder. By default, npm install will install all modules listed as dependencies in package.json.
-- `npm run setup`
 
-El primer a executar al clonar el projecte es npm install per descarregar les dependencies necesaries
-Per executar el projecte npm start
-i per fer la build final npm run build
+```
+npm install
+```
+
+Finally, you can start your app:
+
+```
+npm start
+```
+Build: 
+
+```
+npm build
+```
 
 
 # create-express-react
