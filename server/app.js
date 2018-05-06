@@ -7,9 +7,15 @@ import compression from 'compression';
 import path from 'path';
 
 import env from './config/env';
-const routes = './routes'
+
+const admin_routes = require('./routes/admin_routes');
+const audit_routes = require('./routes/audit_routes');
+const smart_contract_routes = require('./routes/smart_contract_routes');
+const user_routes = require('./routes/user_routes');
+const votation_routes = require('./routes/votation_routes');
 
 const app = express();
+var router = express.Router();
 
 /*==================================
 =            Middleware            =
@@ -46,11 +52,28 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 ===========================*/
 //app.use('/api/v1', routes.api_v1);
 //app.use('/page', routes.page);
-app.use('/admin_routes', routes.admin_routes);
-app.use('/audit_routes', routes.audit_routes);
-app.use('/smart_contract_routes', routes.smart_contract_routes);
-app.use('/user_routes', routes.user_routes);
-app.use('/votation_routes', routes.votation_routes);
+
+/********************* ADMIN ************************/
+app.get('/admins/', admin_routes.getAdmins);
+app.get('/admin/:adminId', admin_routes.getAdminInfo);
+
+/********************* AUDIT ************************/
+app.get('audit/:auditId', audit_routes.getAudit);
+
+/***************** SMART CONTRACTS ******************/
+app.get('/smartContracts/', smart_contract_routes.getSmartContracts);
+app.get('/smartContract/:smId', smart_contract_routes.getSmartContract);
+app.post('/smartContract/:smId', smart_contract_routes.postSmartContract);
+
+/********************* USER *************************/
+app.get('/users/', user_routes.getUsers);
+app.get('/user/:userId', user_routes.getUserInfo);
+app.get('/user/:userId/openVotes', user_routes.getUserOpenVotations);
+app.get('/user/:userId/results', user_routes.getUserClosedVotations);
+
+/******************* VOTATIONS **********************/
+app.get('/votations/', votation_routes.getVotations);
+app.get('/votation/:userId', votation_routes.getUserVotations);
 
 /*=====  End of Routes  ======*/
 
