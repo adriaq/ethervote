@@ -5,7 +5,6 @@ import '../App.css'
 
 function alertClicked(i) {
     alert(i);
-    return 2;
 }
 
 class BotoVotacio extends Component {
