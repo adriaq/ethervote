@@ -68,12 +68,12 @@ app.post('/smartContract/:smId', smart_contract_routes.postSmartContract);
 /********************* USER *************************/
 app.get('/users/', user_routes.getUsers);
 app.get('/user/:userId', user_routes.getUserInfo);
-app.get('/user/:userId/openVotes', user_routes.getUserOpenVotations);
-app.get('/user/:userId/results', user_routes.getUserClosedVotations);
 
 /******************* VOTATIONS **********************/
 app.get('/votations/', votation_routes.getVotations);
-app.get('/votation/:userId', votation_routes.getUserVotations);
+app.get('/votation/:userId/openVotes', votation_routes.getUserOpenVotations);
+app.get('/votation/:userId/results', votation_routes.getUserClosedVotations);
+app.get('/votation/:adminId', votation_routes.getAdminVotations);
 
 /*=====  End of Routes  ======*/
 
