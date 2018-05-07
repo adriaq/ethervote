@@ -54,7 +54,7 @@ contract ethervote {
       _;
     }
     //Creadora
-    constructor(string _name, uint _defaultVotingTime) public  {
+    function ethervote(string _name, uint _defaultVotingTime) public  {
       owner = msg.sender;
       n_proposals = 0;
       creationTime = now;
@@ -78,7 +78,7 @@ contract ethervote {
       //emit addVoterResult(address(0));
     }
 
-    function getPrivilege(address _voter) public view returns (int){
+    function getPrivilege(address _voter) public view returns(int){
       return census[_voter].privilege;
     }
 
@@ -94,12 +94,13 @@ contract ethervote {
     function getNumberOfVoters() public view returns (int){
         return int(voters.length);
     }
+
+
     function newProposal(string _name, string _description) canCreate(msg.sender) public returns(int) {
         if( (bytes(_name).length > 0) &&
             (bytes(_description).length > 0)
         ){
             int proposalID = ++n_proposals;
-            proposals[proposalID].creator = _creator;
             proposals[proposalID].name = _name;
             proposals[proposalID].description = _description;
             proposals[proposalID].creator = msg.sender;
@@ -109,7 +110,8 @@ contract ethervote {
         } else return -1;
     }
 
-    function addOption(int _proposalID, string _name, string _description) public onlyCreator(msg.sender) returns(int)  {
+
+    function addOption(int _proposalID, string _name, string _description) onlyCreator(_proposalID) public returns(int)  {
         if( (bytes(_name).length > 0) && //si el nom no esta buit
             (proposals[_proposalID].exists) //si la proposal existeix
         ){
@@ -120,6 +122,7 @@ contract ethervote {
             return n_option;
         } else return -1;
     }
+    
     function getNumberOfOptions(int _proposalID) public view returns(int) {
       if(proposals[_proposalID].exists){
           return proposals[_proposalID].n_options;
