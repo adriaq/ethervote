@@ -3,10 +3,19 @@
     text-align: center;
 }
 
+.AcessButton {
+    margin-top: 8%;
+    text-align: center;
+}
+
+.Button {
+
+}
+
 .component-search-input {
-    margin-top: 100px;
-    margin-left: 200px;
-    margin-right: 200px;
+    margin-top: 8%;
+    margin-left: 20%;
+    margin-right: 20%;
 
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;

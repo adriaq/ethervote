@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
+import { ButtonToolbar } from 'react-bootstrap';
 import './Login.css'
+import App from './App'
+
+
+
+
 
 class Login extends Component {
     handleChange = (event) => {
         this.props.textChange(event);
+    }
+
+    login = (event) => {
+
+
     }
 
     render() {
@@ -28,7 +40,14 @@ class Login extends Component {
                         />
                     </div>
                 </div>
-                <p className="LoginMenu"> Aqui botons</p>
+
+                <div className="AcessButton">
+                    <ButtonToolbar className="Button">
+                        <Button onClick={this.login}> Login </Button>
+                    </ButtonToolbar>
+                </div>
+
+
             </div>
         );
     }
