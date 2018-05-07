@@ -1,4 +1,4 @@
-const Ethervote = artifacts.require('./Ethervote.sol')
+const Ethervote = artifacts.require('ethervote')
 
 contract('Ethervote', function (accounts) {
 	var ethervote
@@ -19,7 +19,7 @@ contract('Ethervote', function (accounts) {
 
     it('add voter', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
-        var res = await ethervote.getNumberOfVoters()  
+        var res = await ethervote.getNumberOfVoters()
         assert.equal(res, 1);
     })
 
@@ -65,7 +65,7 @@ contract('Ethervote', function (accounts) {
         assert.equal(res, 1)
     })
 
-    
+
     it('add options to proposal', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
         var id = await ethervote.newProposal("proposal_with_option", "First proposal with 1 option", {from: voter_1})

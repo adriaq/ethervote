@@ -54,7 +54,7 @@ contract ethervote {
       _;
     }
     //Creadora
-    function ethervote(string _name, uint _defaultVotingTime) public  {
+    constructor(string _name, uint _defaultVotingTime) public  {
       owner = msg.sender;
       n_proposals = 0;
       creationTime = now;
