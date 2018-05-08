@@ -45,7 +45,6 @@ contract('Ethervote', function (accounts) {
     it('has deleted user', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
         var priv = await ethervote.getPrivilege(voter_1)
-        console.log(priv)
         assert.equal(priv, 2)
 
         await ethervote.deleteVoter(voter_1, {from: owner_address})
@@ -59,7 +58,6 @@ contract('Ethervote', function (accounts) {
     it('create proposal', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
         var id = await ethervote.newProposal("proposal_test_1", "First proposal test description", {from: voter_1})
-        assert.equal(id, 1)
 
         var res = await ethervote.getNumberOfProposals()
         assert.equal(res, 1)
@@ -68,13 +66,13 @@ contract('Ethervote', function (accounts) {
     
     it('add options to proposal', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
-        var id = await ethervote.newProposal("proposal_with_option", "First proposal with 1 option", {from: voter_1})
+        var id = await ethervote.newProposal("proposal_with_options", "First proposal with 1 option", {from: voter_1})
 
-        var num_option = await ethervote.addOption(1, "Yes", "If you agree", {from: voter_1})
-        //assert.equal(num_option, 1)
+        var num_option_1 = await ethervote.addOption(1, "Yes", "If you agree", {from: voter_1})
+        var num_option_2 = await ethervote.addOption(1, "No", "If you don't agree", {from: voter_1})
 
         var res = await ethervote.getNumberOfOptions(1)
-        assert.equal(res, 1)
+        assert.equal(res, 2)
     })
 
 
@@ -85,20 +83,14 @@ contract('Ethervote', function (accounts) {
         var id = await ethervote.newProposal("proposal_voting", "First proposal test voting", {from: voter_1})
         var num_option_1 = await ethervote.addOption(1, "Yes", "If you agree", {from: voter_1})
         var num_option_2 = await ethervote.addOption(1, "No", "If you don't agree", {from: voter_1})
-        //assert.equal(num_option_1, 1)
-        //assert.equal(num_option_2, 2)
 
         var res = await ethervote.getNumberOfOptions(1)
-        console.log(res)
         assert.equal(res, 2)
 
         await ethervote.vote(1, 1, {from: voter_2})
 
         var v = await ethervote.getNumberOfVotes(1, 1)
-        console.log(v)
         assert.equal(v, 1)
-
-
     })
 
 })

@@ -1,4 +1,4 @@
 var Ethervote = artifacts.require("./ethervote.sol");
 module.exports = function(deployer) {
-    deployer.deploy(Ethervote,"test",5);
+    deployer.deploy(Ethervote,"test",300);
 };
