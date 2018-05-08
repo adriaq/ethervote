@@ -4,7 +4,7 @@
 }
 
 .AcessButton {
-    margin-top: 8%;
+    margin-top: 3%;
     text-align: center;
 }
 
@@ -48,4 +48,13 @@
     font-style: italic;
     text-align: center;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.btn {
+    background: #004c52ff;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
 }

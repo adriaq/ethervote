@@ -3,20 +3,19 @@ import { Button } from 'react-bootstrap';
 import { ButtonToolbar } from 'react-bootstrap';
 import './Login.css'
 import App from './App'
+import ReactDOM from 'react-dom';
 
 
 
 
 
 class Login extends Component {
-    handleChange = (event) => {
-        this.props.textChange(event);
-    }
+
 
     login = (event) => {
+       // ReactDOM.render( <App/>, document.getElementById('app'));
 
-
-    }
+    };
 
     render() {
         return (
@@ -28,7 +27,8 @@ class Login extends Component {
                 <div className="component-search-input">
                     <div>
                         <p> USER: </p>
-                        <input
+                        <input className="hola" type="text" value={this.value}
+
                            /* onChange={this.handleChange}*/
                         />
                     </div>
@@ -42,9 +42,9 @@ class Login extends Component {
                 </div>
 
                 <div className="AcessButton">
-                    <ButtonToolbar className="Button">
-                        <Button onClick={this.login}> Login </Button>
-                    </ButtonToolbar>
+                        <ButtonToolbar className="Button">
+                            <Button className="btn" onClick={this.login}> Login </Button>
+                        </ButtonToolbar>
                 </div>
 
 
