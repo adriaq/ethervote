@@ -1,7 +1,7 @@
-const Ethervote = artifacts.require('ethervote')
+const Ethervote = artifacts.require('./ethervote.sol')
 
 contract('Ethervote', function (accounts) {
-	var ethervote
+    var ethervote
 
     var owner_address = accounts[0]
     var voter_1 = accounts[1]
@@ -11,19 +11,19 @@ contract('Ethervote', function (accounts) {
     var voter_5 = accounts[5]
     var voter_6 = accounts[6]
 
-	beforeEach('setup contract for each test', async function () {
+    beforeEach('setup contract for each test', async function () {
      ethervote = await Ethervote.new("Test 1", 300)
-	})
+    })
 
     //accounts[0] es sempre el owner
     it('has an owner', async function() {
-    	assert.equal(await ethervote.owner(), owner_address)
+        assert.equal(await ethervote.owner(), owner_address)
     })
 
 
     it('add voter', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
-        var res = await ethervote.getNumberOfVoters()
+        var res = await ethervote.getNumberOfVoters()  
         assert.equal(res, 1);
     })
 
@@ -59,33 +59,24 @@ contract('Ethervote', function (accounts) {
 
 
     it('create proposal', async function() {
-        var description = "Aixo es una descripcio"
-        var nom = "votacio 1"
-
+        var name = "proposal_test_1"
+        var description = "First proposal test description"
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
-<<<<<<< HEAD
 
-        //voter_1 createa a new proposal
-        await ethervote.newProposal("proposal_test_1", "First proposal test description", {from: voter_1})
-=======
-        var proposal_id = await ethervote.newProposal(nom,description,{from: owner_address})
+        //voter_1 creates a new proposal
+        await ethervote.newProposal(name, description, {from: voter_1})
 
-        var nproposals = await ethervote.getNumberOfProposals()
-        assert.equal(nproposals, 1)
+        var res = await ethervote.getNumberOfProposals()
+        assert.equal(res, 1)
 
-        var r_description = await ethervote.getProposalName(1)
-        assert.equal(r_description,description)
-
-
->>>>>>> a166e9c0d08f5ad078819091c2f1ff51eb3a56a8
-
+        var name_p = await ethervote.getProposalName(1)
+        //var description_p = await ethervote.getProposalDesciption(id)
+        console.log(name_p)
+        assert.equal(name, name_p)
+        //assert.equal(description, description_p)
     })
 
-
-
-
-
-/*
+    
     it('add options to proposal', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
 
@@ -96,7 +87,6 @@ contract('Ethervote', function (accounts) {
         await ethervote.addOption(1, "Yes", "If you agree", {from: voter_1})
         await ethervote.addOption(1, "No", "If you don't agree", {from: voter_1})
 
-        //1 is the ID of the proposal -> to be changed
         var res = await ethervote.getNumberOfOptions(1)
         assert.equal(res, 2)
     })
@@ -118,7 +108,6 @@ contract('Ethervote', function (accounts) {
         var v = await ethervote.getNumberOfVotes(1, 1)
         assert.equal(v, 1)
     })
-<<<<<<< HEAD
 
     it('more voting', async function() {
         //admin adds voters
@@ -197,7 +186,3 @@ contract('Ethervote', function (accounts) {
 
 
 })
-=======
-*/
-})
->>>>>>> a166e9c0d08f5ad078819091c2f1ff51eb3a56a8

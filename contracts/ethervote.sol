@@ -114,10 +114,11 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
 }
 
     function getProposalName(int id) public view returns(string) {
-        string memory pname = "";
+        //string pname = "";
         if(id > 0 && id <= n_proposals) {
-            pname = proposals[id].name;
-        } else return pname;
+            return proposals[id].name;
+            //emit option(proposals[id].name);
+        } else return "";
     }
 
     function addOption(int _proposalID, string _name, string _description) onlyCreator(_proposalID) public returns(int)  {
