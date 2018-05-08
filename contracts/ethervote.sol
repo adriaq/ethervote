@@ -7,12 +7,13 @@ contract ethervote {
       int privilege;      //Privilegi: 0 usuari no valid, 1 pot votar, 2 pot crear votacions
   }
 
-  struct Option{
+  struct Option {
     string name;
     string description;
     bool exists;
     address[] votes;
   }
+
   struct Proposal{
     address creator;
     string name;
@@ -119,7 +120,6 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
         } else return pname;
     }
 
-
     function addOption(int _proposalID, string _name, string _description) onlyCreator(_proposalID) public returns(int)  {
         if( (bytes(_name).length > 0) && //si el nom no esta buit
             (proposals[_proposalID].exists) //si la proposal existeix
@@ -128,6 +128,7 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
             int n_option = ++proposals[_proposalID].n_options;
             proposals[_proposalID].options[n_option].name = _name;
             proposals[_proposalID].options[n_option].description  = _description;
+            proposals[_proposalID].options[n_option].exists = true;
             return n_option;
         } else return -1;
     }
@@ -160,8 +161,10 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
         return n_proposals;
       }
 
+    event e_vote(bool a);
+    event option(string o);
     function vote(int _proposalID, int _option) public canVote(msg.sender) returns(bool){
-        if(proposals[_proposalID].exists &&
+      if(proposals[_proposalID].exists &&
            proposals[_proposalID].options[_option].exists &&
            (now < proposals[_proposalID].votingDeadline)
        ) {
