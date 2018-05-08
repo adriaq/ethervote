@@ -14,7 +14,7 @@ const Root = () => {
             <BrowserRouter>
                 <Switch>
                     <Route path="/app" component={App}/>
-                    <Route path="/login" component={Login}/>
+                    <Route path="/" component={Login}/>
                 </Switch>
             </BrowserRouter>
         </div>

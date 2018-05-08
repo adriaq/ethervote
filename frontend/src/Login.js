@@ -6,10 +6,6 @@ import App from './App'
 import ReactDOM from 'react-dom';
 
 
-const PAGES = {
-    '/': Login,
-    '/App': App,
-};
 
 
 
@@ -17,17 +13,8 @@ class Login extends Component {
 
 
     login = (event) => {
+       // ReactDOM.render( <App/>, document.getElementById('app'));
 
-
-       // if (document.getElementsByClassName('hola') !== null) {
-           // const str = document.getElementsByClassName("hola").value;
-           // if (str == "a") {
-                ReactDOM.render(
-                    <App/>,
-                    document.getElementById('root')
-                );
-           // }
-       // }
     };
 
     render() {
@@ -55,11 +42,9 @@ class Login extends Component {
                 </div>
 
                 <div className="AcessButton">
-                    <ButtonToolbar className="Button">
-                        <Button onClick={this.login}> Login </Button>
-                    </ButtonToolbar>
-
-                    <p className="demo"> </p>
+                        <ButtonToolbar className="Button">
+                            <Button className="btn" onClick={this.login}> Login </Button>
+                        </ButtonToolbar>
                 </div>
 
 
