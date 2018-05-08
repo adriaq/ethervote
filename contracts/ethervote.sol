@@ -57,6 +57,7 @@ contract ethervote {
     //Creadora
     constructor(string _name, uint _defaultVotingTime) public  {
       owner = msg.sender;
+      census[msg.sender].privilege = 2;
       n_proposals = 0;
       creationTime = now;
       name = _name;
@@ -96,20 +97,27 @@ contract ethervote {
         return int(voters.length);
     }
 
+event addProposal(int id);
+function newProposal(string _name, string _description)  canCreate(msg.sender) public {
+    if( (bytes(_name).length > 0) &&
+        (bytes(_description).length > 0)
+    ){
+        int proposalID = ++n_proposals;
+        proposals[proposalID].name = _name;
+        proposals[proposalID].description = _description;
+        proposals[proposalID].creator = msg.sender;
+        proposals[proposalID].votingDeadline = now + defaultVotingTime;
+        proposals[proposalID].exists = true;
+        emit addProposal(proposalID);
+    }
+    else emit addProposal(-1);
+}
 
-    function newProposal(string _name, string _description) canCreate(msg.sender) public returns(int) {
-        if( (bytes(_name).length > 0) &&
-            (bytes(_description).length > 0)
-        ){
-            int proposalID = ++n_proposals;
-            proposals[proposalID].name = _name;
-            proposals[proposalID].description = _description;
-            proposals[proposalID].creator = msg.sender;
-            proposals[proposalID].votingDeadline = now + defaultVotingTime;
-            proposals[proposalID].exists = true;
-            return proposalID;
-        } else return -1;
-        
+    function getProposalName(int id) public view returns(string) {
+        string memory pname = "";
+        if(id > 0 && id <= n_proposals) {
+            pname = proposals[id].name;
+        } else return pname;
     }
 
     function addOption(int _proposalID, string _name, string _description) onlyCreator(_proposalID) public returns(int)  {

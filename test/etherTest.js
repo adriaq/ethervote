@@ -1,4 +1,4 @@
-const Ethervote = artifacts.require('./Ethervote.sol')
+const Ethervote = artifacts.require('ethervote')
 
 contract('Ethervote', function (accounts) {
 	var ethervote
@@ -23,7 +23,7 @@ contract('Ethervote', function (accounts) {
 
     it('add voter', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
-        var res = await ethervote.getNumberOfVoters()  
+        var res = await ethervote.getNumberOfVoters()
         assert.equal(res, 1);
     })
 
@@ -59,16 +59,33 @@ contract('Ethervote', function (accounts) {
 
 
     it('create proposal', async function() {
+        var description = "Aixo es una descripcio"
+        var nom = "votacio 1"
+
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
+<<<<<<< HEAD
 
         //voter_1 createa a new proposal
         await ethervote.newProposal("proposal_test_1", "First proposal test description", {from: voter_1})
+=======
+        var proposal_id = await ethervote.newProposal(nom,description,{from: owner_address})
 
-        var res = await ethervote.getNumberOfProposals()
-        assert.equal(res, 1)
+        var nproposals = await ethervote.getNumberOfProposals()
+        assert.equal(nproposals, 1)
+
+        var r_description = await ethervote.getProposalName(1)
+        assert.equal(r_description,description)
+
+
+>>>>>>> a166e9c0d08f5ad078819091c2f1ff51eb3a56a8
+
     })
 
-    
+
+
+
+
+/*
     it('add options to proposal', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
 
@@ -101,6 +118,7 @@ contract('Ethervote', function (accounts) {
         var v = await ethervote.getNumberOfVotes(1, 1)
         assert.equal(v, 1)
     })
+<<<<<<< HEAD
 
     it('more voting', async function() {
         //admin adds voters
@@ -179,3 +197,7 @@ contract('Ethervote', function (accounts) {
 
 
 })
+=======
+*/
+})
+>>>>>>> a166e9c0d08f5ad078819091c2f1ff51eb3a56a8
