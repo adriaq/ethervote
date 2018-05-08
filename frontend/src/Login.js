@@ -14,7 +14,7 @@ class Login extends Component {
 
     login = (event) => {
        // ReactDOM.render( <App/>, document.getElementById('app'));
-
+        this.props.history.push('/app');
     };
 
     render() {
