@@ -57,15 +57,27 @@ contract('Ethervote', function (accounts) {
     //Returns of 'newProposal' and 'addOption' functions returning tx info instead of int
 
     it('create proposal', async function() {
-        await ethervote.addVoter(voter_1, 2, {from: owner_address})
-        var id = await ethervote.newProposal("proposal_test_1", "First proposal test description", {from: voter_1})
-        assert.equal(id, 1)
+        var description = "Aixo es una descripcio"
+        var nom = "votacio 1"
 
-        var res = await ethervote.getNumberOfProposals()
-        assert.equal(res, 1)
+        await ethervote.addVoter(voter_1, 2, {from: owner_address})
+        var proposal_id = await ethervote.newProposal(nom,description,{from: owner_address})
+
+        var nproposals = await ethervote.getNumberOfProposals()
+        assert.equal(nproposals, 1)
+
+        var r_description = await ethervote.getProposalName(1)
+        assert.equal(r_description,description)
+
+
+
     })
 
 
+
+
+
+/*
     it('add options to proposal', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
         var id = await ethervote.newProposal("proposal_with_option", "First proposal with 1 option", {from: voter_1})
@@ -100,5 +112,5 @@ contract('Ethervote', function (accounts) {
 
 
     })
-
+*/
 })
