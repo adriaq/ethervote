@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import { Button } from 'react-bootstrap';
 import construction from './contruction.gif';
-import ListGroup from 'react-bootstrap/lib/ListGroup'
-import ListGroupItem from 'react-bootstrap/lib/ListGroup'
+import ReactDOM from 'react-dom';
 import './App.css';
 import Header from "./objects/Header";
 import MenuVotacions from "./objects/MenuVotacions";
+import Login from "./Login";
 
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-
-
-        };
-    }
+    back = (event) => {
+        ReactDOM.render(
+            <Login/>,
+            document.getElementById('root')
+        );
+    };
 
 
   render() {
@@ -31,11 +30,12 @@ class App extends Component {
                     Pàgina en construcció
                     <img src={construction} className="App-logo" alt="construction"/>
                 </p>
-                <span className="menus">
+                <div className="col-sm-4">
                      <MenuVotacions className="MenuVotacions2"/>
                      <MenuVotacions className="MenuVotacions"/>
-                </span>
+                </div>
 
+                <Button onClick={this.back}> Back </Button>
                 </body>
             </div>
 
