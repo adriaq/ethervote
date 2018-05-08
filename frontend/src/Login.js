@@ -3,20 +3,32 @@ import { Button } from 'react-bootstrap';
 import { ButtonToolbar } from 'react-bootstrap';
 import './Login.css'
 import App from './App'
+import ReactDOM from 'react-dom';
 
 
+const PAGES = {
+    '/': Login,
+    '/App': App,
+};
 
 
 
 class Login extends Component {
-    handleChange = (event) => {
-        this.props.textChange(event);
-    }
+
 
     login = (event) => {
 
 
-    }
+       // if (document.getElementsByClassName('hola') !== null) {
+           // const str = document.getElementsByClassName("hola").value;
+           // if (str == "a") {
+                ReactDOM.render(
+                    <App/>,
+                    document.getElementById('root')
+                );
+           // }
+       // }
+    };
 
     render() {
         return (
@@ -28,7 +40,8 @@ class Login extends Component {
                 <div className="component-search-input">
                     <div>
                         <p> USER: </p>
-                        <input
+                        <input className="hola" type="text" value={this.value}
+
                            /* onChange={this.handleChange}*/
                         />
                     </div>
@@ -45,6 +58,8 @@ class Login extends Component {
                     <ButtonToolbar className="Button">
                         <Button onClick={this.login}> Login </Button>
                     </ButtonToolbar>
+
+                    <p className="demo"> </p>
                 </div>
 
 
