@@ -1,0 +1,37 @@
+
+
+.gobal {
+    margin-left: 8%;
+    text-align: center;
+}
+
+.votation-header {
+    background-color: #004c52ff;
+    height: 80px;
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+.opcions {
+    text-align: center;
+}
+
+.votar {
+    margin-right: 2%;
+}
+
+.enrere {
+    margin-left: 2%;
+}
+
+.votations {
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.text {
+    margin-top: 2%;
+    text-align: center;
+}

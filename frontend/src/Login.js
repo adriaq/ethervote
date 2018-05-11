@@ -31,7 +31,7 @@ class Login extends Component {
             errorMsg:"Wrong username or password!"
         });
 
-       // this.props.history.push('/app');
+        this.props.history.push('/app');
     }
 
     render() {
@@ -56,7 +56,7 @@ class Login extends Component {
                 </div>
 
                 <div className="AcessButton">
-                    <Button className="btn" onClick={this.login}> Login </Button>
+                    <Button color="primary" className="btn" onClick={this.login}> Login </Button>
                 </div>
 
                 <div className="error">

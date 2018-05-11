@@ -6,19 +6,31 @@ import {ListGroupItem} from 'reactstrap';
 import construction from './img/contruction.gif';
 import './styles/App.css';
 import Header from "./objects/Header";
-import MenuVotacions from "./objects/MenuVotacions";
 
 function alertClicked(i) {
     alert(i);
 }
 
 class App extends Component {
-    state = {votations: []};
+    constructor(props) {
+        super(props);
+        this.state = {
+        votations: [],
+        closeVotations: []
+        };
+    }
+
+
 
     componentDidMount () {
-        fetch('/votations')
-            .then(res => res.json())
-            .then(votations => this.setState({ votations }));
+      /*  fetch('/votations')
+            .then(function (data) {
+                this.setState({closeVotations : data})
+            });*/
+
+      /*  fetch('/votation/:userId/openVotes')
+            .then(res => {return res.json()})
+            .then(closeVotations => this.setState({ closeVotations })); */
     }
 
 
@@ -26,43 +38,63 @@ class App extends Component {
         this.props.history.push('/login');
     };
 
+    votation = (event) => {
+        this.props.history.push('/openVotation');
+    };
+
+    /*<ListGroup className = "Menu">
+        {this.state.votations.map( v =>
+            <ListGroupItem className = "llista"
+                           onClick={() => alertClicked()} href ="#" key={v.id}>{v.name}
+            </ListGroupItem>)}
+    </ListGroup>*/
+
+    /* <ListGroup className = "Menu">
+        {this.state.closeVotations.map( v =>
+            <ListGroupItem className = "llista"
+                           onClick={() => alertClicked()} href ="#" key={v.id}>{v.name}
+            </ListGroupItem>)}
+    </ListGroup> */
 
   render() {
 
     return (
 
 
-            <div className="App">
+            <Row className="App">
                 <Header/>
                 <body className="App-body">
                 <p className="App-intro">
                     Pàgina en construcció
                     <img src={construction} className="App-logo" alt="construction"/>
                 </p>
-                <Row className="ListGroupChart">
-                    <Col>
-                        <ListGroup className = "Menu">
-                            {this.state.votations.map( v =>
-                                <ListGroupItem className = "llista"
-                                               onClick={() => alertClicked()} href ="#" key={v.id}>{v.name}
-                                </ListGroupItem>)}
-                        </ListGroup>
-                    </Col>
+                <table className="taula">
+                    <tr>
+                        <td>
+                            <ListGroup>
+                                <ListGroupItem tag="button" active  onClick={this.votation}> APRETAR EN AQUEST BOTO</ListGroupItem>
+                                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
+                                <ListGroupItem>Morbi leo risus</ListGroupItem>
+                                <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
+                                <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                            </ListGroup>
+                        </td>
 
-
-                    <Col>
-                        <ListGroup className = "Menu">
-                            {this.state.votations.map( v =>
-                                <ListGroupItem className = "llista"
-                                               onClick={() => alertClicked()} href ="#" key={v.id}>{v.name}
-                                </ListGroupItem>)}
-                        </ListGroup>
-                    </Col>
-                </Row>
+                        <td>
+                            <ListGroup>
+                                <ListGroupItem>Cras justo odio</ListGroupItem>
+                                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
+                                <ListGroupItem>Morbi leo risus</ListGroupItem>
+                                <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
+                                <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                            </ListGroup>
+                        </td>
+                    </tr>
+                </table>
 
                 <Button color="danger" onClick={this.back}> Back </Button>
                 </body>
-            </div>
+            </Row>
     );
   }
 }

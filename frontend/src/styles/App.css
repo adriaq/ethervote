@@ -19,6 +19,12 @@
   height: 80px;
   padding: 20px;
   color: white;
+  max-width: 100%;
+}
+
+.taula {
+  margin-left: 20%;
+  margin-top: 6%;
 }
 
 .MenuVotacions {
