@@ -38,10 +38,10 @@
     "rc-menu": "^7.0.3",
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
-
     "react-dom": "^16.3.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.1.1",
+    "reactstrap": "^6.0.1",
     "serve-favicon": "^2.4.3",
     "truffle": "^4.1.8",
     "web3": "^1.0.0-beta2"
