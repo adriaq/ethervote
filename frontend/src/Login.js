@@ -1,21 +1,38 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button } from 'reactstrap';
 import { ButtonToolbar } from 'react-bootstrap';
-import './Login.css'
-import App from './App'
-import ReactDOM from 'react-dom';
-
-
-
+import './styles/Login.css'
 
 
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputValueUser: '',
+            inputValuePasswd: '',
+            errorMsg: ''
+        };
+    }
 
+    updateInputValueUser(evt) {
+        this.setState({
+            inputValueUser: evt.target.value
+        });
+    }
+
+    updateInputValuePasswd(evv) {
+        this.setState({
+            inputValuePasswd: evv.target.value
+        });
+    }
 
     login = (event) => {
-       // ReactDOM.render( <App/>, document.getElementById('app'));
-        this.props.history.push('/app');
-    };
+        this.setState({
+            errorMsg:"Wrong username or password!"
+        });
+
+       // this.props.history.push('/app');
+    }
 
     render() {
         return (
@@ -26,28 +43,25 @@ class Login extends Component {
 
                 <div className="component-search-input">
                     <div>
-                        <p> USER: </p>
-                        <input className="hola" type="text" value={this.value}
-
-                           /* onChange={this.handleChange}*/
+                        <p> USERNAME: </p>
+                        <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}
                         />
                     </div>
 
                     <div>
                         <p> PASSWORD: </p>
-                        <input
-                            /* onChange={this.handleChange}*/
+                        <input value={this.state.inputValuePasswd} onChange={evv => this.updateInputValuePasswd(evv)}
                         />
                     </div>
                 </div>
 
                 <div className="AcessButton">
-                        <ButtonToolbar className="Button">
-                            <Button className="btn" onClick={this.login}> Login </Button>
-                        </ButtonToolbar>
+                    <Button className="btn" onClick={this.login}> Login </Button>
                 </div>
 
-
+                <div className="error">
+                    <p>{this.state.errorMsg}</p>
+                </div>
             </div>
         );
     }

@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import { Button } from 'react-bootstrap';
-import construction from './contruction.gif';
-import ReactDOM from 'react-dom';
-import './App.css';
+import { Container, Row, Col } from 'reactstrap';
+import {Button} from 'reactstrap';
+import {ListGroup} from 'reactstrap';
+import {ListGroupItem} from 'reactstrap';
+import construction from './img/contruction.gif';
+import './styles/App.css';
 import Header from "./objects/Header";
 import MenuVotacions from "./objects/MenuVotacions";
-import Login from "./Login";
 
+function alertClicked(i) {
+    alert(i);
+}
 
 class App extends Component {
+    state = {votations: []};
+
+    componentDidMount () {
+        fetch('/votations')
+            .then(res => res.json())
+            .then(votations => this.setState({ votations }));
+    }
+
+
     back = (event) => {
-        ReactDOM.render(
-            <Login/>,
-            document.getElementById('root')
-        );
+        this.props.history.push('/login');
     };
 
 
@@ -30,27 +39,30 @@ class App extends Component {
                     Pàgina en construcció
                     <img src={construction} className="App-logo" alt="construction"/>
                 </p>
-                <div className="col-sm-4">
-                     <MenuVotacions className="MenuVotacions2"/>
-                     <MenuVotacions className="MenuVotacions"/>
-                </div>
+                <Row className="ListGroupChart">
+                    <Col>
+                        <ListGroup className = "Menu">
+                            {this.state.votations.map( v =>
+                                <ListGroupItem className = "llista"
+                                               onClick={() => alertClicked()} href ="#" key={v.id}>{v.name}
+                                </ListGroupItem>)}
+                        </ListGroup>
+                    </Col>
 
-                <Button onClick={this.back}> Back </Button>
+
+                    <Col>
+                        <ListGroup className = "Menu">
+                            {this.state.votations.map( v =>
+                                <ListGroupItem className = "llista"
+                                               onClick={() => alertClicked()} href ="#" key={v.id}>{v.name}
+                                </ListGroupItem>)}
+                        </ListGroup>
+                    </Col>
+                </Row>
+
+                <Button color="danger" onClick={this.back}> Back </Button>
                 </body>
             </div>
-
-
-
-      /*<div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>*/
     );
   }
 }

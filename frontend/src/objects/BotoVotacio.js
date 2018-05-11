@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-//import ListGroup from 'react-bootstrap/lib/ListGroup'
 import ListGroupItem from 'react-bootstrap/lib/ListGroup'
-import '../App.css'
+import '../styles/App.css'
 
 function alertClicked(i) {
     alert(i);

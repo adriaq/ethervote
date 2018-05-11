@@ -20,7 +20,7 @@ class MenuVotacions extends Component {
 
     render() {
         return (
-            <div>
+            <div className="menuVotacions">
                 <div>
                     <p className="TitolMenu">Select an open vote</p>
                     <div>
