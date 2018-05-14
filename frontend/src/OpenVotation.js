@@ -23,10 +23,19 @@ class OpenVotation extends Component {
 
         return (
 
-            <div className="global">
-                <header className="votation-header" >
-                    <h1>VOTATION FOR THE NEW BOSS</h1>
-                </header>
+            <div>
+                <nav class="navbar navbar-expand-lg custom-navbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/"> New boss election! </a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#"> Help </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
 
                 <div >
 

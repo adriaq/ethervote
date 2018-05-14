@@ -1,11 +1,40 @@
-.App {
+
+.custom-navbar {
+  background-color: #003852;
+  height: 100px;
+  padding: 20px;
+  max-width: 100%;
+}
+
+.navbar-header > a{
+  color: white;
+  font-family: 'Coustard', serif;
+  font-size: 38px;
+}
+
+.navbar-nav {
+  float: right;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 18px;
+}
+
+.col-lg-6 {
+  margin-top: 5%;
+}
+
+.center {
+  margin-top: 15%;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.navbar-nav > li > a {
+  color: white;
 }
+
+.navbar-nav > li > a:hover {
+  background-color: transparent;
+}
+
 
 .ListGroupChart {
   border-top: 1px solid #000000;
@@ -14,65 +43,12 @@
   border-right: 1px solid #000000;
 }
 
-.App-header {
-  background-color: #003852;
-  height: 100px;
-  padding: 20px;
-  color: white;
-  max-width: 100%;
-}
 
-.taula {
-  margin-left: 20%;
-  margin-top: 6%;
-}
-
-.MenuVotacions {
-  float:right;
-  height: 200px;
-  width: 50%;
-
-}
-
-.MenuVotacions2 {
-  float:left;
-  height: 200px;
-  max-width: 50%;
-
-  border-top: 1px solid green;
-  border-bottom: 1px solid green;
-  border-left: 1px solid green;
-  border-right: 1px solid green;
-}
-
-.menus {
-  display: inline;
-  margin-right: 50px;
-
-}
-
-.App-body {
-  display: inline;
-}
 
 .llista {
   margin-bottom: 10px;
 }
 
-
-.App-title {
-  font-size: 2.5em;
-  font-style: italic;
-  text-align: center;
-  font-family: "DejaVu Serif";
-}
-
-
-
-
-.App-intro {
-  font-size: large;
-}
 
 
 .component-app {
@@ -80,11 +56,6 @@
   flex-direction: column;;
   flex-wrap: wrap;
   height: 100%;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 

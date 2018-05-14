@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
 import {Button} from 'reactstrap';
 import {ListGroup} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
-import construction from './img/contruction.gif';
 import './styles/App.css';
-import Header from "./objects/Header";
 
-function alertClicked(i) {
-    alert(i);
-}
 
 class App extends Component {
     constructor(props) {
@@ -22,7 +16,7 @@ class App extends Component {
 
 
 
-   /* componentDidMount () {
+  /* componentDidMount () {
        fetch('/votations')
            .then(res => res.json())
            .then(votations => this.setState({ votations }));
@@ -62,53 +56,52 @@ class App extends Component {
   render() {
 
     return (
+        <div>
+            <nav class="navbar navbar-expand-lg custom-navbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/"> Welcome UserName! </a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#"> Help </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
 
+                <div class="col-lg-6">
 
-            <Row className="App">
-                <Header/>
-                <body className="App-body">
-                <p className="App-intro">
-                    Pàgina en construcció
-                    <img src={construction} className="App-logo" alt="construction"/>
-                </p>
-                <table className="taula">
+                    <h3> OPEN POLLS </h3>
 
-                    <thead>
-                    <tr>
-                        <th>OPEN VOTATIONS</th>
-                        <th>RESULTS</th>
-                    </tr>
-                    </thead>
+                    <ListGroup>
+                        <ListGroupItem tag="button" active  onClick={this.votation}> APRETAR EN AQUEST BOTO</ListGroupItem>
+                        <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
+                        <ListGroupItem>Morbi leo risus</ListGroupItem>
+                        <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
+                        <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                    </ListGroup>
+                </div>
 
-                    <tr>
-                        <td>
-                            <ListGroup>
-                                <ListGroupItem tag="button" active  onClick={this.votation}> APRETAR EN AQUEST BOTO</ListGroupItem>
-                                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                                <ListGroupItem>Morbi leo risus</ListGroupItem>
-                                <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-                                <ListGroupItem>Vestibulum at eros</ListGroupItem>
-                            </ListGroup>
-                        </td>
+                <div class="col-lg-6">
+                    <h3> RESULTS </h3>
+                    <ListGroup>
+                        <ListGroupItem >Cras justo odio</ListGroupItem>
+                        <ListGroupItem tag="button" active  onClick={this.votation} > CONSULTAR RESULT</ListGroupItem>
+                        <ListGroupItem>Morbi leo risus</ListGroupItem>
+                        <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
+                        <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                    </ListGroup>
+                </div>
 
-                        <td>
-                            <ListGroup>
-                                <ListGroupItem onClick={this.mostra}  >Cras justo odio</ListGroupItem>
-                                <ListGroupItem tag="button" active  onClick={this.resultt} > CONSULTAR RESULT</ListGroupItem>
-                                <ListGroupItem>Morbi leo risus</ListGroupItem>
-                                <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-                                <ListGroupItem>Vestibulum at eros</ListGroupItem>
-                            </ListGroup>
-                        </td>
-                    </tr>
-                </table>
-
-
+            <div class="center">
                 <Button color="danger" onClick={this.back}> Back </Button>
-                </body>
-            </Row>
-    );
-  }
+            </div>
+
+
+    </div>
+);
+}
 }
 
 export default App;

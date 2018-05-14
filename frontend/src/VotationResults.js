@@ -5,12 +5,6 @@ import { Button } from 'reactstrap';
 class VotationResults extends Component {
 
 
-
-    back = (event) => {
-        this.props.history.push('/app');
-    };
-
-
     render() {
         return (
             <div>
