@@ -22,16 +22,15 @@ class App extends Component {
 
 
 
-    componentDidMount () {
-      /*  fetch('/votations')
-            .then(function (data) {
-                this.setState({closeVotations : data})
-            });*/
+   /* componentDidMount () {
+       fetch('/votations')
+           .then(res => res.json())
+           .then(votations => this.setState({ votations }));
 
-      /*  fetch('/votation/:userId/openVotes')
+        fetch('/votation/:userId/openVotes')
             .then(res => {return res.json()})
-            .then(closeVotations => this.setState({ closeVotations })); */
-    }
+            .then(closeVotations => this.setState({ closeVotations }));
+    }*/
 
 
     back = (event) => {
@@ -40,6 +39,10 @@ class App extends Component {
 
     votation = (event) => {
         this.props.history.push('/openVotation');
+    };
+
+    mostra = (event) => {
+        this.props.history.push('/votationResult');
     };
 
     /*<ListGroup className = "Menu">
@@ -69,6 +72,14 @@ class App extends Component {
                     <img src={construction} className="App-logo" alt="construction"/>
                 </p>
                 <table className="taula">
+
+                    <thead>
+                    <tr>
+                        <th>OPEN VOTATIONS</th>
+                        <th>RESULTS</th>
+                    </tr>
+                    </thead>
+
                     <tr>
                         <td>
                             <ListGroup>
@@ -82,8 +93,8 @@ class App extends Component {
 
                         <td>
                             <ListGroup>
-                                <ListGroupItem>Cras justo odio</ListGroupItem>
-                                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
+                                <ListGroupItem onClick={this.mostra}  >Cras justo odio</ListGroupItem>
+                                <ListGroupItem tag="button" active  onClick={this.resultt} > CONSULTAR RESULT</ListGroupItem>
                                 <ListGroupItem>Morbi leo risus</ListGroupItem>
                                 <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
                                 <ListGroupItem>Vestibulum at eros</ListGroupItem>
@@ -91,6 +102,7 @@ class App extends Component {
                         </td>
                     </tr>
                 </table>
+
 
                 <Button color="danger" onClick={this.back}> Back </Button>
                 </body>
