@@ -1,3 +1,29 @@
+## Yarn
+
+```sh
+$ sudo curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+$ sudo echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+$ sudo apt-get update && sudo apt-get install yarn
+$ export PATH=$PATH:$(yarn global bin)
+```
+
+## Docker
+
+#### Docker credentials
+- username: qonaisys
+- password: a1e8d82714130cfd3a5efecde70abf61
+
+#### Uploading a new image to docker-hub
+
+```sh
+$ docker build . qonaisys/ethervote
+$ docker images
+$ docker login
+$ docker push qonaisys/ethervote
+```
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
@@ -23,7 +49,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - [Installing a Dependency](#installing-a-dependency)
 - [Importing a Component](#importing-a-component)
 - [Code Splitting](#code-splitting)
-- [Adding a Stylesheet](#adding-a-stylesheet)
+- [Adding a Stylesheet](#adding-a-stylesheet) 
 - [Post-Processing CSS](#post-processing-css)
 - [Adding a CSS Preprocessor (Sass, Less etc.)](#adding-a-css-preprocessor-sass-less-etc)
 - [Adding Images, Fonts, and Files](#adding-images-fonts-and-files)
