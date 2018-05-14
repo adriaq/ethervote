@@ -8,9 +8,8 @@ import Login from './Login';
 import OpenVotation from './OpenVotation';
 import VotationResult from  './VotationResults';
 import Ethervote from './Ethervote';
-
-
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 
 
 const color = {
@@ -33,6 +32,6 @@ const Root = () => {
             </BrowserRouter>
         </div>
     )
-}
+};
 
 ReactDOM.render(<Root />, document.getElementById('root'));

@@ -8,6 +8,23 @@ import {ListGroupItemText} from 'reactstrap';
 import './styles/OpenVotation.css';
 
 
+function notify(el) {
+    resetElements();
+    console.log(el.innerHTML);
+    el.classList.add('active');
+}
+
+function resetElements() {
+    // Get all elements with "active" class
+    var els = document.getElementsByClassName("active");
+
+    // Loop over Elements to remove active class;
+    for (var i = 0; i < els.length; i++) {
+        els[i].classList.remove('active')
+    }
+}
+
+
 
 class OpenVotation extends Component {
     constructor(props) {
@@ -18,6 +35,10 @@ class OpenVotation extends Component {
     back = (event) => {
         this.props.history.push('/app');
     };
+
+
+
+
 
     render() {
 
@@ -58,14 +79,14 @@ class OpenVotation extends Component {
                                 </ListGroupItemText>
                             </ListGroupItem>
 
-                            <ListGroupItem tag="button">
+                            <ListGroupItem tag="button" onClick="notify(this)">
                                 <ListGroupItemHeading>ALBAAAAAAAA</ListGroupItemHeading>
                                 <ListGroupItemText>
                                     Expliacio de la campanya de l'ALBA per ser el boss.
                                 </ListGroupItemText>
                             </ListGroupItem>
 
-                            <ListGroupItem tag="button">
+                            <ListGroupItem className="hola" tag="button" onClick={notify(hola)}>
                                 <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
                                 <ListGroupItemText>
                                     Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.

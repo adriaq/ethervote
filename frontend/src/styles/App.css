@@ -24,7 +24,8 @@
 
 .center {
   margin-top: 15%;
-  text-align: center;
+  margin-right: 5%;
+  text-align: right;
 }
 
 .navbar-nav > li > a {
@@ -42,13 +43,6 @@
   border-left: 1px solid #000000;
   border-right: 1px solid #000000;
 }
-
-
-
-.llista {
-  margin-bottom: 10px;
-}
-
 
 
 .component-app {

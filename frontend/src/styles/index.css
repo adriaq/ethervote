@@ -7,5 +7,5 @@ body {
 
 body > #root > div {
   height: 99vh;
-  width: 200vh;
+  width: 100%;
 }
