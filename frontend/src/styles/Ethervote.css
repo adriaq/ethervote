@@ -1,0 +1,55 @@
+.custom-navbar {
+    background-color: #003852;
+    height: 100px;
+    padding: 20px;
+    max-width: 100%;
+}
+
+.navbar-header > a{
+    color: white;
+    font-family: 'Coustard', serif;
+    font-size: 38px;
+}
+
+.navbar-nav {
+    float: right;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 18px;
+}
+
+.navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-nav > li > a:hover {
+    background-color: transparent;
+}
+
+.blockchain-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 52px;
+    padding: 10%;
+    text-align: left;
+}
+
+.join-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    padding-top: 10%;
+    padding-right: 20%;
+    text-align: right;
+}
+
+.form-group {
+    padding-right: 20%;
+}
+
+.register-btn {
+    font-size: 16px;
+    background-color: #003852;
+}
+
+.register-btn:hover{
+    background-color: rgb(234, 235, 236);
+    color: #003852;
+}
