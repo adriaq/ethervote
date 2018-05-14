@@ -7,6 +7,7 @@ import App from './App';
 import Login from './Login';
 import OpenVotation from './OpenVotation';
 import VotationResult from  './VotationResults';
+import Ethervote from './Ethervote';
 
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -27,7 +28,7 @@ const Root = () => {
                     <Route path="/app" component={App}/>
                     <Route path="/votationResult" component={VotationResult}/>
                     <Route path="/login" component={Login}/>
-                    <Route path="/" component={Login}/>
+                    <Route path="/" component={Ethervote}/>
                 </Switch>
             </BrowserRouter>
         </div>
