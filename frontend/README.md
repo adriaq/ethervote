@@ -1,3 +1,39 @@
+## Warnings!
+yarn build
+
+```sh
+yarn run v1.6.0
+$ react-scripts build
+Creating an optimized production build...
+Failed to compile.
+
+Module not found: Error: Can't resolve 'react-router-dom' in '/home/jferrer91/ethervote/frontend/src'
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+```
+**Solució Temporal**: afegir al package.json "react-router-dom": "4.2.2",
+
+```sh
+yarn run v1.6.0
+$ react-scripts build
+Creating an optimized production build...
+Failed to compile.
+
+Module not found: Error: Can't resolve 'bootstrap/dist/css/bootstrap.min.css' in '/home/jferrer91/ethervote/frontend/src'
+
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+```
+**Solució Temporal**: afegir al package.json "bootstrap": "4.1.1",
+
+                
+                
+
+
 ## Yarn
 
 ```sh
