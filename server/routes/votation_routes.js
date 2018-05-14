@@ -12,12 +12,6 @@ exports.getVotations = function(req, res, next) {
     }, {
         id: 4,
         name: "NEW HARRY POTTER FILM?"
-    }, {
-        id: 5,
-        name: "SHOULD TAXES INCREASE?"
-    }, {
-        id: 6,
-        name: "GRUPS FESTA FIB 2018"
     }]);
 };
 

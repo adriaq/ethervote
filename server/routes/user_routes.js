@@ -10,6 +10,7 @@ exports.getUsers = function(req, res, next) {
         id: 3,
         name: "Jorge"
     }]);
+   // web3.eth.
 };
 
 exports.getUserInfo = function(req, res, next) {

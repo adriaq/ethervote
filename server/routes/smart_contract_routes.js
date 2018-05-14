@@ -1,35 +1,11 @@
 /**
  * web3 documentation: https://github.com/ethereum/wiki/wiki/JavaScript-API#web3ethcontract
- */
+ *//*
 const Web3 = require('web3');
 // create an instance of web3 using the HTTP provider.
 // localhost:8545 port of the locally running Ethereum node software
 global.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-
-global.ethervote_abi = [{
-    name: 'addVoter',
-    type: 'function',
-    inputs: [{
-        type: 'address'
-        name: '_voter'
-        }, {
-        type: '_privilege'
-        name: 'int',
-    }]
-    }, {
-    name: 'getPrivilege',
-    type: 'function',
-    inputs: [{
-        name: '_voter',
-        type: 'address'
-    }]
-    outputs: [{
-        name: 'privilege',
-        type: 'int'
-    }],
-    },
-    
-];
+*/
 
 
 exports.getSmartContracts = function(req, res, next) {
