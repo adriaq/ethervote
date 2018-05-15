@@ -21,7 +21,7 @@ class Ethervote extends Component {
                         <div class="collapse navbar-collapse" id="collapsibleNavbar">
                             <ul class="nav navbar-nav">
                                 <li><a href="#"> About us </a></li>
-                                <li><a href="/login"> Login </a></li>
+                                <li><a href="/admin"> Login </a></li>
                             </ul>
                         </div>
                     </div>

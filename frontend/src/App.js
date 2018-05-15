@@ -18,27 +18,16 @@ class App extends Component {
 
 
   componentDidMount () {
-       fetch('/votations')
+       fetch('/user/:publicKey/openedPolls')
            .then(res => res.json())
            .then(votations => this.setState({ votations }));
 
-        fetch('/votation/:userId/openVotes')
+        fetch('/user/:publicKey/closedPolls')
             .then(res => {return res.json()})
             .then(closeVotations => this.setState({ closeVotations }));
     }
 
 
-    back = (event) => {
-        this.props.history.push('/login');
-    };
-
-    votation = (event) => {
-        this.props.history.push('/openVotation');
-    };
-
-    mostra = (event) => {
-        this.props.history.push('/votationResult');
-    };
 
 
   render() {
@@ -64,7 +53,7 @@ class App extends Component {
 
                     <ListGroup>
                         {this.state.votations.map( v =>
-                            <ListGroupItem tag="a" onClick={this.votation} href ="#" key={v.id}>{v.name}
+                            <ListGroupItem tag="a" href={"/openPolls"+ '#' +v.id} key={v.id}>{v.name}
                             </ListGroupItem>)}
                     </ListGroup>
                 </div>
@@ -74,14 +63,14 @@ class App extends Component {
                     <ListGroup>
                         <ListGroup>
                             {this.state.closeVotations.map( v =>
-                                <ListGroupItem tag="a" onClick={this.mostra} href ="#" key={v.id}>{v.name}
+                                <ListGroupItem tag="a"  href={"/pollsResult"+ '#' +v.id} key={v.id}>{v.name}
                                 </ListGroupItem>)}
                         </ListGroup>
                     </ListGroup>
                 </div>
 
             <div class="center">
-                <Button color="danger" onClick={this.back}> Back </Button>
+                <Button color="danger"  href="/admin" > Back </Button>
             </div>
 
 

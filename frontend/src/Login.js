@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
-import { ButtonToolbar } from 'react-bootstrap';
 import './styles/Login.css'
 
 
@@ -31,7 +30,6 @@ class Login extends Component {
             errorMsg:"Wrong username or password!"
         });
 
-        this.props.history.push('/app');
     }
 
     render() {
@@ -56,7 +54,7 @@ class Login extends Component {
                 </div>
 
                 <div className="AcessButton">
-                    <Button color="primary" className="btn" onClick={this.login}> Login </Button>
+                    <Button color="primary" className="btn" href="/app"> Login </Button>
                 </div>
 
                 <div className="error">

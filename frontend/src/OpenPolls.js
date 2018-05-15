@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import {Col } from 'reactstrap';
 import {Button} from 'reactstrap';
 import {ListGroup} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
@@ -10,6 +10,8 @@ import './styles/OpenVotation.css';
 
 function notify(el) {
     resetElements();
+
+    console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     console.log(el.innerHTML);
     el.classList.add('active');
 }
@@ -24,6 +26,10 @@ function resetElements() {
     }
 }
 
+function findElement(id) {
+    var ele = document.getElementsByClassName(id);
+    notify(ele);
+}
 
 
 class OpenVotation extends Component {
@@ -31,12 +37,6 @@ class OpenVotation extends Component {
         super(props);
         this.state = {};
     }
-
-    back = (event) => {
-        this.props.history.push('/app');
-    };
-
-
 
 
 
@@ -106,7 +106,7 @@ class OpenVotation extends Component {
 
                     <div className="opcions">
                         <Button className="votar" color="success" onClick={this.vote}> VOTE </Button>
-                        <Button className="enrere" color="danger" onClick={this.back}> Back </Button>
+                        <Button className="enrere" color="danger" href="/app"> Back </Button>
                     </div>
                 </div>
 

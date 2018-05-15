@@ -4,9 +4,9 @@ import './styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
-import Login from './Login';
-import OpenVotation from './OpenVotation';
-import VotationResult from  './VotationResults';
+import Admin from './Admin';
+import OpenPolls from './OpenPolls';
+import PollsResult from './PollsResults';
 import Ethervote from './Ethervote';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -23,11 +23,12 @@ const Root = () => {
         <div style={color}>
             <BrowserRouter>
                 <Switch>
-                    <Route path="/openVotation" component={OpenVotation}/>
+                    <Route path="/openPolls" component={OpenPolls}/>
                     <Route path="/app" component={App}/>
-                    <Route path="/votationResult" component={VotationResult}/>
-                    <Route path="/login" component={Login}/>
+                    <Route path="/pollsResult" component={PollsResult}/>
+                    <Route path="/admin" component={Admin}/>
                     <Route path="/" component={Ethervote}/>
+                    <Route path="/main" component={Ethervote}/>
                 </Switch>
             </BrowserRouter>
         </div>
