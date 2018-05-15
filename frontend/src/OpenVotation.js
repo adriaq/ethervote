@@ -86,7 +86,7 @@ class OpenVotation extends Component {
                                 </ListGroupItemText>
                             </ListGroupItem>
 
-                            <ListGroupItem className="hola" tag="button" onClick={notify(hola)}>
+                            <ListGroupItem tag="button">
                                 <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
                                 <ListGroupItemText>
                                     Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
