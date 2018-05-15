@@ -1,5 +1,5 @@
-exports.getUsers = function(req, res, next) {
-    console.log('Llistat amb tots els usuaris');
+exports.getUserOpenedPolls = function(req, res) {
+    let id = req.params.publicKey;
     res.json([{
         id: 1,
         name: "Mar"
@@ -10,11 +10,24 @@ exports.getUsers = function(req, res, next) {
         id: 3,
         name: "Jorge"
     }]);
-   // web3.eth.
 };
 
-exports.getUserInfo = function(req, res, next) {
-    var id = req.params.userId;
-    console.log('Informació user');
+exports.getUserClosedPolls = function(req, res) {
+    let id = req.params.publicKey;
+    res.json([{
+        id: 1,
+        name: "Mar"
+    }, {
+        id: 2,
+        name: "Adrià"
+    }, {
+        id: 3,
+        name: "Jorge"
+    }]);
+};
+
+exports.vote = function(req, res) {
+    let id = req.params.proposalID;
+    let option = req.params.option;
     res.status(200).send('OK');
 };

@@ -12,7 +12,7 @@ const admin_routes = require('./routes/admin_routes');
 const audit_routes = require('./routes/audit_routes');
 const smart_contract_routes = require('./routes/smart_contract_routes');
 const user_routes = require('./routes/user_routes');
-const votation_routes = require('./routes/votation_routes');
+const poll_routes = require('./routes/poll_routes');
 
 const app = express();
 var router = express.Router();
@@ -54,26 +54,24 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 //app.use('/page', routes.page);
 
 /********************* ADMIN ************************/
-app.get('/admins/', admin_routes.getAdmins);
-app.get('/admin/:adminId', admin_routes.getAdminInfo);
+app.post('/admin/newPoll', admin_routes.newPoll);
+app.get('/admin/:publicKey/openedPolls', admin_routes.getOpenedPolls);
+app.get('/admin/:publicKey/closedPolls', admin_routes.getClosedPolls);
+app.post('/admin/:publicKey/addVoter', admin_routes.addVoter);
 
 /********************* AUDIT ************************/
 app.get('audit/:auditId', audit_routes.getAudit);
 
 /***************** SMART CONTRACTS ******************/
-app.get('/smartContracts/', smart_contract_routes.getSmartContracts);
-app.get('/smartContract/:smId', smart_contract_routes.getSmartContract);
-app.post('/smartContract/:smId', smart_contract_routes.postSmartContract);
+app.post('/smartContract/:smId', smart_contract_routes.createSmartContract);
 
 /********************* USER *************************/
-app.get('/users/', user_routes.getUsers);
-app.get('/user/:userId', user_routes.getUserInfo);
+app.get('/user/:publicKey/openedPolls', user_routes.getUserOpenedPolls);
+app.get('/user/:publicKey/closedPolls', user_routes.getUserClosedPolls);
+app.post('/user/:publicKey/vote', user_routes.vote);
 
-/******************* VOTATIONS **********************/
-app.get('/votations/', votation_routes.getVotations);
-app.get('/votation/:userId/openVotes', votation_routes.getUserOpenVotations);
-app.get('/votation/:userId/results', votation_routes.getUserClosedVotations);
-app.get('/votation/:adminId', votation_routes.getAdminVotations);
+/********************* POLL ************************/
+app.get('/poll/:id', poll_routes.getPoll);
 
 /*=====  End of Routes  ======*/
 
