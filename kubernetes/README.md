@@ -96,9 +96,6 @@ Una vegada disposem de les credencials del compte de docker-hub on emmagatzemare
   imagePullSecrets:
   - name: regcred
 ```
-
-## Add Nodes to the Kubernetes Cluster
-
 ## Creating and ethervote deployment
 
 ```sh
