@@ -75,20 +75,18 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/s
 #### 2.4.1 Token d'accés al dashboard
 
 
-## Docker
+## 3. Creating and ethervote app
 
-### Crear token d'autorització per docker-hub
+### 3.1 Crear token d'autorització per docker-hub
 
 ```sh
 sudo kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=qonaisys --docker-password=<qonaisys-account-password> --docker-email=jorge.ferrer.rodriguez@upc.edu
 ```
-### Consultar informació del token
+Consultar informació del token:
 
 ```sh
 kubectl get secret regcred --output=yaml
 ```
-
-### Paràmetres fitxer de configuració del deployment
 
 Una vegada disposem de les credencials del compte de docker-hub on emmagatzemaren la nostra imatge de l'aplicació, és necessari afegir els camps corresponent al fitxer de configuració per autenticar-nos a l'hora de descarregar-la.
 
@@ -96,7 +94,7 @@ Una vegada disposem de les credencials del compte de docker-hub on emmagatzemare
   imagePullSecrets:
   - name: regcred
 ```
-## Creating and ethervote deployment
+### 3.2 Deployment
 
 ```sh
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
@@ -133,8 +131,7 @@ kubectl create -f ./ethervote-deployment.yaml
 kubectl describe deployment nginx-deployment
 ```
 
-
-## Creating a service
+### 3.3 Creating a service
 ```sh
 # kubectl expose deployment ethervote-deployment --type="NodePort" --name=ethervote-service --port=8080 --target-port=80
 ```
