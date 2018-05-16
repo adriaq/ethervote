@@ -75,7 +75,11 @@ kubectl get nodes
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 ```
 #### 2.4.1 Token d'accés al dashboard
-
+```sh
+kubectl create clusterrolebinding my-dashboard-sa   --clusterrole=cluster-admin   --serviceaccount=default:my-dashboard-sa
+kubectl get secrets
+kubectl describe secret my-dashboard-sa-token-cc9wx
+```
 
 ## 3. Creating and ethervote app
 
