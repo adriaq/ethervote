@@ -67,7 +67,12 @@ Podem comprovar els nodes associats al cluster executant:
 ```sh
 kubectl get nodes
 ```
+### Kubernetes Dashboard
 
+```sh
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+```
+#### Token d'accés al dashboard
 
 
 ## Docker
