@@ -54,6 +54,7 @@ Afegim '#' a l'entrada coresponent a swap del fitxer /etc/fstab.
 kubeadm init --pod-network-cidr=10.244.0.0/16
 ```
 ### 2.2 Instal·lar la xarxa dels pods.
+[coreos/flannel](https://github.com/coreos/flannel)
 
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
@@ -68,6 +69,7 @@ Podem comprovar els nodes associats al cluster executant:
 kubectl get nodes
 ```
 ### 2.4 Kubernetes Dashboard
+[kubernetes/dashboard](https://github.com/kubernetes/dashboard)
 
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
