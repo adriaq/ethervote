@@ -1,13 +1,13 @@
 # Kubernetes
 
 ## 1. Requisits previs
-### Instal·lació de docker als nodes del cluster.
+### 1.1 Instal·lació de docker als nodes del cluster.
 A totes les màquines que formin part del cluster de Kubernetes és necessari que estigui instal·lat Docker, executem les comandes:
 ```sh
 apt-get update
 apt-get install -y docker.io
 ```
-### Instal·lació kubeadm, kubelet i kubectl.
+### 1.2 Instal·lació kubeadm, kubelet i kubectl.
 - **kubeadm**: comanda per posar en marxa el cluster.
 - **kubelet**: component que s'executa a tots els nodes del cluster i s'encarrega de la comunicació amb el node master.
 - **kubectl**: comanda que ens permetra gestionar el nostre cluster des d'una terminal.
@@ -22,7 +22,7 @@ EOF
 apt-get update
 apt-get install -y kubelet kubeadm kubectl
 ```
-### Configuració del driver cgroup al node master.
+### 1.3 Configuració del driver cgroup al node master.
 Al node master hem de verificar que s'utilitzi el masteix driver de cgroup que a Docker, podem veure comprova el cgroup de docker amb:
 ```sh
 docker info | grep -i cgroup
@@ -38,7 +38,7 @@ Reiniciem el daemon de kubelet:
 systemctl daemon-reload
 systemctl restart kubelet
 ```
-### Desactivar la partició de swap.
+### 1.4 Desactivar la partició de swap.
 Afegim '#' a l'entrada coresponent a swap del fitxer /etc/fstab.
 
 ```sh
@@ -53,13 +53,13 @@ Afegim '#' a l'entrada coresponent a swap del fitxer /etc/fstab.
 ```sh
 kubeadm init --pod-network-cidr=10.244.0.0/16
 ```
-### Instal·lar la xarxa dels pods.
+### 2.2 Instal·lar la xarxa dels pods.
 
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
 ```
 
-### Afegir nodes slaves al cluster.
+### 2.3 Afegir nodes slaves al cluster.
 ```sh
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
@@ -67,12 +67,12 @@ Podem comprovar els nodes associats al cluster executant:
 ```sh
 kubectl get nodes
 ```
-### Kubernetes Dashboard
+### 2.4 Kubernetes Dashboard
 
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 ```
-#### Token d'accés al dashboard
+#### 2.4.1 Token d'accés al dashboard
 
 
 ## Docker
