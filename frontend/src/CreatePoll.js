@@ -1,7 +1,7 @@
 import Component from 'react';
 
 
-class CreateVotation extends Component {
+class CreatePoll extends Component {
 
 }
 
@@ -13,4 +13,4 @@ Camps del formulari
  -> candidats + explicacioo
  */
 
-export default CreateVotation;
+export default CreatePoll;
