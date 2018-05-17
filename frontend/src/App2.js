@@ -11,8 +11,7 @@ class App extends Component {
         super(props);
         this.state = {
         votations: [],
-        closeVotations: [],
-        privilegeLevel: '',
+        closeVotations: []
         };
     }
 
@@ -38,7 +37,7 @@ class App extends Component {
             <nav class="navbar navbar-expand-lg custom-navbar">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand"> Welcome! </a>
+                            <a class="navbar-brand" href="/"> Welcome UserName! </a>
                         </div>
                         <div class="collapse navbar-collapse" id="collapsibleNavbar">
                             <ul class="nav navbar-nav">
@@ -48,26 +47,39 @@ class App extends Component {
                     </div>
                 </nav>
 
-                <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h3> CREATE POLL </h3>
+                        <p> Explicació de crear una votació </p>
+                    </div>
 
-                    <h3> OPEN POLLS </h3>
-
-                    <ListGroup>
-                        {this.state.votations.map( v =>
-                            <ListGroupItem tag="a" href={"/openPolls"+ '#' +v.id} key={v.id}>{v.name}
-                            </ListGroupItem>)}
-                    </ListGroup>
+                    <div class="col-lg-6">
+                        <Button color="primary"  href="/createPoll" > Create poll </Button>
+                    </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <h3> RESULTS </h3>
-                    <ListGroup>
+                <div class="row">
+                    <div class="col-lg-6">
+
+                        <h3> OPEN POLLS </h3>
+
                         <ListGroup>
-                            {this.state.closeVotations.map( v =>
-                                <ListGroupItem tag="a"  href={"/pollsResult"+ '#' +v.id} key={v.id}>{v.name}
+                            {this.state.votations.map( v =>
+                                <ListGroupItem tag="a" href={"/openPolls"+ '#' +v.id} key={v.id}>{v.name}
                                 </ListGroupItem>)}
                         </ListGroup>
-                    </ListGroup>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <h3> RESULTS </h3>
+                        <ListGroup>
+                            <ListGroup>
+                                {this.state.closeVotations.map( v =>
+                                    <ListGroupItem tag="a"  href={"/pollsResult"+ '#' +v.id} key={v.id}>{v.name}
+                                    </ListGroupItem>)}
+                            </ListGroup>
+                        </ListGroup>
+                    </div>
                 </div>
 
             <div class="center">
