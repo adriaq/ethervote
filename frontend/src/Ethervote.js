@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/Ethervote.css'
+import './styles/Ethervote.css';
 
 class Ethervote extends Component {
     constructor(props) {

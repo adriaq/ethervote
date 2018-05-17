@@ -8,6 +8,8 @@ import Admin from './Admin';
 import OpenPolls from './OpenPolls';
 import PollsResult from './PollsResults';
 import Ethervote from './Ethervote';
+import AddUser from './AddUser';
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
@@ -19,7 +21,6 @@ const color = {
 const Root = () => {
     return (
 
-
         <div style={color}>
             <BrowserRouter>
                 <Switch>
@@ -27,8 +28,9 @@ const Root = () => {
                     <Route path="/app" component={App}/>
                     <Route path="/pollsResult" component={PollsResult}/>
                     <Route path="/admin" component={Admin}/>
-                    <Route path="/" component={Ethervote}/>
+                    <Route path="/addUser" component={AddUser}/>
                     <Route path="/main" component={Ethervote}/>
+                    <Route path="/" component={Ethervote}/>
                 </Switch>
             </BrowserRouter>
         </div>

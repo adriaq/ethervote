@@ -11,7 +11,8 @@ class App extends Component {
         super(props);
         this.state = {
         votations: [],
-        closeVotations: []
+        closeVotations: [],
+        privilegeLevel: '',
         };
     }
 
@@ -37,7 +38,7 @@ class App extends Component {
             <nav class="navbar navbar-expand-lg custom-navbar">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="/"> Welcome UserName! </a>
+                            <a class="navbar-brand"> Welcome! </a>
                         </div>
                         <div class="collapse navbar-collapse" id="collapsibleNavbar">
                             <ul class="nav navbar-nav">
