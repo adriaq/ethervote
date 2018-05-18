@@ -6,7 +6,6 @@ import {Glyphicon, ButtonToolbar, DropdownButton, MenuItem} from 'react-bootstra
 import './styles/App.css';
 
 
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -17,15 +16,14 @@ class App extends Component {
     }
 
 
-
-  componentDidMount () {
+    componentDidMount () {
        fetch('/user/:publicKey/openedPolls')
            .then(res => res.json())
            .then(votations => this.setState({ votations }));
 
-        fetch('/user/:publicKey/closedPolls')
-            .then(res => {return res.json()})
-            .then(closeVotations => this.setState({ closeVotations }));
+       fetch('/user/:publicKey/closedPolls')
+           .then(res => {return res.json()})
+           .then(closeVotations => this.setState({ closeVotations }));
     }
 
 
@@ -41,6 +39,9 @@ class App extends Component {
                             <a class="navbar-brand" href="/"> Welcome to Ethervote! </a>
                         </div>
                         <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/logout" className="logout"> Log out </a></li>
+                            </ul>
                             <ul class="nav navbar-nav">
                                 <ButtonToolbar>
                                     <DropdownButton title="Help" pullRight id="dropdown-no-caret">
@@ -67,8 +68,8 @@ class App extends Component {
                 <div class="row">
                     <div class="col-lg-10">
                         <h3> CREATE POLL </h3>
-                        <p id="create-explanation"> Create a poll and add the public key of the users you want
-                                them to participate.  </p>
+                        <p id="create-explanation"> Create a poll and add the public key of the users that will
+                            have access to it.  </p>
                         <Button color="primary" className="createPoll" href="/createPoll" > Create poll </Button>
                     </div>
                 </div>

@@ -36,6 +36,7 @@
 
 .navbar-nav > li > a {
     color: white;
+    padding-left: 15%;
 }
 
 .navbar-nav > li > a:hover {
@@ -44,10 +45,7 @@
 
 
 .ListGroupChart {
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-    border-left: 1px solid #000000;
-    border-right: 1px solid #000000;
+    border: 1px solid #000000;
 }
 
 
@@ -82,7 +80,7 @@ h3 {
     background-color: #003852;
     border-color: #003852;
     font-size: 18px;
-    margin-top: 10%;
+    margin-top: 7%;
     float: left;
 }
 
@@ -91,6 +89,13 @@ h3 {
     font-size: 16px;
 }
 
-.Glyphicon {
-    margin-left: 10%;
+.logout {
+    background-color: #003852;
+    color: white;
+    font-size: 18px;
+    padding-left: 15%;
+}
+
+.logout:hover {
+    color: white;
 }

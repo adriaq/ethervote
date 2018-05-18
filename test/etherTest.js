@@ -61,6 +61,7 @@ contract('Ethervote', function (accounts) {
     it('create proposal', async function() {
         var name = "proposal_test_1"
         var description = "First proposal test description"
+
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
 
         //voter_1 creates a new proposal
@@ -70,10 +71,10 @@ contract('Ethervote', function (accounts) {
         assert.equal(res, 1)
 
         var name_p = await ethervote.getProposalName(1)
-        //var description_p = await ethervote.getProposalDesciption(id)
-        console.log(name_p)
         assert.equal(name, name_p)
-        //assert.equal(description, description_p)
+        
+        var description_p = await ethervote.getProposalDescription(1)
+        assert.equal(description, description_p)
     })
 
     
@@ -89,6 +90,17 @@ contract('Ethervote', function (accounts) {
 
         var res = await ethervote.getNumberOfOptions(1)
         assert.equal(res, 2)
+
+        //Is it adding right option's name and descriptions?
+        var option_name_1 = await ethervote.getOptionName(1, 1)
+        assert.equal("Yes", option_name_1)
+        var option_description_1 = await ethervote.getOptionDescription(1, 1)
+        assert.equal("If you agree", option_description_1)
+
+        var option_name_2 = await ethervote.getOptionName(1, 2)
+        assert.equal("No", option_name_2)
+        var option_description_2 = await ethervote.getOptionDescription(1, 2)
+        assert.equal("If you don't agree", option_description_2)
     })
 
 
@@ -146,12 +158,16 @@ contract('Ethervote', function (accounts) {
         //If the following line is not commented test will fail
         //await ethervote.addVoter(voter_6, 1, {from: voter_1})
 
-        //voter_2 can't add options. He's not the proposal's creator
         await ethervote.newProposal("proposal_voting", "First proposal test voting", {from: voter_1})
+        await ethervote.newProposal("proposal_2", "Second proposal test voting", {from: voter_1})
+        //voter_2 can't add options. He's not the proposal's creator
         //If the following line is not commented test will fail
         //await ethervote.addOption(1, "Yes", "If you agree", {from: voter_2})
         await ethervote.addOption(1, "Yes", "If you agree", {from: voter_1})
         await ethervote.addOption(1, "No", "If you don't agree", {from: voter_1})
+
+        await ethervote.addOption(2, "Black", "If you like black", {from: voter_1})
+        await ethervote.addOption(2, "White", "If you like white", {from: voter_1})
 
         //Proving if 2 options added correctly
         var num_of_options = await ethervote.getNumberOfOptions(1)
@@ -165,11 +181,24 @@ contract('Ethervote', function (accounts) {
         await ethervote.vote(1, 1, {from: voter_4})
         await ethervote.vote(1, 2, {from: voter_5})
 
+        await ethervote.vote(2, 2, {from: voter_1})
+        await ethervote.vote(2, 1, {from: voter_1})
+        await ethervote.vote(2, 2, {from: voter_1})
+        await ethervote.vote(2, 1, {from: voter_2})
+        await ethervote.vote(2, 2, {from: voter_3})
+        await ethervote.vote(2, 1, {from: voter_4})
+        await ethervote.vote(2, 1, {from: voter_5})
+
         //Print results
-        var res_1 = await ethervote.getNumberOfVotes(1, 1)
-        var res_2 = await ethervote.getNumberOfVotes(1, 2)
-        assert.equal(res_1, 2)
-        assert.equal(res_2, 3)
+        var p1_res_1 = await ethervote.getNumberOfVotes(1, 1)
+        var p1_res_2 = await ethervote.getNumberOfVotes(1, 2)
+        assert.equal(p1_res_1, 2)
+        assert.equal(p1_res_2, 3)
+
+        var p2_res_1 = await ethervote.getNumberOfVotes(2, 1)
+        var p2_res_2 = await ethervote.getNumberOfVotes(2, 2)
+        assert.equal(p2_res_1, 3)
+        assert.equal(p2_res_2, 2)
     })
 
 

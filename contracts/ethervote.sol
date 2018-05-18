@@ -121,6 +121,12 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
         } else return "";
     }
 
+    function getProposalDescription(int id) public view returns(string) {
+        if(id > 0 && id <= n_proposals) {
+          return proposals[id].description;
+        } else return "";
+    }
+
     function addOption(int _proposalID, string _name, string _description) onlyCreator(_proposalID) public returns(int)  {
         if( (bytes(_name).length > 0) && //si el nom no esta buit
             (proposals[_proposalID].exists) //si la proposal existeix
@@ -153,6 +159,15 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
           return proposals[_proposalID].options[_n_option].name;
       } else return "";
     }
+
+    function getOptionDescription(int _proposalID, int _n_option) public view returns(string) {
+      if(proposals[_proposalID].exists &&
+         proposals[_proposalID].options[_n_option].exists
+         ){
+          return proposals[_proposalID].options[_n_option].description;
+      } else return "";
+    }
+
     function hasEnded(int _proposalID) public view returns(bool) {
       if(proposals[_proposalID].exists){
           return now > proposals[_proposalID].votingDeadline;
@@ -180,7 +195,7 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
             int n_options = getNumberOfOptions(_proposalID);
             int n_votes;
             bool voted = false;
-            for (int opt=0; opt < n_options; ++opt) {
+            for (int opt=1; opt <= n_options; ++opt) {
                 n_votes = getNumberOfVotes(_proposalID,opt);
                 for (int i=0; i < n_votes; ++i) {
                     if(proposals[_proposalID].options[opt].votes[uint(i)] == _voter) voted = true;
