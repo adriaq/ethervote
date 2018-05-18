@@ -68,7 +68,7 @@ class App extends Component {
                 <ListGroup>
                     {this.state.votations.map( v =>
                         <ListGroupItem tag="a" key={v.id}>
-                            {v.name} <a href={"/openPolls" + v.id}> <Glyphicon glyph="zoom-in" /> </a>
+                            {v.name} <a href={"/openPolls" +"?"+ v.id}> <Glyphicon glyph="zoom-in" /> </a>
                         </ListGroupItem>)}
                 </ListGroup>
             </div>
@@ -79,7 +79,7 @@ class App extends Component {
                     <ListGroup>
                         {this.state.closeVotations.map( v =>
                             <ListGroupItem tag="a" key={v.id}>
-                                {v.name} <a href={"/pollsResult"+ v.id}> <Glyphicon glyph="zoom-in" /> </a>
+                                {v.name} <a href={"/pollsResult"+"?"+ v.id}> <Glyphicon glyph="zoom-in" /> </a>
                             </ListGroupItem>)}
                     </ListGroup>
                 </ListGroup>

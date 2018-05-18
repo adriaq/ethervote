@@ -1,27 +1,69 @@
-.component-search-input {
+.input {
     margin-top: 8%;
-    margin-left: 20%;
-    margin-right: 20%;
-
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: 1px solid #ccc;
 }
 
-.component-search-input > div {
-    margin: 15px 10px 10px 10px;
+.input > div {
+    margin-bottom: 15%;
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-right: 2%;
 }
 
-.component-search-input input {
+
+
+.input input {
     border-radius: 4px;
     border: 1px solid #bbb;
     box-sizing: border-box;
-    font-size: 18px;
-    padding: 10px 8px;
+    font-size: 15px;
+    padding: 5px 5px;
     width: 100%;
 }
 
-.imtge {
-    text-align: center;
+.col-lg-3 {
+    margin-top: 8%;
+    text-align: right;
 }
+
+
+
+.col-lg-12 {
+    text-align: center;
+    margin-top: 8%;
+}
+
+
+.custom-select {
+    border-radius: 4px;
+
+    margin-bottom: 5%;
+    margin-top: 5%;
+    width: 90%;
+}
+
+.selectpicker {
+    width: 35%;
+    padding: 5px 5px;
+    background: #fff;
+    border: 1px solid #bbb;
+    cursor: pointer;
+    outline: none;
+    margin-right: 2%;
+    border-radius: 4px;
+}
+
+
+.col-lg-4 {
+    text-align: right;
+
+}
+
+.submit-btn {
+    float: right;
+    padding-right: 10%;
+}
+
+
