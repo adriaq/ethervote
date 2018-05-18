@@ -3,25 +3,18 @@ import {Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/AddUser.css'
 import img_user from './img/add-user-2-128.gif';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+
+
 
 class AddUser extends Component {
     constructor(props) {
         super(props);
-        this.toggle = this.toggle.bind(this);
-
         this.state = {
             userPK: '',
-            privilegeLevel: '',
-            dropdownOpen: false,
+            privilegeLevel: '1',
         };
-    }
-
-
-    toggle() {
-        this.setState(prevState => ({
-            dropdownOpen: !prevState.dropdownOpen
-        }));
+        this.handleChange = this.handleChange.bind(this);
+        this.submitbtn = this.submitbtn.bind(this);
     }
 
     updateInputValueUser(evt) {
@@ -30,12 +23,36 @@ class AddUser extends Component {
         });
     }
 
-    updateInputValuePasswd(evv) {
-        this.setState({
-            iprivilegeLevel: evv.target.value
-        });
+    handleChange(event) {
+        this.setState({privilegeLevel: event.target.value});
     }
-    render() {
+
+
+    submitbtn() {
+
+        if (this.state.userPK === '') {
+            alert ("You must enter a public key before submit");
+
+        }
+        else {
+            fetch('/admin/:publicKey/addVoter', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userPK: this.state.userPK,
+                    privilegeLevel: this.state.privilegeLevel,
+                })
+            })
+
+            alert("User with public key    **  " + this.state.userPK + "  **    has been submitted");
+        }
+    }
+
+
+render() {
 
         return(
             <div>
@@ -73,19 +90,17 @@ class AddUser extends Component {
                                 <div className="col-lg-8">
                                     <p> PRIVILEGE LEVEL: </p>
 
-                                    <select className="selectpicker">
+                                    <select className="selectpicker" value={this.state.value} onChange={this.handleChange} >
                                         <option>1</option>
                                         <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+
                                     </select>
 
                                 </div>
 
 
                                 <div className="col-lg-4">
-                                    <Button className="submit-btn" color="primary" href="/admin">Submit</Button>
+                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Submit</Button>
                                 </div>
 
                             </div>
@@ -98,9 +113,6 @@ class AddUser extends Component {
 
                     </div>
                 </div>
-
-
-
 
                 <div className="col-lg-12">
                     <Button  color="danger" href="/admin"> Back </Button>
