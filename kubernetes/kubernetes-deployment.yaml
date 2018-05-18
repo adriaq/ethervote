@@ -7,6 +7,12 @@ spec:
     matchLabels:
       app: ethervote
   replicas: 2 # tells deployment to run 2 pods matching the template
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
   template: # create pods using pod definition in this template
     metadata:
       labels:
