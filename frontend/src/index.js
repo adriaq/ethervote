@@ -11,6 +11,7 @@ import PollsResult from './PollsResults';
 import Ethervote from './Ethervote';
 import CreatePoll from './CreatePoll';
 import AddUser from './AddUser';
+import Logout from './Logout';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -33,6 +34,7 @@ const Root = () => {
                     <Route path="/admin" component={Admin}/>
                     <Route path="/createPoll" component={CreatePoll}/>
                     <Route path="/addUser" component={AddUser}/>
+                    <Route path="/logout" component={Logout}/>
                     <Route path="/main" component={Ethervote}/>
                     <Route path="/" component={Ethervote}/>
                 </Switch>
