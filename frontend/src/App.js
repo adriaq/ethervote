@@ -43,6 +43,9 @@ class App extends Component {
                     </div>
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="nav navbar-nav">
+                            <li><a href="/logout" className="logout"> Log out </a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
                             <ButtonToolbar>
                                 <DropdownButton title="Help" pullRight id="dropdown-no-caret">
                                    <MenuItem eventKey="1">
