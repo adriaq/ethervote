@@ -48,7 +48,7 @@ class OpenVotation extends Component {
                 <nav class="navbar navbar-expand-lg custom-navbar">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="/"> New boss election! </a>
+                            <a class="navbar-brand"> New boss election! </a>
                         </div>
                         <div class="collapse navbar-collapse" id="collapsibleNavbar">
                             <ul class="nav navbar-nav">
@@ -58,7 +58,7 @@ class OpenVotation extends Component {
                     </div>
                 </nav>
 
-                <div >
+                <div>
 
                     <p className="text"> Lorem ipsum dolor sit amet consectetur adipiscing elit velit, curabitur euismod tempus placerat magnis bibendum eros
                         varius cum, purus odio porttitor congue rhoncus viverra diam. Lacus class montes cursus viverra tortor mauris

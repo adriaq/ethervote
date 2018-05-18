@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/Ethervote.css'
+import './styles/Ethervote.css';
 
 class Ethervote extends Component {
     constructor(props) {
@@ -40,10 +40,6 @@ class Ethervote extends Component {
                         <div class="form-group">
                             <label for="inputName"> Organization's name </label>
                             <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter Organization name"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1"> Un altre camp que es pot demanar </label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Organization name"/>
                         </div>
                         <button type="submit" class="btn btn-primary register-btn">Submit</button>
                     </form>

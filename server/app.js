@@ -8,6 +8,9 @@ import path from 'path';
 
 import env from './config/env';
 
+const fs = require('fs');
+
+
 const admin_routes = require('./routes/admin_routes');
 const audit_routes = require('./routes/audit_routes');
 const smart_contract_routes = require('./routes/smart_contract_routes');
@@ -83,6 +86,33 @@ if (typeof web3 !== 'undefined') {
 } else { // set the provider you want from Web3.providers
     web3 = new web3(new web3.providers.HttpProvider("http://localhost:8545"));
 }
+
+
+var ethervote;
+
+function deploy_ethervote(){
+    var source = fs.readFile(__dirname+'/smartcontract/ethervote.sol', function (err,source) {
+      if (err) return console.log(err);
+    });
+    var compiled = web3.eth.compile.solidity(source);
+    var code = compiled.ethervote.code;
+    var abi = compiled.ethervote.info.abiDefinition;
+    var Ethervote = web3.eth.contract(abi);
+    //var ethervote;
+    var CURRENT_USER; //aquesta variable es la persona que fara la peticio cap a crear nou contract o existent, sha de canviar el nom i agafarla d'on toca
+    var existing_etherveote, ethervote_nom, ethervote_default_time, maxGas;
+    if(false) { //si el smart contract ja existeix
+        ethervote = Ethervote.at(existing_etherveote);
+    } else { // si no existeix
+        ethervote = Ethervote.new(ethervote_nom,ethervote_default_time, {from: CURRENT_USER, gas: maxGas}, function(err, contract) {
+            if (!err && contract.address){
+               console.log("deployed on:", contract.address);
+            }
+        });
+    }
+}
+
+
 
 
 // Load React App
