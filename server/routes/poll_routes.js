@@ -1,3 +1,5 @@
+import ethervote from '../app.js';
+
 exports.getPoll = function(req, res) {
     let id = req.params.id;
     res.json([{

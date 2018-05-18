@@ -5,11 +5,11 @@ import favicon from 'serve-favicon';
 import helmet from 'helmet';
 import compression from 'compression';
 import path from 'path';
+import Web3 from 'web3'
 
 import env from './config/env';
 
 const fs = require('fs');
-
 
 const admin_routes = require('./routes/admin_routes');
 const audit_routes = require('./routes/audit_routes');
@@ -80,37 +80,45 @@ app.get('/poll/:id', poll_routes.getPoll);
 
 
 /* WEB3 */
-var web3 = require("web3");
+let web3 = require("web3");
 if (typeof web3 !== 'undefined') {
-    web3 = new web3(web3.currentProvider);
+    web3 = new Web3(web3.currentProvider);
 } else { // set the provider you want from Web3.providers
-    web3 = new web3(new web3.providers.HttpProvider("http://localhost:8545"));
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 }
 
-
+const solc = require('solc');
 var ethervote;
 
-function deploy_ethervote(){
-    var source = fs.readFile(__dirname+'/smartcontract/ethervote.sol', function (err,source) {
+//function deploy_ethervote(){
+    /*let source = fs.readFile(__dirname+'/smartcontract/ethervote.sol', function (err,source) {
       if (err) return console.log(err);
-    });
-    var compiled = web3.eth.compile.solidity(source);
-    var code = compiled.ethervote.code;
-    var abi = compiled.ethervote.info.abiDefinition;
-    var Ethervote = web3.eth.contract(abi);
+    });*/
+    let input = {
+        'ethervote.sol': fs.readFileSync(__dirname+'/smartcontract/ethervote.sol', 'utf8')
+    };
+    //let compiled = web3.eth.compile.solidity(source);
+    let compiled = solc.compile({sources: input}, 1);
+    //let code = compiled.ethervote.code;
+    //let abi = compiled.ethervote.info.abiDefinition;
+    let abi = compiled.contracts['ethervote.sol:ethervote'].interface;
+    let Ethervote = web3.eth.contract(JSON.parse(abi));
+
+    //let Ethervote = web3.eth.contract(abi);
     //var ethervote;
-    var CURRENT_USER; //aquesta variable es la persona que fara la peticio cap a crear nou contract o existent, sha de canviar el nom i agafarla d'on toca
-    var existing_etherveote, ethervote_nom, ethervote_default_time, maxGas;
-    if(false) { //si el smart contract ja existeix
+    let CURRENT_USER; //aquesta variable es la persona que fara la peticio cap a crear nou contract o existent, sha de canviar el nom i agafarla d'on toca
+    let existing_ethervote, ethervote_nom, ethervote_default_time, maxGas;
+    if (existing_ethervote) { //si el smart contract ja existeix
         ethervote = Ethervote.at(existing_etherveote);
-    } else { // si no existeix
+    }
+    else { // si no existeix
         ethervote = Ethervote.new(ethervote_nom,ethervote_default_time, {from: CURRENT_USER, gas: maxGas}, function(err, contract) {
             if (!err && contract.address){
                console.log("deployed on:", contract.address);
             }
         });
     }
-}
+//}
 
 
 

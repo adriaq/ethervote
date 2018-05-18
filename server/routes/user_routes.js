@@ -1,25 +1,27 @@
+import ethervote from '../app.js';
+
 exports.getUserOpenedPolls =  function(req, res) {
     let id = req.params.publicKey;
 
-    int num_proposals = ethervote.getNumberOfProposals();
-    var proposals = [];
-    for(int i=1; i<=num_proposals; ++i) {
-        if(!ethervote.hasEnded(i)) {
-            var name = ethervote.getProposalName(i);
-            var description = ethervote.getProposalDescription(i);
-            var num_opcions = ethervote.getNumberOfOptions(i);
+    let num_proposals = ethervote.getNumberOfProposals.call();
+    let proposals = [];
+    for(let i=1; i<=num_proposals; ++i) {
+        if(!ethervote.hasEnded.call(i)) {
+            let name = ethervote.getProposalName(i).call();
+            let description = ethervote.getProposalDescription(i).call();
+            let num_opcions = ethervote.getNumberOfOptions(i).call();
 
-            var options = [];
-            for(int j=1; j<=num_opcions; ++j) {
-                var option_name = ethervote.getOptionName(i, j);
-                var option_description = ethervote.getOptionDescription(i, j);
-                var option_votes = ethervote.getNumberOfVotes(i, j);
+            let options = [];
+            for (let j=1; j<=num_opcions; ++j) {
+                let option_name = ethervote.getOptionName(i, j).call();
+                let option_description = ethervote.getOptionDescription(i, j).call();
+                let option_votes = ethervote.getNumberOfVotes(i, j).call();
 
-                var o = {"name": option_name, "description": option_description, "votes": option_votes};
+                let o = {"name": option_name, "description": option_description, "votes": option_votes};
                 options.push(o);
             }            
             
-            var p = {"name": name, "description": description, "num_opcions": num_opcions, "options": options};
+            let p = {"name": name, "description": description, "num_opcions": num_opcions, "options": options};
             proposals.push(p);
         }
     }
@@ -30,25 +32,25 @@ exports.getUserOpenedPolls =  function(req, res) {
 exports.getUserClosedPolls = function(req, res) {
     let id = req.params.publicKey;
 
-    int num_proposals = ethervote.getNumberOfProposals();
-    var proposals = [];
-    for(int i=0; i<num_proposals; ++i) {
+    let num_proposals = ethervote.getNumberOfProposals().call();
+    let proposals = [];
+    for(let i=0; i<num_proposals; ++i) {
         if(ethervote.hasEnded(i)) {
-            var name = ethervote.getProposalName(i);
-            var description = ethervote.getProposalDescription(i);
-            var num_opcions = ethervote.getNumberOfOptions(i);
+            let name = ethervote.getProposalName(i).call();
+            let description = ethervote.getProposalDescription(i).call();
+            let num_opcions = ethervote.getNumberOfOptions(i).call();
 
-            var options = [];
-            for(int j=1; j<=num_opcions; ++j) {
-                var option_name = ethervote.getOptionName(i, j);
-                var option_description = ethervote.getOptionDescription(i, j);
-                var option_votes = ethervote.getNumberOfVotes(i, j);
+            let options = [];
+            for(let j=1; j<=num_opcions; ++j) {
+                let option_name = ethervote.getOptionName(i, j).call();
+                let option_description = ethervote.getOptionDescription(i, j).call();
+                let option_votes = ethervote.getNumberOfVotes(i, j).call();
 
-                var o = {"name": option_name, "description": option_description, "votes": option_votes};
+                let o = {"name": option_name, "description": option_description, "votes": option_votes};
                 options.push(o);
             }
 
-            var p = {"name": name, "description": description, "num_opcions": num_opcions, "options": options};
+            let p = {"name": name, "description": description, "num_opcions": num_opcions, "options": options};
             proposals.push(p);
         }
     }
@@ -59,8 +61,9 @@ exports.getUserClosedPolls = function(req, res) {
 exports.vote = function(req, res) {
     let id = req.params.proposalID;
     let option = req.params.option;
-    
-    ethervote.vote(id, option);
+
+    // sendTransaction ??
+    ethervote.vote.sendTransaction(id, option);
 
     res.status(200).send('OK');
 };
