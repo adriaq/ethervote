@@ -32,7 +32,6 @@ const Root = () => {
                     <Route path="/pollsResult" component={PollsResult}/>
                     <Route path="/admin" component={Admin}/>
                     <Route path="/createPoll" component={CreatePoll}/>
-                    <Route path="/" component={Ethervote}/>
                     <Route path="/addUser" component={AddUser}/>
                     <Route path="/main" component={Ethervote}/>
                     <Route path="/" component={Ethervote}/>

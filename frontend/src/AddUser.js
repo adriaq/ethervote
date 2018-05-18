@@ -54,6 +54,15 @@ class AddUser extends Component {
                     </nav>
                 </div>
 
+                <div className="imtge">
+                    <img
+                        src="./img/userAdd.png"
+                    />
+
+
+                </div>
+
+
                 <div className="component-search-input">
                     <div>
                         <p> USERNAME: </p>
@@ -61,11 +70,6 @@ class AddUser extends Component {
                         />
                     </div>
 
-                    <div>
-                        <p> PASSWORD: </p>
-                        <input value={this.state.inputValuePasswd} onChange={evv => this.updateInputValuePasswd(evv)}
-                        />
-                    </div>
 
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                         <DropdownToggle caret>
@@ -86,7 +90,7 @@ class AddUser extends Component {
 
 
 
-                <div>
+                <div className="imtge">
                     <Button  color="danger" href="/admin"> Back </Button>
                 </div>
             </div>
