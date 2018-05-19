@@ -26,7 +26,7 @@ class Admin extends Component {
                     de la clau publica que llegeixi de la wallet</p>
 
                     <div className="btn-group-lg">
-                        <Button className="btn_admin" color="primary" href="#"> NEW POLL </Button>
+                        <Button className="btn_admin" color="primary" href="/createPoll"> NEW POLL </Button>
                         <Button className="btn_admin" color="success"  href="/addUser" > ADD USER</Button>
                         <Button className="btn_admin" color="warning" href="/app" > USER MAIN PAGE </Button>
                         <Button className="btn_admin" color="danger" href="/main"> Back </Button>
