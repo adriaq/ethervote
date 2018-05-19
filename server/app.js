@@ -89,7 +89,6 @@ if (typeof web3 !== 'undefined') {
 
 
 var ethervote;
-
 function deploy_ethervote(){
     var source = fs.readFile(__dirname+'/smartcontract/ethervote.sol', function (err,source) {
       if (err) return console.log(err);
