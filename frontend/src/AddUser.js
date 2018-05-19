@@ -2,26 +2,19 @@ import React, { Component } from 'react';
 import {Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/AddUser.css'
-import { InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import img_user from './img/add-user-2-128.gif';
+
+
 
 class AddUser extends Component {
     constructor(props) {
         super(props);
-        this.toggle = this.toggle.bind(this);
-
         this.state = {
             userPK: '',
-            privilegeLevel: '',
-            dropdownOpen: false,
+            privilegeLevel: '1',
         };
-    }
-
-
-    toggle() {
-        this.setState(prevState => ({
-            dropdownOpen: !prevState.dropdownOpen
-        }));
+        this.handleChange = this.handleChange.bind(this);
+        this.submitbtn = this.submitbtn.bind(this);
     }
 
     updateInputValueUser(evt) {
@@ -30,23 +23,47 @@ class AddUser extends Component {
         });
     }
 
-    updateInputValuePasswd(evv) {
-        this.setState({
-            iprivilegeLevel: evv.target.value
-        });
+    handleChange(event) {
+        this.setState({privilegeLevel: event.target.value});
     }
-    render() {
+
+
+    submitbtn() {
+
+        if (this.state.userPK === '') {
+            alert ("You must enter a public key before submit");
+
+        }
+        else {
+            fetch('/admin/:publicKey/addVoter', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userPK: this.state.userPK,
+                    privilegeLevel: this.state.privilegeLevel,
+                })
+            })
+
+            alert("User with public key    **  " + this.state.userPK + "  **    has been submitted");
+        }
+    }
+
+
+render() {
 
         return(
             <div>
                 <div>
-                    <nav class="navbar navbar-expand-lg custom-navbar">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <a class="navbar-brand"> ADD NEW USER </a>
+                    <nav className="navbar navbar-expand-lg custom-navbar">
+                        <div className="container-fluid">
+                            <div className="navbar-header">
+                                <a className="navbar-brand"> ADD NEW USER </a>
                             </div>
-                            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                                <ul class="nav navbar-nav">
+                            <div className="collapse navbar-collapse" id="collapsibleNavbar">
+                                <ul className="nav navbar-nav">
                                     <li><a href="#"> Help </a></li>
                                 </ul>
                             </div>
@@ -54,41 +71,53 @@ class AddUser extends Component {
                     </nav>
                 </div>
 
-                <div className="component-search-input">
-                    <div>
-                        <p> USERNAME: </p>
-                        <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}
-                        />
-                    </div>
-
-                    <div>
-                        <p> PASSWORD: </p>
-                        <input value={this.state.inputValuePasswd} onChange={evv => this.updateInputValuePasswd(evv)}
-                        />
-                    </div>
-
-                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                        <DropdownToggle caret>
-                            Priority
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem header>Header</DropdownItem>
-                            <DropdownItem >Action</DropdownItem>
-                            <DropdownItem>Another Action</DropdownItem>
-                            <DropdownItem>Another Action</DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-
+                <div className="col-lg-3">
+                    <img
+                        src={img_user}
+                    />
 
                 </div>
 
+                <div className="col-lg-9">
+                    <div className="input">
+                        <div>
+                            <p> USERNAME: </p>
+                            <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}
+                            />
+
+                            <div className="custom-select">
+
+                                <div className="col-lg-8">
+                                    <p> PRIVILEGE LEVEL: </p>
+
+                                    <select className="selectpicker" value={this.state.value} onChange={this.handleChange} >
+                                        <option>1</option>
+                                        <option>2</option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div className="col-lg-4">
+                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Submit</Button>
+                                </div>
+
+                            </div>
 
 
 
+                        </div>
 
-                <div>
+
+
+                    </div>
+                </div>
+
+                <div className="col-lg-12">
                     <Button  color="danger" href="/admin"> Back </Button>
                 </div>
+
             </div>
         );
     }

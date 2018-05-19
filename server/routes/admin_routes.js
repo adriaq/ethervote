@@ -1,3 +1,5 @@
+import ethervote from '../app.js';
+
 /**
  * PRE: L'administrador ha emplenat el form (json) amb les opcions de la votació
  * POST: S'ha creat una nova votació amb l'smart contract instanciat

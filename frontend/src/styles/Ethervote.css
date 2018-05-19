@@ -28,14 +28,16 @@
 .blockchain-text {
     font-family: 'Roboto', sans-serif;
     font-size: 52px;
-    padding: 10%;
+    padding-left: 10%;
+    margin-top: 5%;
     text-align: left;
 }
 
 .join-text {
     font-family: 'Roboto', sans-serif;
     font-size: 28px;
-    padding-top: 10%;
+    margin-top: 7%;
+    margin-bottom: 5%;
     padding-right: 20%;
     text-align: right;
 }
@@ -47,6 +49,8 @@
 .register-btn {
     font-size: 16px;
     background-color: #003852;
+    float: right;
+    margin-right: 20%;
 }
 
 .register-btn:hover{

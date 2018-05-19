@@ -1,0 +1,26 @@
+.custom-navbar {
+    background-color: #003852;
+    height: 100px;
+    padding: 20px;
+    max-width: 100%;
+}
+
+.navbar-header > p {
+    color: white;
+    font-family: 'Coustard', serif;
+    font-size: 38px;
+}
+
+.navbar-nav {
+    float: right;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.imatge {
+    width: 60%;
+    height: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}

@@ -1,55 +1,101 @@
-
 .custom-navbar {
-  background-color: #003852;
-  height: 100px;
-  padding: 20px;
-  max-width: 100%;
+    background-color: #003852;
+    height: 100px;
+    padding: 20px;
+    max-width: 100%;
 }
 
 .navbar-header > a{
-  color: white;
-  font-family: 'Coustard', serif;
-  font-size: 38px;
+    color: white;
+    font-family: 'Coustard', serif;
+    font-size: 38px;
 }
 
 .navbar-nav {
-  float: right;
-  font-family: 'Noto Sans', sans-serif;
-  font-size: 18px;
+    float: right;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.col-lg-10 {
+    margin-top: 1%;
+    padding-left: 8%;
+    padding-right: 8%;
 }
 
 .col-lg-6 {
-  margin-top: 5%;
+    margin-top: 3%;
+    padding-left: 8%;
+    padding-right: 8%;
 }
 
 .center {
-  margin-top: 15%;
-  margin-right: 5%;
-  text-align: right;
+    margin-top: 15%;
+    margin-right: 5%;
+    text-align: right;
 }
 
 .navbar-nav > li > a {
-  color: white;
+    color: white;
+    padding-left: 15%;
 }
 
 .navbar-nav > li > a:hover {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 
 .ListGroupChart {
-  border-top: 1px solid #000000;
-  border-bottom: 1px solid #000000;
-  border-left: 1px solid #000000;
-  border-right: 1px solid #000000;
+    border: 1px solid #000000;
 }
 
 
 .component-app {
-  display: flex;
-  flex-direction: column;;
-  flex-wrap: wrap;
-  height: 100%;
+    display: flex;
+    flex-direction: column;;
+    flex-wrap: wrap;
+    height: 100%;
 }
 
+h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+}
 
+.createPoll {
+    font-size: 18px;
+    margin-top: 1%;
+    margin-right: 10%;
+    background-color: #34517e;
+}
+
+.back {
+    font-size: 16px;
+    float: right;
+    margin-top: 3%;
+    margin-right: 8%;
+}
+
+#dropdown-no-caret{
+    color: white;
+    background-color: #003852;
+    border-color: #003852;
+    font-size: 18px;
+    margin-top: 7%;
+    float: left;
+}
+
+#create-explanation {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+.logout {
+    background-color: #003852;
+    color: white;
+    font-size: 18px;
+    padding-left: 15%;
+}
+
+.logout:hover {
+    color: white;
+}

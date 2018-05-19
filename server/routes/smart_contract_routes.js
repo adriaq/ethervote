@@ -1,3 +1,5 @@
+import ethervote from '../app.js';
+
 /**
  * PRE: El futur administrador registra l'organització
  * POST: S'ha creat un smart-contract per la nova organització

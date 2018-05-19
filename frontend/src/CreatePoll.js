@@ -1,45 +1,79 @@
 import React, {Component} from 'react';
-import {Button} from 'reactstrap';
+import Header from "./components/Header"
 
-class CreatePoll extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+import { Form, Text, TextArea } from 'react-form';
+import './styles/CreatePoll.css';
+
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
+export default class CreatePoll extends Component {
+
+  constructor(){
+    super();
+    this.state = {
+      startDate: moment(),
+      title : "New Poll",
     }
 
+    this.handleChange = this.handleChange.bind(this);
+  }
 
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
 
-    render() {
+  render() {
 
-        return (
+    return (
+      <div>
+        <Header title={this.state.title}/>
+          <div className="main-window">
 
-            <div>
-                <nav class="navbar navbar-expand-lg custom-navbar">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand"> New boss election! </a>
-                        </div>
-                        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                            <ul class="nav navbar-nav">
-                                <li><a href="#"> Help </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+            <h1>Jorge Ferrer Rodríguez</h1>
 
-                <Button className="enrere" color="danger" href="/"> Back </Button>
+            <Form
+              onSubmit={submittedValues => this.setState( { submittedValues } )}>
+              { formApi => (
+                <div>
+                  <button
+                    onClick={() => formApi.addValue('options', '')}
+                    type="button"
+                    className="mb-4 mr-4 btn btn-success">Add Option</button>
+                  <form onSubmit={formApi.submitForm} id="dynamic-form">
 
-            </div>
-        );
-    }
+                    <label htmlFor="dynamic-first">First name</label><br/>
+                    <Text field="firstName" id="dynamic-first" /><br/>
+
+                  { formApi.values.options && formApi.values.options.map( ( option, i ) => (
+                      <div key={`option${i}`}>
+                        <label htmlFor={`option-name-${i}`}>Name</label>
+                        <Text field={['options', i]} id={`option-name-${i}`} />
+                        <button
+                          onClick={() => formApi.removeValue('options', i)}
+                          type="button"
+                          className="mb-4 btn btn-danger">Remove</button>
+                      </div>
+                    ))}
+
+                    <label htmlFor="description">Description</label><br/>
+                    <TextArea field="description" id="description" /><br/>
+
+                    <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>
+
+                   <button type="submit" className="mb-4 btn btn-primary">Submit</button>
+                  </form>
+                </div>
+              )}
+            </Form>
+          </div>
+      </div>
+
+    );
+
+  }
 }
-
-/*
-Camps del formulari
- -> nom de la votacio
- -> data de tancament
- -> petita explicacio
- -> candidats + explicacioo
- */
-
-export default CreatePoll;
