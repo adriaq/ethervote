@@ -89,9 +89,8 @@ if (typeof web3 !== 'undefined') {
 
 const solc = require('solc');
 var ethervote;
-
-//function deploy_ethervote(){
-    /*let source = fs.readFile(__dirname+'/smartcontract/ethervote.sol', function (err,source) {
+function deploy_ethervote(){
+    var source = fs.readFile(__dirname+'/smartcontract/ethervote.sol', function (err,source) {
       if (err) return console.log(err);
     });*/
     let input = {
