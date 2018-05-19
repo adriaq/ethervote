@@ -34,26 +34,29 @@ export default class CreatePoll extends Component {
         <Header title={this.state.title}/>
           <div className="main-window">
 
-            <h1>Jorge Ferrer Rodríguez</h1>
+            <h1>Create a new Poll</h1>
+            <h4>Here you can create a new poll that will be sent to the blockchain.</h4>
 
             <Form
               onSubmit={submittedValues => this.setState( { submittedValues } )}>
               { formApi => (
                 <div>
-                  <button
-                    onClick={() => formApi.addValue('options', '')}
-                    type="button"
-                    className="mb-4 mr-4 btn btn-success">Add Option</button>
                   <form onSubmit={formApi.submitForm} id="dynamic-form">
 
-                    <label htmlFor="dynamic-first">First name</label><br/>
-                    <Text field="firstName" id="dynamic-first" /><br/>
+                    <label htmlFor="dynamic-first">Name</label><br/>
+                    <Text style={{width: "25%"}} field="firstName" id="dynamic-first" /><br/><br/>
+
+                    <button style={{width: "15%", margin: "10px", align: "center"}}
+                        onClick={() => formApi.addValue('options', '')}
+                        type="button"
+                        className="mb-4 mr-4 btn btn-success">Add Option</button><br/>
 
                   { formApi.values.options && formApi.values.options.map( ( option, i ) => (
                       <div key={`option${i}`}>
-                        <label htmlFor={`option-name-${i}`}>Name</label>
-                        <Text field={['options', i]} id={`option-name-${i}`} />
-                        <button
+                        <label htmlFor={`option-name-${i}`}>Option #{i}</label><br/>
+                        <Text style={{width: "25%"}} field={['options', i]} id={`option-name-${i}`} /><br/>
+                        <Text style={{width: "25%", margin: "10px"}} field={['options', i]} id={`option-2-name-${i}`} /><br/>
+                        <button style={{width: "8%", margin: "10px", align: "center", margin: "10px"}}
                           onClick={() => formApi.removeValue('options', i)}
                           type="button"
                           className="mb-4 btn btn-danger">Remove</button>
@@ -61,11 +64,13 @@ export default class CreatePoll extends Component {
                     ))}
 
                     <label htmlFor="description">Description</label><br/>
-                    <TextArea field="description" id="description" /><br/>
+                    <TextArea style={{width: "25%"}} field="description" id="description" /><br/>
 
+                    <label htmlFor="description">Finish date</label><br/>
                     <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>
 
-                   <button type="submit" className="mb-4 btn btn-primary">Submit</button>
+                   <button style={{width: "15%", margin: "10px", align: "center"} } type="submit" className="mb-4 btn btn-primary">Submit</button>
+
                   </form>
                 </div>
               )}
