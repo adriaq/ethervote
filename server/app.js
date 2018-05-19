@@ -92,7 +92,7 @@ var ethervote;
 function deploy_ethervote(){
     var source = fs.readFile(__dirname+'/smartcontract/ethervote.sol', function (err,source) {
       if (err) return console.log(err);
-    });*/
+    });
     let input = {
         'ethervote.sol': fs.readFileSync(__dirname+'/smartcontract/ethervote.sol', 'utf8')
     };
@@ -117,7 +117,7 @@ function deploy_ethervote(){
             }
         });
     }
-//}
+}
 
 
 
