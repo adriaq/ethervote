@@ -7,6 +7,7 @@ import ethervote from '../app.js';
 exports.newPoll = function(req, res) {
     let name = req.params.name;
     let description = req.params.description;
+    ethervote.newProposal(name, description);
     res.send('OK');
 };
 
@@ -45,6 +46,8 @@ exports.addOption = function(req, res) {
     let id = req.params.proposalID;
     let name = req.params.name;
     let description = req.params.description;
-    res.send('OK');
+    let opt = ethervote.addOption(id, name, description);
+    if (opt === -1) res.status(404).send("error");
+    else res.send('OK');
 };
 

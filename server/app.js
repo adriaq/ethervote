@@ -80,7 +80,7 @@ app.get('/poll/:id', poll_routes.getPoll);
 
 
 /* WEB3 */
-let web3 = require("web3");
+var web3 = require("web3");
 if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
 } else { // set the provider you want from Web3.providers
@@ -92,7 +92,7 @@ var ethervote;
 function deploy_ethervote(){
     var source = fs.readFile(__dirname+'/smartcontract/ethervote.sol', function (err,source) {
       if (err) return console.log(err);
-    });*/
+    });
     let input = {
         'ethervote.sol': fs.readFileSync(__dirname+'/smartcontract/ethervote.sol', 'utf8')
     };
@@ -117,7 +117,7 @@ function deploy_ethervote(){
             }
         });
     }
-//}
+}
 
 
 
