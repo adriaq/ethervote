@@ -28,9 +28,8 @@
 .blockchain-text {
     font-family: 'Roboto', sans-serif;
     font-size: 52px;
-    padding-left: 10%;
     margin-top: 5%;
-    text-align: left;
+    text-align: center;
 }
 
 .join-text {
