@@ -26,30 +26,29 @@
 }
 
 .blockchain-text {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Raleway';
     font-size: 52px;
     margin-top: 5%;
     text-align: center;
 }
 
 .join-text {
-    font-family: 'Roboto', sans-serif;
-    font-size: 28px;
-    margin-top: 7%;
-    margin-bottom: 5%;
-    padding-right: 20%;
-    text-align: right;
+    font-family: 'Roboto';
+    text-align: center;
 }
 
 .form-group {
-    padding-right: 20%;
+    width: 50%;
+    margin: auto;
+    padding-bottom: 1%;
 }
 
 .register-btn {
     font-size: 16px;
     background-color: #003852;
-    float: right;
-    margin-right: 20%;
+    margin: auto;
+    display: block;
+    width: 15%;
 }
 
 .register-btn:hover{
