@@ -28,7 +28,11 @@ class Ethervote extends Component {
         </nav>
 
         <div>
+
+        </div>
+        <div>
           <div>
+            <img className="ethervote-image"src={require('./img/logo.png')} />
             <p className="blockchain-text"> A blockchain based voting system </p>
           </div>
 
@@ -43,7 +47,6 @@ class Ethervote extends Component {
 
           </div>
         </div>
-
 
       </div>
     );

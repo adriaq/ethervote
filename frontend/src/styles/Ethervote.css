@@ -25,10 +25,16 @@
     background-color: transparent;
 }
 
+.ethervote-image {
+    display: block;
+    margin: auto;
+    padding-top: 5%;
+}
+
 .blockchain-text {
     font-family: 'Raleway';
     font-size: 52px;
-    margin-top: 5%;
+    margin-top: 2%;
     text-align: center;
 }
 
