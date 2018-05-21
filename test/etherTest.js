@@ -174,7 +174,8 @@ contract('Ethervote', function (accounts) {
         assert.equal(num_of_options, 2)
 
         await ethervote.vote(1, 1, {from: voter_1})
-        await ethervote.vote(1, 1, {from: voter_1})
+        let b = await ethervote.vote(1, 1, {from: voter_1})
+        console.log(b)
         await ethervote.vote(1, 2, {from: voter_1})
         await ethervote.vote(1, 2, {from: voter_2})
         await ethervote.vote(1, 2, {from: voter_3})
@@ -187,7 +188,8 @@ contract('Ethervote', function (accounts) {
         await ethervote.vote(2, 1, {from: voter_2})
         await ethervote.vote(2, 2, {from: voter_3})
         await ethervote.vote(2, 1, {from: voter_4})
-        await ethervote.vote(2, 1, {from: voter_5})
+        let a = await ethervote.vote(2, 1, {from: voter_5})
+        console.log(a)
 
         //Print results
         var p1_res_1 = await ethervote.getNumberOfVotes(1, 1)
@@ -199,10 +201,8 @@ contract('Ethervote', function (accounts) {
         var p2_res_2 = await ethervote.getNumberOfVotes(2, 2)
         assert.equal(p2_res_1, 3)
         assert.equal(p2_res_2, 2)
+
     })
-
-
-
 
 
 
