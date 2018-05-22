@@ -1,46 +1,19 @@
-.custom-navbar {
-    background-color: #003852;
-    height: 100px;
-    padding: 20px;
-    max-width: 100%;
-}
-
-.navbar-header > a{
-    color: white;
-    font-family: 'Coustard', serif;
-    font-size: 38px;
-}
-
-.navbar-nav {
-    float: right;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 18px;
-}
-
-.navbar-nav > li > a {
-    color: white;
-}
-
-.navbar-nav > li > a:hover {
-    background-color: transparent;
-}
-
 .ethervote-image {
     display: block;
     margin: auto;
-    padding-top: 5%;
+    padding-top: 2%;
 }
 
 .blockchain-text {
-    font-family: 'Raleway';
-    font-size: 52px;
-    margin-top: 2%;
+    font-family: 'Raleway', sans-serif;
+    font-size: 48px;
     text-align: center;
+    margin-bottom: 7%;
 }
 
 .join-text {
-    font-family: 'Roboto';
-    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
 }
 
 .form-group {
@@ -54,7 +27,7 @@
     background-color: #003852;
     margin: auto;
     display: block;
-    width: 15%;
+    width: 10%;
 }
 
 .register-btn:hover{
