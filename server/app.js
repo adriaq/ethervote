@@ -119,7 +119,9 @@ function deploy_ethervote(){
     }
 }
 
+function connect_ethervote(){
 
+}
 
 
 // Load React App
