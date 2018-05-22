@@ -62,8 +62,10 @@ export default class CreatePoll extends Component {
                                  <label htmlFor="description">Description</label><br/>
                                  <TextArea field="description" id="description" /><br/>
 
-                                 <label htmlFor="description">Finish date</label><br/>
-                                 <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>
+                                 <div class="form-group">
+                                   <label htmlFor="description">Finish date</label><br/>
+                                   <DatePicker inline selected={this.state.startDate} onChange={this.handleChange}/>
+                                 </div>
 
                                  <button type="submit" className="mb-4 btn btn-primary submit-button">Submit</button>
                              </form>
