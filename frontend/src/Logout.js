@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import {Button} from 'reactstrap';
-import {Glyphicon, ButtonToolbar, DropdownButton, MenuItem} from 'react-bootstrap';
 import './styles/Logout.css';
 import Goodbye from './img/goodbye.gif'
 
 class Logout extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
 
         return (
@@ -22,7 +16,7 @@ class Logout extends Component {
                 </nav>
 
                 <div>
-                    <img src={Goodbye} className="imatge"/>
+                    <img src={Goodbye} className="imatge" alt="goodbye"/>
                 </div>
             </div>
         );

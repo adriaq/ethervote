@@ -3,6 +3,7 @@ import {Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/AddUser.css'
 import img_user from './img/add-user-2-128.gif';
+import Header from "./components/Header";
 
 
 
@@ -57,24 +58,11 @@ render() {
         return(
             <div>
                 <div>
-                    <nav className="navbar navbar-expand-lg custom-navbar">
-                        <div className="container-fluid">
-                            <div className="navbar-header">
-                                <a className="navbar-brand"> ADD NEW USER </a>
-                            </div>
-                            <div className="collapse navbar-collapse" id="collapsibleNavbar">
-                                <ul className="nav navbar-nav">
-                                    <li><a href="#"> Help </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                    <Header/>
                 </div>
 
                 <div className="col-lg-3">
-                    <img
-                        src={img_user}
-                    />
+                    <img src={img_user} alt="user"/>
 
                 </div>
 

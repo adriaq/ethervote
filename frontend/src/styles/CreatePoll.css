@@ -3,3 +3,31 @@
     margin-left: 2%;
     text-align: center;
 }
+
+#dynamic-first {
+    width: 25%;
+}
+
+#description {
+    width: 25%;
+}
+
+#addOption {
+    width: 15%;
+    margin: 10px;
+}
+
+.options{
+    width: 25%;
+    margin: 10px;
+}
+
+.remove-button {
+    width: 8%;
+    margin: 10px;
+}
+
+.submit-button {
+    width: 15%;
+    margin: 10px;
+}

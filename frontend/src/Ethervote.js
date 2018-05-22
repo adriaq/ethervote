@@ -16,17 +16,17 @@ class Ethervote extends Component {
       <div className="global">
           <div>
               <div>
-                  <img className="ethervote-image"src={ethervoteimg} />
+                  <img className="ethervote-image" src={ethervoteimg} alt="logo"/>
                   <p className="blockchain-text"> A blockchain based voting system </p>
               </div>
 
               <div>
                   <form>
-                      <div class="form-group">
+                      <div className="form-group">
                           <p className="join-text"> Join Ethervote </p>
-                          <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter organization's name"/>
+                          <input type="text" className="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter organization's name"/>
                       </div>
-                      <button type="submit" class="btn btn-primary register-btn">Submit</button>
+                      <button type="submit" className="btn btn-primary register-btn">Submit</button>
                   </form>
               </div>
           </div>
