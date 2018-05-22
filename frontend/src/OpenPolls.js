@@ -6,6 +6,7 @@ import {ListGroupItem} from 'reactstrap';
 import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText} from 'reactstrap';
 import './styles/OpenVotation.css';
+import Header from "./components/Header";
 
 
 function notify(el) {
@@ -45,18 +46,7 @@ class OpenVotation extends Component {
         return (
 
             <div>
-                <nav class="navbar navbar-expand-lg custom-navbar">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand"> New boss election! </a>
-                        </div>
-                        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                            <ul class="nav navbar-nav">
-                                <li><a href="#"> Help </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+                <Header/>
 
                 <div>
 

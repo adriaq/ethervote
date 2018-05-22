@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import {Button} from 'reactstrap';
 import './styles/Admin.css';
+import Header from "./components/Header";
 
 class Admin extends Component {
     render() {
         return(
             <div>
                 <div>
-                    <nav class="navbar navbar-expand-lg custom-navbar">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <a class="navbar-brand"> WELCOME ADMIN! </a>
-                            </div>
-                            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                                <ul class="nav navbar-nav">
-                                    <li><a href="#"> Help </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                    <Header/>
                 </div>
 
                 <div className="main-window">

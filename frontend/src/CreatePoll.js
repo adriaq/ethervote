@@ -11,74 +11,67 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 export default class CreatePoll extends Component {
 
-  constructor(){
-    super();
-    this.state = {
-      startDate: moment(),
-      title : "New Poll",
+    constructor() {
+        super();
+        this.state = {
+            startDate: moment(),
+            title: "New Poll",
+        };
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    this.handleChange = this.handleChange.bind(this);
-  }
+    handleChange(date) {
+        this.setState({
+            startDate: date
+        });
+    }
 
-  handleChange(date) {
-    this.setState({
-      startDate: date
-    });
-  }
+    render() {
+        return (
+            <div>
+                <Header title={this.state.title}/>
 
-  render() {
+                <div className="main-window">
+                    <h1>Create a new Poll</h1>
+                    <h4>Here you can create a new poll that will be sent to the blockchain.</h4>
 
-    return (
-      <div>
-        <Header title={this.state.title}/>
-          <div className="main-window">
+                    <Form onSubmit={submittedValues => this.setState( { submittedValues } )}>
+                        { formApi => (
+                        <div>
+                             <form onSubmit={formApi.submitForm} id="dynamic-form">
+                                 <label htmlFor="dynamic-first">Name</label><br/>
+                                 <Text field="firstName" id="dynamic-first" /><br/><br/>
 
-            <h1>Create a new Poll</h1>
-            <h4>Here you can create a new poll that will be sent to the blockchain.</h4>
+                                 <button id="addOption"
+                                    onClick={() => formApi.addValue('options', '')}
+                                    type="button"
+                                    className="mb-4 mr-4 btn btn-success">Add Option</button><br/>
 
-            <Form
-              onSubmit={submittedValues => this.setState( { submittedValues } )}>
-              { formApi => (
-                <div>
-                  <form onSubmit={formApi.submitForm} id="dynamic-form">
 
-                    <label htmlFor="dynamic-first">Name</label><br/>
-                    <Text style={{width: "25%"}} field="firstName" id="dynamic-first" /><br/><br/>
+                                 { formApi.values.options && formApi.values.options.map( ( option, i ) => (
+                                     <div key={`option${i}`}>
+                                         <label htmlFor={`option-name-${i}`}>Option #{i}</label><br/>
+                                         <Text className="options" field={['options', i]} id={`option-name-${i}`} /><br/>
+                                         <button
+                                            onClick={() => formApi.removeValue('options', i)}
+                                            type="button"
+                                            className="mb-4 btn btn-danger remove-btn">Remove</button>
+                                     </div>
+                                 ))}
 
-                    <button style={{width: "15%", margin: "10px", align: "center"}}
-                        onClick={() => formApi.addValue('options', '')}
-                        type="button"
-                        className="mb-4 mr-4 btn btn-success">Add Option</button><br/>
+                                 <label htmlFor="description">Description</label><br/>
+                                 <TextArea field="description" id="description" /><br/>
 
-                  { formApi.values.options && formApi.values.options.map( ( option, i ) => (
-                      <div key={`option${i}`}>
-                        <label htmlFor={`option-name-${i}`}>Option #{i}</label><br/>
-                        <Text style={{width: "25%"}} field={['options', i]} id={`option-name-${i}`} /><br/>
-                        <Text style={{width: "25%", margin: "10px"}} field={['options', i]} id={`option-2-name-${i}`} /><br/>
-                        <button style={{width: "8%", margin: "10px", align: "center", margin: "10px"}}
-                          onClick={() => formApi.removeValue('options', i)}
-                          type="button"
-                          className="mb-4 btn btn-danger">Remove</button>
-                      </div>
-                    ))}
+                                 <label htmlFor="description">Finish date</label><br/>
+                                 <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>
 
-                    <label htmlFor="description">Description</label><br/>
-                    <TextArea style={{width: "25%"}} field="description" id="description" /><br/>
-
-                    <label htmlFor="description">Finish date</label><br/>
-                    <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>
-
-                   <button style={{width: "15%", margin: "10px", align: "center"} } type="submit" className="mb-4 btn btn-primary">Submit</button>
-
-                  </form>
+                                 <button type="submit" className="mb-4 btn btn-primary submit-button">Submit</button>
+                             </form>
+                         </div>
+                        )}
+                    </Form>
                 </div>
-              )}
-            </Form>
-          </div>
-      </div>
-
-    );
-
-  }
+            </div>
+        );
+    }
 }
