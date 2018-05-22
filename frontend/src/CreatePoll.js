@@ -52,6 +52,7 @@ export default class CreatePoll extends Component {
                                      <div key={`option${i}`}>
                                          <label htmlFor={`option-name-${i}`}>Option #{i}</label><br/>
                                          <Text className="options" field={['options', i]} id={`option-name-${i}`} /><br/>
+                                         <Text className="options" field={['options', i]} id={`option-description-${i}`} /><br/>
                                          <button
                                             onClick={() => formApi.removeValue('options', i)}
                                             type="button"
