@@ -3,11 +3,8 @@ import React from 'react';
 var ethervote;
 /************************ USER **********************/
 
-<<<<<<< HEAD
-module.exports.getOpenedPolls = async () => {
-=======
-export const getUserOpenedPolls = async () => {
->>>>>>> 36572511ed96dcf0dd42550b6471dd6fef7db2c6
+
+export const getOpenedPolls = async () => {
         let num_proposals = await ethervote.getNumberOfProposals();
         let proposals = [];
         for(let i=1; i<=num_proposals; ++i) {
@@ -33,11 +30,7 @@ export const getUserOpenedPolls = async () => {
         //return proposals
 };
 
-<<<<<<< HEAD
-module.exports.getClosedPolls = async() => {
-=======
 export const getUserClosedPolls = async() => {
->>>>>>> 36572511ed96dcf0dd42550b6471dd6fef7db2c6
     let num_proposals = await ethervote.getNumberOfProposals(); //BigNumber { s: x, e: y, c: [ z ] } -> c es el que es necessita
     let proposals = [];
     for(let i=0; i<num_proposals; ++i) {
@@ -84,12 +77,8 @@ export const vote = async(key, id, option) => {
  * PRE: L'administrador ha emplenat el form (json) amb les opcions de la votació
  * POST: S'ha creat una nova votació amb l'smart contract instanciat
  */
-<<<<<<< HEAD
-module.exports.newPoll = async(name, description) => {
-    var p1 = await getNumberOfProposals();
-=======
 export const newPoll = async(name, description) => {
->>>>>>> 36572511ed96dcf0dd42550b6471dd6fef7db2c6
+    var p1 = await getNumberOfProposals();
     await ethervote.newProposal(name, description);
     var p2 = await getNumberOfProposals();
 
@@ -103,31 +92,21 @@ export const newPoll = async(name, description) => {
  * PRE: Administador entra a la web
  * POST: json amb un llistat de les votacions obertes que ha creat
  */
-<<<<<<< HEAD
 /*
-module.exports.getOpenedPolls = async(id) => {
-=======
 export const getOpenedPolls = async(id) => {
-   return 1;
-};
->>>>>>> 36572511ed96dcf0dd42550b6471dd6fef7db2c6
-
     //Al ser el mateix cens serà igual que per User
     return 1;
 };
 */
+
+
 /**
  * PRE: Administador entra a la web
  * POST: json amb un llistat de les votacions tancades que ha creat
  */
-<<<<<<< HEAD
-
  /*
-module.exports.getClosedPolls = async(id) => {
-    //Al ser el mateix cens serà igual que per User
-=======
 export const getClosedPolls = async(id) => {
->>>>>>> 36572511ed96dcf0dd42550b6471dd6fef7db2c6
+    //Al ser el mateix cens serà igual que per User
     return 1;
 };
 */
@@ -137,36 +116,22 @@ export const getClosedPolls = async(id) => {
  * PRE: L'administrador ja ha creat la votació
  * POST: L'usuari amb clau pública 'publicKey' pot votar
  */
-<<<<<<< HEAD
-module.exports.addVoter = async(key, priv) => {
+export const addVoter = async(key, priv) => {
     var v1 = ethervote.getNumberOfVoters();
     await ethervote.addVoter(key, priv);
     var v2 = ethervote.getNumberOfVoters();
     return (v1+1 == v2);
-=======
-export const addVoterToPoll = async(id, priv) => {
-    let added = await ethervote.addVoter(id, priv);
-    if(added) return 1;
-    else return 0;
->>>>>>> 36572511ed96dcf0dd42550b6471dd6fef7db2c6
 };
 
 /**
  * PRE: L'administrador ja ha creat la votació
  * POST: S'ha afegit una opció nova a la votació
  */
-<<<<<<< HEAD
-module.exports.addOptionToPoll = async(id, name, description) => {
+export const addOptionToPoll = async(id, name, description) => {
     var n1 = ethervote.getNumberOfOptions(id);
     await ethervote.addOption(id, name, description);
     var n2 = ethervote.getNumberOfOptions(id);
     return (n1+1 == n2);
-=======
-export const addOptionToPoll = async(id, name, description) => {
-    let opt = ethervote.addOption(id, name, description);
-    if (opt === -1) return 1;
-    else return 0;
->>>>>>> 36572511ed96dcf0dd42550b6471dd6fef7db2c6
 };
 
 
@@ -200,7 +165,7 @@ export const createSmartContract = async() => {
 
 /********************** POLL *********************/
 <<<<<<< HEAD
-module.exports.getPoll = async(id) => {
+export const getPoll = async(id) => {
     let name = await ethervote.getProposalName(id);
     let description = await ethervote.getProposalDescription(id);
     let num_opcions = await ethervote.getNumberOfOptions(id);
@@ -216,11 +181,6 @@ module.exports.getPoll = async(id) => {
 
     let p = {"name": name, "description": description, "num_opcions": num_opcions, "options": options};
 
-
-=======
-export const getPoll =  async(id) => {
->>>>>>> 36572511ed96dcf0dd42550b6471dd6fef7db2c6
-    console.log("FUNCIONA IMPORT");
     //return p
-    return 0;
+
 };
