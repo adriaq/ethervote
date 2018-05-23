@@ -27,10 +27,10 @@ export const getOpenedPolls = async () => {
                 proposals.push(p);
             }
         }
-        return json(proposals);
+        return JSON.parse(proposals);
 };
 
-export const getUserClosedPolls = async() => {
+export const getClosedPolls = async() => {
     let num_proposals = await ethervote.getNumberOfProposals(); //BigNumber { s: x, e: y, c: [ z ] } -> c es el que es necessita
     let proposals = [];
     for(let i=0; i<num_proposals; ++i) {
@@ -54,7 +54,7 @@ export const getUserClosedPolls = async() => {
             proposals.push(p);
         }
     }
-    return json(proposals);
+    return JSON.parse(proposals);
 };
 
 export const vote = async(key, id, option) => {
@@ -78,11 +78,11 @@ export const vote = async(key, id, option) => {
  * POST: S'ha creat una nova votació amb l'smart contract instanciat
  */
 export const newPoll = async(name, description) => {
-    var p1 = await getNumberOfProposals();
+    let p1 = await ethervote.getNumberOfProposals();
     await ethervote.newProposal(name, description);
-    var p2 = await getNumberOfProposals();
+    let p2 = await ethervote.getNumberOfProposals();
 
-    return (p1+1 == p2);
+    return (p1+1 === p2);
 };
 
 /**
@@ -90,11 +90,11 @@ export const newPoll = async(name, description) => {
  * POST: L'usuari amb clau pública 'publicKey' pot votar
  */
 export const addVoter = async(key, priv) => {
-    var v1 = ethervote.getNumberOfVoters();
+    let v1 = ethervote.getNumberOfVoters();
     await ethervote.addVoter(key, priv);
-    var v2 = ethervote.getNumberOfVoters();
+    let v2 = ethervote.getNumberOfVoters();
 
-    return (v1+1 == v2);
+    return (v1+1 === v2);
 };
 
 /**
@@ -102,11 +102,11 @@ export const addVoter = async(key, priv) => {
  * POST: S'ha afegit una opció nova a la votació
  */
 export const addOptionToPoll = async(id, name, description) => {
-    var n1 = ethervote.getNumberOfOptions(id);
+    let n1 = ethervote.getNumberOfOptions(id);
     await ethervote.addOption(id, name, description);
-    var n2 = ethervote.getNumberOfOptions(id);
+    let n2 = ethervote.getNumberOfOptions(id);
 
-    return (n1+1 == n2);
+    return (n1+1 === n2);
 };
 
 /************************* AQUESTES FUNCIONS JA ESTAN A USER ************************/
@@ -171,9 +171,9 @@ export const getPoll = async(id) => {
     let num_opcions = await ethervote.getNumberOfOptions(id);
     let options = [];
     for (let j=1; j<=num_opcions; ++j) {
-        let option_name = await ethervote.getOptionName(i, j);
-        let option_description = await ethervote.getOptionDescription(i, j);
-        let option_votes = await ethervote.getNumberOfVotes(i, j);
+        let option_name = await ethervote.getOptionName(id, j);
+        let option_description = await ethervote.getOptionDescription(id, j);
+        let option_votes = await ethervote.getNumberOfVotes(id, j);
 
         let o = {"name": option_name, "description": option_description, "votes": option_votes};
         options.push(o);
@@ -181,5 +181,5 @@ export const getPoll = async(id) => {
 
     let p = {"name": name, "description": description, "num_opcions": num_opcions, "options": options};
 
-    return json(p);
+    return JSON.parse(p);
 };

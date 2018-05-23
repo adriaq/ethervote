@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Header from "./components/Header"
+import {newPoll} from "./web3Functions"
 
 import { Form, Text, TextArea } from 'react-form';
 import './styles/CreatePoll.css';
