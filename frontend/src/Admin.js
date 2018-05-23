@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button} from 'reactstrap';
 import './styles/Admin.css';
 import Header from "./components/Header";
+import img_admin from './img/administrator-128.png';
 
 class Admin extends Component {
     render() {
@@ -12,14 +13,15 @@ class Admin extends Component {
                 </div>
 
                 <div className="main-window">
-                    <p> Aqui he afegit botons per poder navegar per les diferents vistes pero en un futur es carrega /admin, /app o / depenen
-                    de la clau publica que llegeixi de la wallet</p>
+
+
+                    <img src={img_admin} alt="admin"/>
+
 
                     <div className="btn-group-lg">
                         <Button className="btn_admin" color="primary" href="/createPoll"> NEW POLL </Button>
-                        <Button className="btn_admin" color="success"  href="/addUser" > ADD USER</Button>
-                        <Button className="btn_admin" color="warning" href="/app" > USER MAIN PAGE </Button>
-                        <Button className="btn_admin" color="danger" href="/main"> Back </Button>
+                        <Button className="btn_admin" color="primary"  href="/addUser" > ADD USER</Button>
+                        <Button className="btn_admin" color="primary" href="#" > SEE ALL USERS </Button>
                     </div>
 
                 </div>

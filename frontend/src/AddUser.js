@@ -61,19 +61,20 @@ render() {
                     <Header/>
                 </div>
 
-                <div className="col-lg-3">
-                    <img src={img_user} alt="user"/>
+                <div className="row">
+                    <div className="col-lg-3">
+                        <img src={img_user} alt="user"/>
 
-                </div>
+                    </div>
 
-                <div className="col-lg-9">
-                    <div className="input">
-                        <div>
-                            <p> USERNAME: </p>
-                            <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}
-                            />
+                    <div className="col-lg-9">
+                        <div className="input">
+                            <div>
+                                <p> USERNAME: </p>
+                                <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}
+                                />
 
-                            <div className="custom-select">
+
 
                                 <div className="col-lg-8">
                                     <p> PRIVILEGE LEVEL: </p>
@@ -87,18 +88,18 @@ render() {
                                 </div>
 
 
-                                <div className="col-lg-4">
-                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Submit</Button>
-                                </div>
+                                    <div className="ei">
+                                        <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Submit</Button>
+                                    </div>
+
+
+
 
                             </div>
 
 
 
                         </div>
-
-
-
                     </div>
                 </div>
 

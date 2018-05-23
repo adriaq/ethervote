@@ -10,11 +10,11 @@
 		"react-router": "^4.0.0",
 		"react-scripts": "1.1.1",
 		"reactstrap": "^6.0.1",
-                "bootstrap": "4.1.1",
-                "react-router-dom": "4.2.2",
+		"bootstrap": "4.1.1",
+		"react-router-dom": "4.2.2",
 		"react-form": "3.5.5",
-		"react-datepicker":"1.4.1",
-		"moment":"^2.20.0"
+		"react-datepicker": "1.4.1",
+		"moment": "^2.20.0"
 	},
 	"scripts": {
 		"start": "react-scripts start",

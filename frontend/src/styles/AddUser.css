@@ -6,7 +6,7 @@
 }
 
 .input > div {
-    margin-bottom: 15%;
+    margin-bottom: 10%;
     margin-left: 2%;
     margin-top: 2%;
     margin-right: 2%;
@@ -35,6 +35,11 @@
     margin-top: 8%;
 }
 
+.col-lg-8 {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
 
 .custom-select {
     border-radius: 4px;
@@ -56,14 +61,9 @@
 }
 
 
-.col-lg-4 {
-    text-align: right;
-
-}
 
 .submit-btn {
     float: right;
-    padding-right: 10%;
 }
 
 
