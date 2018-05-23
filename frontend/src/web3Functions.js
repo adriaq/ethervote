@@ -27,7 +27,7 @@ export const getOpenedPolls = async () => {
                 proposals.push(p);
             }
         }
-        //return proposals
+        return json(proposals);
 };
 
 export const getUserClosedPolls = async() => {
@@ -54,7 +54,7 @@ export const getUserClosedPolls = async() => {
             proposals.push(p);
         }
     }
-    //return proposals
+    return json(proposals);
 };
 
 export const vote = async(key, id, option) => {
@@ -66,9 +66,9 @@ export const vote = async(key, id, option) => {
         v = await ethervote.hasVoted(key, id); 
     }
 
-    return v;
     //v si false hi ha hagut un error, 
     //ja sigui xq ya ha votat o perque no ha pogut votar per algo extrany
+    return v;
 };
 
 
@@ -83,8 +83,30 @@ export const newPoll = async(name, description) => {
     var p2 = await getNumberOfProposals();
 
     return (p1+1 == p2);
-    // TODO: saber com retorna si s'ha pogut crear l'event
+};
 
+/**
+ * PRE: L'administrador ja ha creat la votació
+ * POST: L'usuari amb clau pública 'publicKey' pot votar
+ */
+export const addVoter = async(key, priv) => {
+    var v1 = ethervote.getNumberOfVoters();
+    await ethervote.addVoter(key, priv);
+    var v2 = ethervote.getNumberOfVoters();
+
+    return (v1+1 == v2);
+};
+
+/**
+ * PRE: L'administrador ja ha creat la votació
+ * POST: S'ha afegit una opció nova a la votació
+ */
+export const addOptionToPoll = async(id, name, description) => {
+    var n1 = ethervote.getNumberOfOptions(id);
+    await ethervote.addOption(id, name, description);
+    var n2 = ethervote.getNumberOfOptions(id);
+
+    return (n1+1 == n2);
 };
 
 /************************* AQUESTES FUNCIONS JA ESTAN A USER ************************/
@@ -112,27 +134,6 @@ export const getClosedPolls = async(id) => {
 */
 /************************************************************************************/
 
-/**
- * PRE: L'administrador ja ha creat la votació
- * POST: L'usuari amb clau pública 'publicKey' pot votar
- */
-export const addVoter = async(key, priv) => {
-    var v1 = ethervote.getNumberOfVoters();
-    await ethervote.addVoter(key, priv);
-    var v2 = ethervote.getNumberOfVoters();
-    return (v1+1 == v2);
-};
-
-/**
- * PRE: L'administrador ja ha creat la votació
- * POST: S'ha afegit una opció nova a la votació
- */
-export const addOptionToPoll = async(id, name, description) => {
-    var n1 = ethervote.getNumberOfOptions(id);
-    await ethervote.addOption(id, name, description);
-    var n2 = ethervote.getNumberOfOptions(id);
-    return (n1+1 == n2);
-};
 
 
 /**************** SMART CONTRACT ***************/
@@ -180,6 +181,5 @@ export const getPoll = async(id) => {
 
     let p = {"name": name, "description": description, "num_opcions": num_opcions, "options": options};
 
-    //return p
-
+    return json(p);
 };
