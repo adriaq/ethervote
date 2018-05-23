@@ -164,7 +164,6 @@ export const createSmartContract = async() => {
 };
 
 /********************** POLL *********************/
-<<<<<<< HEAD
 export const getPoll = async(id) => {
     let name = await ethervote.getProposalName(id);
     let description = await ethervote.getProposalDescription(id);
