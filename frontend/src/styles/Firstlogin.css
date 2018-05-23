@@ -1,0 +1,36 @@
+.ethervote-image {
+    display: block;
+    margin: auto;
+    padding-top: 2%;
+}
+
+.blockchain-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 7%;
+}
+
+.join-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+}
+
+.form-group {
+    width: 50%;
+    margin: auto;
+    padding-bottom: 1%;
+}
+
+.register-btn {
+    font-size: 16px;
+    background-color: #003852;
+    margin: auto;
+    display: block;
+    width: 10%;
+}
+
+.register-btn:hover{
+    background-color: rgb(234, 235, 236);
+    color: #003852;
+}
