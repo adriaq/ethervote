@@ -5,17 +5,10 @@ import favicon from 'serve-favicon';
 import helmet from 'helmet';
 import compression from 'compression';
 import path from 'path';
-import Web3 from 'web3'
 
 import env from './config/env';
 
 const fs = require('fs');
-
-const admin_routes = require('./routes/admin_routes');
-const audit_routes = require('./routes/audit_routes');
-const smart_contract_routes = require('./routes/smart_contract_routes');
-const user_routes = require('./routes/user_routes');
-const poll_routes = require('./routes/poll_routes');
 
 const app = express();
 var router = express.Router();
@@ -40,7 +33,7 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 
 //app.use(require('node-basicauth')({'haochuan': 'password'}));
 
-/*=====  End of Baic Authentication  ======*/
+/*=====  End of Basic Authentication  ======*/
 
 /*===========================
 =            COR            =
@@ -53,75 +46,24 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 /*===========================
 =           ROUTES          =
 ===========================*/
-//app.use('/api/v1', routes.api_v1);
-//app.use('/page', routes.page);
 
 /********************* ADMIN ************************/
-app.post('/admin/newPoll', admin_routes.newPoll);
-app.get('/admin/:publicKey/openedPolls', admin_routes.getOpenedPolls);
-app.get('/admin/:publicKey/closedPolls', admin_routes.getClosedPolls);
-app.post('/admin/:publicKey/addVoter', admin_routes.addVoter);
+router.post('/smartContractData/', function(req, res) {
+    fs.writeFile(__dirname+"smartContractData.txt", JSON.stringify(req.params.body), "utf8", function(error){
+       if (error) res.status(500).json(error);
+       else res.status(200).send("Data written in file");
+    });
+});
 
-/********************* AUDIT ************************/
-app.get('audit/:auditId', audit_routes.getAudit);
+router.get('/smartContractData', function (req, res) {
+    fs.readFile(__dirname+"smartContractData.txt", "utf8", function (err, data) {
+        if (err) res.status(500).json(err);
+        else res.status(200).json(data);
+    });
+});
 
-/***************** SMART CONTRACTS ******************/
-app.post('/smartContract/:smId', smart_contract_routes.createSmartContract);
-
-/********************* USER *************************/
-app.get('/user/:publicKey/openedPolls', user_routes.getUserOpenedPolls);
-app.get('/user/:publicKey/closedPolls', user_routes.getUserClosedPolls);
-app.post('/user/:publicKey/vote', user_routes.vote);
-
-/********************* POLL ************************/
-app.get('/poll/:id', poll_routes.getPoll);
 
 /*=====  End of Routes  ======*/
-
-
-/* WEB3 */
-var web3 = require("web3");
-if (typeof web3 !== 'undefined') {
-    web3 = new Web3(web3.currentProvider);
-} else { // set the provider you want from Web3.providers
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-}
-
-const solc = require('solc');
-var ethervote;
-function deploy_ethervote(){
-    var source = fs.readFile(__dirname+'/smartcontract/ethervote.sol', function (err,source) {
-      if (err) return console.log(err);
-    });
-    let input = {
-        'ethervote.sol': fs.readFileSync(__dirname+'/smartcontract/ethervote.sol', 'utf8')
-    };
-    //let compiled = web3.eth.compile.solidity(source);
-    let compiled = solc.compile({sources: input}, 1);
-    //let code = compiled.ethervote.code;
-    //let abi = compiled.ethervote.info.abiDefinition;
-    let abi = compiled.contracts['ethervote.sol:ethervote'].interface;
-    let Ethervote = web3.eth.contract(JSON.parse(abi));
-
-    //let Ethervote = web3.eth.contract(abi);
-    //var ethervote;
-    let CURRENT_USER; //aquesta variable es la persona que fara la peticio cap a crear nou contract o existent, sha de canviar el nom i agafarla d'on toca
-    let existing_ethervote, ethervote_nom, ethervote_default_time, maxGas;
-    if (existing_ethervote) { //si el smart contract ja existeix
-        ethervote = Ethervote.at(existing_etherveote);
-    }
-    else { // si no existeix
-        ethervote = Ethervote.new(ethervote_nom,ethervote_default_time, {from: CURRENT_USER, gas: maxGas}, function(err, contract) {
-            if (!err && contract.address){
-               console.log("deployed on:", contract.address);
-            }
-        });
-    }
-}
-
-function connect_ethervote(){
-
-}
 
 
 // Load React App
