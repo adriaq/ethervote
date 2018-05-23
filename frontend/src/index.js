@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import App from './App';
-import App2 from './App2';
+import User from './User';
+import User2 from './User2';
 import Admin from './Admin';
 import OpenPolls from './OpenPolls';
 import PollsResult from './PollsResults';
@@ -29,8 +29,8 @@ const Root = () => {
             <BrowserRouter>
                 <Switch>
                     <Route path="/openPolls" component={OpenPolls}/>
-                    <Route path="/app" component={App}/>
-                    <Route path="/app2" component={App2}/>
+                    <Route path="/user" component={User}/>
+                    <Route path="/user2" component={User2}/>
                     <Route path="/pollsResult" component={PollsResult}/>
                     <Route path="/admin" component={Admin}/>
                     <Route path="/createPoll" component={CreatePoll}/>

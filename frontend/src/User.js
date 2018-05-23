@@ -3,12 +3,12 @@ import {Button} from 'reactstrap';
 import {ListGroup} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
 import {Glyphicon} from 'react-bootstrap';
-import './styles/App.css';
+import './styles/User.css';
 import Header from "./components/Header";
+import {getOpenedPolls, getClosedPolls} from "./web3Functions"
 
 
-
-class App extends Component {
+class User extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,17 +18,10 @@ class App extends Component {
         };
     }
 
-
-    componentDidMount () {
-        fetch('/user/:publicKey/openedPolls')
-           .then(res => res.json())
-           .then(votations => this.setState({ votations }));
-
-        fetch('/user/:publicKey/closedPolls')
-            .then(res => {return res.json()})
-            .then(closeVotations => this.setState({ closeVotations }));
-    }
-
+    /* componentDidMount() {
+        this.state.votations = getOpenedPolls();
+        this.state.closeVotations = getClosedPolls();
+    }*/
 
     render() {
 
@@ -69,4 +62,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default User;
