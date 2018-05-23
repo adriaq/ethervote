@@ -3,7 +3,7 @@ import React from 'react';
 var ethervote;
 /************************ USER **********************/
 
-module.exports.getUserOpenedPolls = async () => {
+export const getUserOpenedPolls = async () => {
         let num_proposals = await ethervote.getNumberOfProposals();
         let proposals = [];
         for(let i=1; i<=num_proposals; ++i) {
@@ -29,7 +29,7 @@ module.exports.getUserOpenedPolls = async () => {
 
 };
 
-module.exports.getUserClosedPolls = async() => {
+export const getUserClosedPolls = async() => {
     let num_proposals = await ethervote.getNumberOfProposals(); //BigNumber { s: x, e: y, c: [ z ] } -> c es el que es necessita
     let proposals = [];
     for(let i=0; i<num_proposals; ++i) {
@@ -54,7 +54,7 @@ module.exports.getUserClosedPolls = async() => {
     }
 };
 
-module.exports.vote = async(key, id, option) => {
+export const vote = async(key, id, option) => {
     let v = false;
     let voted = await ethervote.hasVoted(key, id);
     if(!voted) { //retorna tal qual true or false
@@ -72,7 +72,7 @@ module.exports.vote = async(key, id, option) => {
  * PRE: L'administrador ha emplenat el form (json) amb les opcions de la votació
  * POST: S'ha creat una nova votació amb l'smart contract instanciat
  */
-module.exports.newPoll = async(name, description) => {
+export const newPoll = async(name, description) => {
     await ethervote.newProposal(name, description);
     // TODO: saber com retorna si s'ha pogut crear l'event
 };
@@ -81,7 +81,7 @@ module.exports.newPoll = async(name, description) => {
  * PRE: Administador entra a la web
  * POST: json amb un llistat de les votacions obertes que ha creat
  */
-module.exports.getOpenedPolls = async(id) => {
+export const getOpenedPolls = async(id) => {
    return 1;
 };
 
@@ -89,7 +89,7 @@ module.exports.getOpenedPolls = async(id) => {
  * PRE: Administador entra a la web
  * POST: json amb un llistat de les votacions tancades que ha creat
  */
-module.exports.getClosedPolls = async(id) => {
+export const getClosedPolls = async(id) => {
     return 1;
 };
 
@@ -97,7 +97,7 @@ module.exports.getClosedPolls = async(id) => {
  * PRE: L'administrador ja ha creat la votació
  * POST: L'usuari amb clau pública 'publicKey' pot votar
  */
-module.exports.addVoterToPoll = async(id, priv) => {
+export const addVoterToPoll = async(id, priv) => {
     let added = await ethervote.addVoter(id, priv);
     if(added) return 1;
     else return 0;
@@ -107,7 +107,7 @@ module.exports.addVoterToPoll = async(id, priv) => {
  * PRE: L'administrador ja ha creat la votació
  * POST: S'ha afegit una opció nova a la votació
  */
-module.exports.addOptionToPoll = async(id, name, description) => {
+export const addOptionToPoll = async(id, name, description) => {
     let opt = ethervote.addOption(id, name, description);
     if (opt === -1) return 1;
     else return 0;
@@ -115,7 +115,7 @@ module.exports.addOptionToPoll = async(id, name, description) => {
 
 
 /**************** SMART CONTRACT ***************/
-module.exports.createSmartContract = async() => {
+export const createSmartContract = async() => {
     /**
      * create contract
      * web3.eth.contract(abi);
@@ -143,7 +143,7 @@ module.exports.createSmartContract = async() => {
 };
 
 /********************** POLL *********************/
-module.exports.getPoll = async(id) => {
+export const getPoll =  async(id) => {
     console.log("FUNCIONA IMPORT");
     return 0;
 };
