@@ -1,9 +1,10 @@
 import React from 'react';
+import web3 from './Ethervote'
 
 var ethervote;
+
+
 /************************ USER **********************/
-
-
 export const getOpenedPolls = async () => {
         let num_proposals = await ethervote.getNumberOfProposals();
         let proposals = [];
@@ -137,30 +138,33 @@ export const getClosedPolls = async(id) => {
 
 
 /**************** SMART CONTRACT ***************/
-export const createSmartContract = async() => {
+export const deploySmartContract = async(addr) => {
     /**
      * create contract
      * web3.eth.contract(abi);
      * abi->ABI array with descriptions of functions and events of the contract
-     *  EXEMPLE AMB ETHERVOTE
-     *  var abi = [{
-             name: 'addVoter',
-             type: 'function',
-             constant: true,
-             inputs: [{ name: '_voter', type: 'address' }, {name = 'int', type = '_privilege' }],
-        }, {
-             name: 'getPrivilege',
-             type: 'function',
-             constant: false,
-             inputs: [{ name: '_voter', type: 'address' }],
-             outputs: [{ name: 'privilege', type: 'int' }]
-        }
-     ...
-     ];
-     *
      * deploy contract
      * var contractInstance = MyContract.new([constructorParam1] [, constructorParam2], {data: '0x12345...', from: myAccount, gas: 1000000});
      */
+   /* let input = {
+        'ethervote.sol': fs.readFileSync(__dirname+'/smartcontract/ethervote.sol', 'utf8')
+    };
+
+    let compiled = solc.compile({sources: input}, 1);
+    let abi = compiled.contracts['ethervote.sol:ethervote'].interface;
+    let Ethervote = web3.eth.contract(JSON.parse(abi));
+    let CURRENT_USER; //aquesta variable es la persona que fara la peticio cap a crear nou contract o existent, sha de canviar el nom i agafarla d'on toca
+    let existing_ethervote, ethervote_nom, ethervote_default_time, maxGas;
+    if (existing_ethervote) { //si el smart contract ja existeix
+        ethervote = Ethervote.at(existing_ethervote);
+    }
+    else { // si no existeix
+        ethervote = Ethervote.new(ethervote_nom,ethervote_default_time, {from: CURRENT_USER, gas: maxGas}, function(err, contract) {
+            if (!err && contract.address){
+                console.log("deployed on:", contract.address);
+            }
+        });
+    }*/
     return 1;
 };
 
