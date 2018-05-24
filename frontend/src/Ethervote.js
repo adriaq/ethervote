@@ -69,16 +69,7 @@ class Ethervote extends Component {
             }*/);
         //Sha de fer un fetch de is_deployed al backend
 
-<<<<<<< HEAD
-  render() {
-      this.state.deployed = this.is_deployed();
-      if (this.state.deployed === true) {
-          return <Redirect myDatato='/User' />
-      } else {
-          return <Redirect to='/Firstlogin' />
-      }
-  }
-=======
+
     }
 
     render() {
@@ -89,7 +80,6 @@ class Ethervote extends Component {
             return <Redirect to='/Firstlogin' />
         }
     }
->>>>>>> fd31d91c14200405c08b64ccf89e2ad49d72fe68
 }
 
 export default Ethervote;

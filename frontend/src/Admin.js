@@ -21,7 +21,6 @@ class Admin extends Component {
                         <div className="btn-group-lg">
                             <Button className="btn_admin" color="primary" href="/createPoll"> NEW POLL </Button>
                             <Button className="btn_admin" color="primary"  href="/addUser" > ADD USER</Button>
-                            <Button className="btn_admin" color="primary" href="#" > SEE ALL USERS </Button>
                         </div>
                     </div>
 

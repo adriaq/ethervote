@@ -20,14 +20,12 @@ export default class Header extends Component{
                   <ul class="nav .justify-content-end">
 
                       <li class="nav-item">
-                          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                          <a class="nav-link" color="white" href="/">Home <span class="sr-only">(current)</span></a>
                       </li>
 
                       <li class="nav-item">
                           <a class="nav-link" href="/logout">Log out</a>
                       </li>
-
-
 
                       <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" >Help</a>
@@ -36,9 +34,6 @@ export default class Header extends Component{
                               <a class="dropdown-item" href="#">Another action</a>
                               <a class="dropdown-item" href="#">Something else here</a>
                           </div>
-
-
-
                       </li>
 
                   </ul>
