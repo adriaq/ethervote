@@ -2,17 +2,16 @@ import React, {Component} from 'react';
 import {Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/Firstlogin.css';
-import ethervote from './Ethervote'
+import web3 from './Ethervote'
+const ethervote_source = require('./contracts/ethervote.json')
 const ethervoteimg = require('./img/logo.png');
 
 class Firstlogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        ethervote_address: '',
-        organitzation_name: '',
+        existing_ethervote_address: '',
     };
-    //console.log(Ethervote.web3);
     this.handleAddressChange = this.handleAddressChange.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.connect_to_ethervote = this.connect_to_ethervote.bind(this);
@@ -20,19 +19,36 @@ class Firstlogin extends Component {
   }
 
   handleNameChange(event) {
-      this.setState({ethervote_address: event.target.value});
+      this.setState({existing_ethervote_address: event.target.value});
   }
   handleAddressChange(event) {
       this.setState({organitzation_name: event.target.value});
   }
 
   connect_to_ethervote() {
+      console.log(localStorage.getItem('web3'));
+      let compiled = localStorage.getItem('web3').eth.compile.solidity(ethervote_source);
+      let abi = compiled.ethervote.info.abiDefinition;
+      console.log()
       //aqui el conect
   }
   deploy_ethervote() {
       //aqui es fara el deploy
-
-      console.log(ethervote.web3);
+      let compiled = web3.eth.compile.solidity(ethervote_source);
+      let abi = compiled.ethervote.info.abiDefinition;
+      var ethervote = web3.eth.contract(abi);
+      ethervote.new(
+       {
+         from: web3.eth.accounts[0],
+         data: compiled,
+     }, function (e, ethervote){
+          console.log(e, ethervote);
+          if (typeof ethervote.address !== 'undefined') {
+             console.log('Contract mined! address: ' + ethervote.address + ' transactionHash: ' + ethervote.transactionHash);
+           }
+    });
+    //Ara fariem el fetch per guardar l'adreça i el bool deployed a true;
+      /*
       fetch('/connect_ethervote', {
           method: 'POST',
           headers: {
@@ -44,7 +60,7 @@ class Firstlogin extends Component {
               ethervote_address: this.ethervote_address,
               deployed: 1
           })
-      })
+      })*/
   }
 
   render() {

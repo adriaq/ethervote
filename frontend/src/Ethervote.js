@@ -3,7 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/Ethervote.css';
 import { Redirect } from 'react-router'
 import Web3 from 'web3';
-var web3;
+var web3 = '';
+localStorage.setItem('ethervote', 0);
+localStorage.setItem('web3', 0);
+
 
 const ethervoteimg = require('./img/logo.png');
  // = new Web3(Web3.givenProvider || "http://localhost:8545");
@@ -17,20 +20,20 @@ window.addEventListener('load', function() {
   } else {
     console.log('No web3? You should consider trying MetaMask!')
   }
-
+  localStorage.setItem('web3', web3);
 });
 
 
 class Ethervote extends Component {
   constructor(props) {
     super(props);
-    this.web3 = "Soc web3";
     this.state = {
         ethervote_address: '',
         organitzation_name: '',
         deployed: false,
     };
     this.is_deployed =  this.is_deployed.bind(this);
+
   }
 
   is_deployed() {
@@ -58,7 +61,7 @@ class Ethervote extends Component {
   render() {
       this.state.deployed = this.is_deployed();
       if (this.state.deployed === true) {
-          return <Redirect to='/User' />
+          return <Redirect myDatato='/User' />
       } else {
           return <Redirect to='/Firstlogin' />
       }
