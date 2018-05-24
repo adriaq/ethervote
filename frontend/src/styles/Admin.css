@@ -4,8 +4,17 @@
     text-align: center;
 }
 
+.main-window > img {
+    text-align: center;
+}
+
 .btn_admin {
     margin-right: 2.5%;
     margin-left: 2.5%;
     margin-top: 5%;
+}
+
+.row > img {
+    margin-right: 20%;
+    margin-left: 10%;
 }
