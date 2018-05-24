@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/AddUser.css'
 import img_user from './img/add-user-2-128.gif';
 import Header from "./components/Header";
+import {addVoter} from "./web3Functions"
 
 
 
@@ -36,7 +37,7 @@ class AddUser extends Component {
 
         }
         else {
-            fetch('/admin/:publicKey/addVoter', {
+           /* fetch('/admin/:publicKey/addVoter', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -46,7 +47,8 @@ class AddUser extends Component {
                     userPK: this.state.userPK,
                     privilegeLevel: this.state.privilegeLevel,
                 })
-            })
+            });*/
+            let b = addVoter(this.state.userPK, this.state.privilegeLevel);
 
             alert("User with public key    **  " + this.state.userPK + "  **    has been submitted");
         }
