@@ -28,7 +28,7 @@ const Root = () => {
         <div style={color}>
             <BrowserRouter>
                 <Switch>
-                    <Route path="/openPolls" component={OpenPolls}/>
+                    <Route path="/openPoll" component={OpenPolls}/>
                     <Route path="/user" component={User}/>
                     <Route path="/user2" component={User2}/>
                     <Route path="/pollsResult" component={PollsResult}/>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'reactstrap';
-import {ListGroup} from 'reactstrap';
+import {ListGroup, Row} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
 import {Glyphicon} from 'react-bootstrap';
 import './styles/User.css';
@@ -29,30 +29,31 @@ class User extends Component {
             <div>
                 <Header/>
 
-                <div className="col-lg-6">
+                <Row>
+                    <div className="col-lg-6">
 
-                    <h3> OPEN POLLS </h3>
+                        <h3> OPEN POLLS </h3>
 
-                    <ListGroup>
-                        {this.state.votations.map( v =>
-                            <ListGroupItem tag="a" key={v.id}>
-                                {v.name} <a href={"/openPolls?"+ v.id}> <Glyphicon glyph="zoom-in" /> </a>
-                            </ListGroupItem>)}
-                    </ListGroup>
-                </div>
-
-                <div className="col-lg-6">
-                    <h3> RESULTS </h3>
-                    <ListGroup>
                         <ListGroup>
-                            {this.state.closeVotations.map( v =>
-                                <ListGroupItem tag="a" key={v.id}>
-                                    {v.name} <a href={"/pollsResult?"+ v.id}> <Glyphicon glyph="zoom-in" /> </a>
-                                </ListGroupItem>)}
+                            <ListGroupItem> Grups FESTAFIB </ListGroupItem>
+                            <ListGroupItem> Nom del meu gos </ListGroupItem>
+                            <ListGroupItem> Antibiòtics més populars </ListGroupItem>
+                            <ListGroupItem> Aprovarem PTI? </ListGroupItem>
                         </ListGroup>
-                    </ListGroup>
-                </div>
+                    </div>
 
+                    <div className="col-lg-6">
+                        <h3> RESULTS </h3>
+                        <ListGroup>
+                            <ListGroup>
+                                <ListGroupItem> Canvi de material de la sala 238 </ListGroupItem>
+                                <ListGroupItem> Activitats per nadal </ListGroupItem>
+                                <ListGroupItem> Excursions fi de curs </ListGroupItem>
+                            </ListGroup>
+                        </ListGroup>
+                    </div>
+
+                </Row>
                 <div>
                     <Button color="danger" className="back" href="/admin" > Back </Button>
                 </div>
@@ -63,3 +64,19 @@ class User extends Component {
 }
 
 export default User;
+
+/*
+OPEN
+{this.state.closeVotations.map( v =>
+    <ListGroupItem tag="a" key={v.id}>
+        {v.name} <a href={"/pollsResult?"+ v.id}> <Glyphicon glyph="zoom-in" /> </a>
+    </ListGroupItem>)}
+
+CLOSE
+{this.state.votations.map( v =>
+                            <ListGroupItem tag="a" key={v.id}>
+                                {v.name} <a href={"/openPolls?"+ v.id}> <Glyphicon glyph="zoom-in" /> </a>
+                            </ListGroupItem>)}
+
+
+*/

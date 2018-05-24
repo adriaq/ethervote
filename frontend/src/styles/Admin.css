@@ -10,11 +10,16 @@
 
 .btn_admin {
     margin-right: 2.5%;
-    margin-left: 2.5%;
     margin-top: 5%;
 }
 
-.row > img {
+img {
+    margin-top: 5%;
     margin-right: 20%;
-    margin-left: 10%;
+    margin-left: 40%;
+    height: 150px;
+}
+
+.btn-group-lg {
+    margin-left: 35%;
 }

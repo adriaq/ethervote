@@ -78,19 +78,25 @@ class OpenVotation extends Component {
                             </ListGroupItem>
 
                             <ListGroupItem tag="button">
-                                <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
+                                <ListGroupItemHeading> Mar </ListGroupItemHeading>
                                 <ListGroupItemText>
                                     Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
                                 </ListGroupItemText>
                             </ListGroupItem>
 
                             <ListGroupItem tag="button">
-                                <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
+                                <ListGroupItemHeading> Xavi </ListGroupItemHeading>
                                 <ListGroupItemText>
                                     Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
                                 </ListGroupItemText>
                             </ListGroupItem>
 
+                            <ListGroupItem tag="button">
+                                <ListGroupItemHeading> Jorge </ListGroupItemHeading>
+                                <ListGroupItemText>
+                                    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                                </ListGroupItemText>
+                            </ListGroupItem>
 
                         </ListGroup>
                     </Col>

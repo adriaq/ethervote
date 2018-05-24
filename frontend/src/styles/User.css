@@ -8,6 +8,7 @@
     margin-top: 3%;
     padding-left: 8%;
     padding-right: 8%;
+    padding-top: 3%;
 }
 
 .center {
@@ -15,7 +16,6 @@
     margin-right: 5%;
     text-align: right;
 }
-
 .ListGroupChart {
     border: 1px solid #000000;
 }
@@ -31,6 +31,7 @@
 h3 {
     font-family: 'Roboto', sans-serif;
     font-size: 28px;
+    margin-bottom: 7%;
 }
 
 .createPoll {
@@ -70,4 +71,8 @@ h3 {
 
 .logout:hover {
     color: white;
+}
+
+a {
+    color: black;
 }
