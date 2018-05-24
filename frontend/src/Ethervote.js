@@ -9,7 +9,7 @@ localStorage.setItem('web3', 0);
 
 
 const ethervoteimg = require('./img/logo.png');
- // = new Web3(Web3.givenProvider || "http://localhost:8545");
+web3     = new Web3(Web3.givenProvider || "http://localhost:8545");
 //web3.eth.getAccounts().then(console.log);
 
 window.addEventListener('load', function() {
@@ -36,28 +36,40 @@ class Ethervote extends Component {
 
   }
 
-  is_deployed() {
-      console.log("is_deployed?");
-      /*
-      fetch('/is_deployed', {
-          method: 'GET',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              organitzation_name: this.state.organitzation_name,
-          })
-      })
-      */
-      fetch('is_deployed')
-          .then(function(res) {
-             let b = JSON.parse(res.body);
-             return b.deployed;
-          });
-      //Sha de fer un fetch de is_deployed al backend
-  }
+    is_deployed() {
+        console.log("is_deployed?");
+        /*
+        fetch('/is_deployed', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                organitzation_name: this.state.organitzation_name,
+            })
+        })
+*/
+        fetch('/is_deployed')
+            .then(response => response.json())
+            .then(json => {
+                console.log(json.deployed);
+                return json.deployed;
+            }
+            /*.then(function(response) {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                else {
+                    console.log(response);
+                    let b = response.body;
+                    console.log("b:" + b);
+                    return b.deployed;
+                }
+            }*/);
+        //Sha de fer un fetch de is_deployed al backend
 
+<<<<<<< HEAD
   render() {
       this.state.deployed = this.is_deployed();
       if (this.state.deployed === true) {
@@ -66,6 +78,18 @@ class Ethervote extends Component {
           return <Redirect to='/Firstlogin' />
       }
   }
+=======
+    }
+
+    render() {
+        this.state.deployed = this.is_deployed();
+        if (this.state.deployed === true) {
+            return <Redirect to='/User' />
+        } else {
+            return <Redirect to='/Firstlogin' />
+        }
+    }
+>>>>>>> fd31d91c14200405c08b64ccf89e2ad49d72fe68
 }
 
 export default Ethervote;

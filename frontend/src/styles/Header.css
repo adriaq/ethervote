@@ -1,24 +1,30 @@
 .custom-navbar {
     background-color: #003852;
     height: 100px;
-    padding: 20px;
-    max-width: 100%;
+    max-width: 200%;
+}
+
+.custom-navbar > ul {
+
 }
 
 .navbar-brand {
     color: white;
     font-family: 'Coustard', serif;
-    font-size: 38px;
+    font-size: 55px;
 }
 
 .navbar-nav {
-    float: right;
     font-family: 'Noto Sans', sans-serif;
 }
 
 .navbar-nav > li > a {
     color: white;
-    padding-left: 15%;
+
+}
+
+.hola {
+    margin-left: 60%;
 }
 
 .navbar-nav > li > a:hover {

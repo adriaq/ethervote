@@ -27,7 +27,7 @@ class Firstlogin extends Component {
 
   connect_to_ethervote() {
       console.log(localStorage.getItem('web3'));
-      let compiled = localStorage.getItem('web3').eth.compile.solidity(ethervote_source);
+      let compiled = web3.eth.compile.solidity(ethervote_source);
       let abi = compiled.ethervote.info.abiDefinition;
       console.log()
       //aqui el conect

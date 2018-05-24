@@ -11,7 +11,6 @@ import env from './config/env';
 const fs = require('fs');
 
 const app = express();
-var router = express.Router();
 
 /*==================================
 =            Middleware            =
@@ -47,17 +46,20 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 =           ROUTES          =
 ===========================*/
 
-router.post('/connect_ethervote', function(req, res) {
-    fs.writeFile(__dirname+"smartContractData.txt", JSON.stringify(req.params.body), "utf8", function(error){
+app.post('/connect_ethervote', function(req, res) {
+    fs.writeFile(__dirname+"/smartContractData.json", JSON.stringify(req.params.body), "utf8", function(error){
        if (error) res.status(500).json(error);
        else res.status(200).send("Data written in file");
     });
 });
 
-router.get('/is_deployed', function (req, res) {
-    fs.readFile(__dirname+"smartContractData.txt", "utf8", function (err, data) {
-        if (err) res.status(500).json(err);
-        else res.status(200).json(data);
+app.get('/is_deployed', function (req, res) {
+    fs.readFile(__dirname+"/smartContractData.json", "utf8", function (error, response) {
+        if (!error) {
+            res.status(200).json(JSON.parse(response));
+        } else {
+            res.status(500).send("error");
+        }
     });
 });
 

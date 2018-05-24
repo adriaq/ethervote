@@ -19,7 +19,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 const color = {
-    backgroundColor:'#EAEBEC'
+    backgroundColor:'#ffffff'
 };
 
 const Root = () => {
