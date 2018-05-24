@@ -41,6 +41,8 @@ class Firstlogin extends Component {
           },
           body: JSON.stringify({
               organitzation_name: this.state.organitzation_name,
+              ethervote_address: this.ethervote_address,
+              deployed: 1
           })
       })
   }

@@ -47,15 +47,14 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 =           ROUTES          =
 ===========================*/
 
-/********************* ADMIN ************************/
-router.post('/smartContractData/', function(req, res) {
+router.post('/connect_ethervote', function(req, res) {
     fs.writeFile(__dirname+"smartContractData.txt", JSON.stringify(req.params.body), "utf8", function(error){
        if (error) res.status(500).json(error);
        else res.status(200).send("Data written in file");
     });
 });
 
-router.get('/smartContractData', function (req, res) {
+router.get('/is_deployed', function (req, res) {
     fs.readFile(__dirname+"smartContractData.txt", "utf8", function (err, data) {
         if (err) res.status(500).json(err);
         else res.status(200).json(data);

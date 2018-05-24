@@ -32,6 +32,7 @@ class Ethervote extends Component {
     };
     this.is_deployed =  this.is_deployed.bind(this);
   }
+
   is_deployed() {
       console.log("is_deployed?");
       /*
@@ -46,6 +47,11 @@ class Ethervote extends Component {
           })
       })
       */
+      fetch('is_deployed')
+          .then(function(res) {
+             let b = JSON.parse(res.body);
+             return b.deployed;
+          });
       //Sha de fer un fetch de is_deployed al backend
   }
 
