@@ -74,7 +74,7 @@ export default class CreatePoll extends Component {
                                <DatePicker class="data-picker" inline selected={this.state.startDate} onChange={this.handleChange}/><br/>
 
                                  <br/>
-                                 <button type="submit" className="mb-4 btn btn-primary submit-button">Submit</button>
+                                 <button type="submit" className="mb-4 btn btn-primary submit-button" onClick={this.submitData()}>Submit</button>
                              </form>
                          </div>
                         )}

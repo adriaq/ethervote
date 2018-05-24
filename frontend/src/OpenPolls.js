@@ -7,6 +7,7 @@ import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText} from 'reactstrap';
 import './styles/OpenVotation.css';
 import Header from "./components/Header";
+import getPoll from './web3Functions'
 
 
 function notify(el) {

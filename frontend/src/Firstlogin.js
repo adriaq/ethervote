@@ -27,8 +27,8 @@ class Firstlogin extends Component {
 
   connect_to_ethervote() {
       console.log(localStorage.getItem('web3'));
-      let compiled = web3.eth.compile.solidity(ethervote_source);
-      let abi = compiled.ethervote.info.abiDefinition;
+     // let compiled = web3.eth.compile.solidity(ethervote_source);
+      //let abi = compiled.ethervote.info.abiDefinition;
       console.log()
       //aqui el conect
   }
@@ -48,7 +48,7 @@ class Firstlogin extends Component {
            }
     });
     //Ara fariem el fetch per guardar l'adreça i el bool deployed a true;
-      /*
+
       fetch('/connect_ethervote', {
           method: 'POST',
           headers: {
@@ -56,11 +56,11 @@ class Firstlogin extends Component {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-              organitzation_name: this.state.organitzation_name,
-              ethervote_address: this.ethervote_address,
-              deployed: 1
+              "organitzation_name": this.state.organitzation_name,
+              "ethervote_address": this.ethervote_address,
+              "deployed": 1
           })
-      })*/
+      })
   }
 
   render() {
@@ -85,7 +85,7 @@ class Firstlogin extends Component {
               </div>
 
               <div className="text-center" >
-              <p></p>
+
                     <p>Or connect to an existing one</p>
                     <div>
                     <input type="text" value={this.state.value} onChange={this.handleAddressChange}/>
