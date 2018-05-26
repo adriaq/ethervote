@@ -2,13 +2,14 @@
     display: block;
     margin: auto;
     padding-top: 2%;
+    height: 230px;
 }
 
 .blockchain-text {
     font-family: 'Raleway', sans-serif;
-    font-size: 48px;
+    font-size: 40px;
     text-align: center;
-    margin-bottom: 7%;
+    margin-bottom: 4%;
 }
 
 .join-text {
@@ -16,21 +17,44 @@
     font-size: 24px;
 }
 
+.connect-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+}
+
 .form-group {
-    width: 50%;
+    width: 80%;
     margin: auto;
     padding-bottom: 1%;
 }
 
-.register-btn {
+.register-btn, .connect-btn {
     font-size: 16px;
     background-color: #003852;
+    border-color: #003852;
     margin: auto;
+    margin-top: 2%;
     display: block;
-    width: 10%;
+    width: 25%;
 }
 
-.register-btn:hover{
-    background-color: rgb(234, 235, 236);
+.register-btn:hover, .connect-btn:hover{
+    background-color: white;
     color: #003852;
+    border-color: #003852;
+}
+
+.col-lg-6{
+    padding: 0px;
+}
+
+.esquerra{
+    padding-left: 10%;
+    width: 50%;
+}
+
+.dreta {
+    padding-right: 10%;
+    width: 50%;
+
 }
