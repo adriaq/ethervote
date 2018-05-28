@@ -10,7 +10,9 @@ const ethervoteimg = require('./img/logo_prueba.png');
 class Firstlogin extends Component {
     constructor(props) {
     super(props);
+    this.ethervote = '';
     this.state = {
+        organitzation_name: '',
         existing_ethervote_address: '',
     };
     this.handleAddressChange = this.handleAddressChange.bind(this);
@@ -27,17 +29,13 @@ class Firstlogin extends Component {
     }
 
     connect_to_ethervote() {
-      console.log(localStorage.getItem('web3'));
-     // let compiled = web3.eth.compile.solidity(ethervote_source);
-      //let abi = compiled.ethervote.info.abiDefinition;
-      console.log()
-      //aqui el conect
-  }
+        this.ethervote = new web3.eth.Contract(ethervote_source.abi, this.state.existing_ethervote_address);
+    }
   deploy_ethervote() {
       var ethervote = this.web3.eth.contract(ethervote_source.abi);
 
       ethervote.new(
-        ["organitzacio 1", 3600]
+        [this.state.organitzation_name, 3600]
        ,{
          from: this.web3.eth.accounts[0],
          data: ethervote_source.bytecode,
@@ -80,9 +78,9 @@ class Firstlogin extends Component {
                             <form>
                                 <div className="form-group">
                                     <p className="join-text"> Join Ethervote </p>
-                                    <input type="text" className="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter organization's name" value={this.state.value} onChange={this.handleNameChange}/>
+                                    <input type="text" className="form-control" value={this.state.value} onChange={this.handleNameChange} placeholder="Enter organization's name" />
                                 </div>
-                                <button className="btn btn-primary register-btn" onClick={this.deploy_ethervote}> Submit</button>
+                                <Button className="btn btn-primary connect-btn" onClick={this.deploy_ethervote}> Submit </Button>
                             </form>
                         </div>
 
