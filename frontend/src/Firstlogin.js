@@ -33,14 +33,14 @@ class Firstlogin extends Component {
       //aqui el conect
   }
   deploy_ethervote() {
-      //aqui es fara el deploy
-      let compiled = web3.eth.compile.solidity(ethervote_source);
-      let abi = compiled.ethervote.info.abiDefinition;
-      var ethervote = web3.eth.contract(abi);
+      var ethervote = this.web3.eth.contract(ethervote_source.abi);
+
       ethervote.new(
-       {
-         from: web3.eth.accounts[0],
-         data: compiled,
+        ["organitzacio 1", 3600]
+       ,{
+         from: this.web3.eth.accounts[0],
+         data: ethervote_source.bytecode,
+         gas: 4700000
      }, function (e, ethervote){
           console.log(e, ethervote);
           if (typeof ethervote.address !== 'undefined') {

@@ -5,3 +5,4 @@ frontend/node_modules/
 .idea/
 package-lock.json
 frontend/package-lock.json
+server/smartContractData.json
