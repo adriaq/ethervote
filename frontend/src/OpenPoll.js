@@ -5,7 +5,7 @@ import {ListGroup} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
 import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText} from 'reactstrap';
-import './styles/OpenVotation.css';
+import './styles/OpenPoll.css';
 import Header from "./components/Header";
 import getPoll from './web3Functions'
 
@@ -33,11 +33,28 @@ function findElement(id) {
     notify(ele);
 }
 
+function PollListGroupItem(props) {
+    return (
+        <ListGroupItem tag="button">
+            <ListGroupItemHeading className="title"> {props.title} </ListGroupItemHeading>
+            <ListGroupItemText className="description"> {props.description} </ListGroupItemText>
+        </ListGroupItem>
+    );
+}
+
 
 class OpenVotation extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            options: [{
+                "title": "Prova",
+                "description": "Descripció prova"
+            }, {
+                "title": "Prova 2",
+                "description": "Descripció prova 2"
+            }],
+        };
     }
 
 
@@ -62,41 +79,8 @@ class OpenVotation extends Component {
                     <Col>
                         <ListGroup className="votations">
 
-
-                            <ListGroupItem tag="button">
-                                <ListGroupItemHeading>ADRIA!!!!!!!!!!!!!!!!</ListGroupItemHeading>
-                                <ListGroupItemText>
-                                    Expliacio de la campanya de l'adria per ser el boss.
-                                </ListGroupItemText>
-                            </ListGroupItem>
-
-                            <ListGroupItem tag="button" onClick="notify(this)">
-                                <ListGroupItemHeading>ALBAAAAAAAA</ListGroupItemHeading>
-                                <ListGroupItemText>
-                                    Expliacio de la campanya de l'ALBA per ser el boss.
-                                </ListGroupItemText>
-                            </ListGroupItem>
-
-                            <ListGroupItem tag="button">
-                                <ListGroupItemHeading> Mar </ListGroupItemHeading>
-                                <ListGroupItemText>
-                                    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                                </ListGroupItemText>
-                            </ListGroupItem>
-
-                            <ListGroupItem tag="button">
-                                <ListGroupItemHeading> Xavi </ListGroupItemHeading>
-                                <ListGroupItemText>
-                                    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                                </ListGroupItemText>
-                            </ListGroupItem>
-
-                            <ListGroupItem tag="button">
-                                <ListGroupItemHeading> Jorge </ListGroupItemHeading>
-                                <ListGroupItemText>
-                                    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                                </ListGroupItemText>
-                            </ListGroupItem>
+                            {this.state.options.map( o =>
+                                <PollListGroupItem tag="a" title={o.title} description={o.description}/>)}
 
                         </ListGroup>
                     </Col>
