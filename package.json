@@ -31,6 +31,7 @@
     "bootstrap": "^3.3.7",
     "compression": "^1.7.0",
     "express": "^4.15.3",
+    "fs": "0.0.1-security",
     "ganache-cli": "^6.1.0",
     "helmet": "^3.8.0",
     "morgan": "^1.8.2",
@@ -41,7 +42,9 @@
     "react-dom": "^16.3.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.1.1",
+    "react-web3": "^0.4.5",
     "reactstrap": "^6.0.1",
+    "require-from-string": "^2.0.2",
     "serve-favicon": "^2.4.3",
     "truffle": "^4.1.8",
     "web3": "github:ethereum/web3.js"

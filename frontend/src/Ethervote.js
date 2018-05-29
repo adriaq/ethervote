@@ -12,7 +12,6 @@ const ethervoteimg = require('./img/logo.png');
 
 
 
-
 class Ethervote extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +31,6 @@ class Ethervote extends Component {
     this.deploy_ethervote =  this.deploy_ethervote.bind(this);
 
   }
-
   deploy_ethervote() {
       var ethervote = this.web3.eth.contract(ethervote_source.abi);
 
