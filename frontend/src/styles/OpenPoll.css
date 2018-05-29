@@ -8,14 +8,11 @@
 
 .opcions {
     text-align: center;
+    margin: auto;
 }
 
 .votar {
     margin-right: 2%;
-}
-
-.enrere {
-    margin-left: 2%;
 }
 
 .votations {
@@ -32,8 +29,11 @@
 
 .title {
     font-size: 24px;
+    text-align: center;
 }
 
 .description {
     font-size: 14px;
+    text-align: center;
+    color: #585858;
 }
