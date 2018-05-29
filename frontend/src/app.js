@@ -1,8 +1,9 @@
-import React from 'react'
+/*import React from 'react'
 import withWeb3 from './withWeb3'
 import Ethervote from './Ethervote'
 
 const App = ({ web3 }) =>
-    <Ethervote/>
+    <withWeb3Usage />
 
 export default withWeb3(App);
+*/

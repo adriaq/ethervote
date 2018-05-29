@@ -7,7 +7,7 @@ import User from './User';
 import User2 from './User2';
 import Admin from './Admin';
 import OpenPolls from './OpenPoll';
-import PollResult from './PollResults';
+import PollsResult from './PollResults';
 import Ethervote from './Ethervote';
 import CreatePoll from './CreatePoll';
 import AddUser from './AddUser';
@@ -23,26 +23,9 @@ const color = {
 
 const Root = () => {
     return (
-
-        <div style={color}>
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/openPoll" component={OpenPolls}/>
-                    <Route path="/user" component={User}/>
-                    <Route path="/user2" component={User2}/>
-                    <Route path="/pollResult" component={PollResult}/>
-                    <Route path="/admin" component={Admin}/>
-                    <Route path="/createPoll" component={CreatePoll}/>
-                    <Route path="/addUser" component={AddUser}/>
-                    <Route path="/logout" component={Logout}/>
-                    <Route path="/main" component={Ethervote}/>
-                    <Route path="/Firstlogin" component={Firstlogin}/>
-                    <Route path="/" component={Ethervote}/>
-
-
-                </Switch>
-            </BrowserRouter>
-        </div>
+        <BrowserRouter>
+        <Ethervote />
+        </BrowserRouter>
     )
 };
 
