@@ -9,7 +9,7 @@ const ethervoteimg = require('./img/logo_prueba.png');
 class Firstlogin extends Component {
     constructor(props) {
         super(props);
-        this.ethervote = '';
+        this.ethervote = null;
         this.web3 = this.props.web3;
         this.state = {
             organitzation_name: null,
@@ -22,47 +22,52 @@ class Firstlogin extends Component {
     }
 
     handleNameChange(event) {
-      this.setState({existing_ethervote_address: event.target.value});
+      this.setState({organitzation_name: event.target.value});
     }
     handleAddressChange(event) {
-      this.setState({organitzation_name: event.target.value});
+      this.setState({existing_ethervote_address: event.target.value});
     }
 
     connect_to_ethervote() {
-        console.log(this.web3);
-}
-deploy_ethervote() {
-    let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
-    tmp_ethervote.new(
-      [this.state.organitzation_name, 3600]
-     ,{
-       from: this.web3.eth.accounts[0],
-       data: ethervote_source.bytecode,
-       gas: 4700000
-    }, function (e, tmp_ethervote){
-        if (typeof (tmp_ethervote.address) !== 'undefined') {
-           Firstlogin.ethervote = tmp_ethervote;
-           console.log('Contract mined! address: ' + tmp_ethervote.address + ' transactionHash: ' + tmp_ethervote.transactionHash);
-         }
-    });
+        this.ethervote = this.web3.eth.contract(ethervote_source.abi);
+        //this.ethervote = new this.web3.eth.Contract(ethervote_source.abi, this.state.existing_ethervote_address);
+        this.ethervote.at('0x01');
+        console.log(this.ethervote.address);
+        //console.log(this.ethervote.address);
+    }
+    deploy_ethervote() {
+        let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
+        tmp_ethervote.new(
+          [this.state.organitzation_name, 3600]
+         ,{
+           from: this.web3.eth.accounts[0],
+           data: ethervote_source.bytecode,
+           gas: 4700000
+       }, (e, tmp_ethervote) => {
+            if (typeof (tmp_ethervote.address) !== 'undefined') {
+               this.ethervote = tmp_ethervote;
+               this.props.getEthervote(tmp_ethervote);
+               console.log('Contract mined! address: ' + tmp_ethervote.address + ' transactionHash: ' + tmp_ethervote.transactionHash);
+             }
+        });
 
-  this.ethervote = tmp_ethervote;
-  console.log(this.ethervote);
-  //Ara fariem el fetch per guardar l'adreça i el bool deployed a true;
+      this.ethervote = tmp_ethervote;
+      console.log(this.ethervote);
+      //Ara fariem el fetch per guardar l'adreça i el bool deployed a true;
 
-    fetch('/connect_ethervote', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            "organitzation_name": this.state.organitzation_name,
-            "ethervote_address": this.ethervote_address,
-            "deployed": 1
+        fetch('/connect_ethervote', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "organitzation_name": this.state.organitzation_name,
+                "ethervote_address": tmp_ethervote.address,
+                "deployed": 1
+            })
         })
-    })
-}
+    }
 
     render() {
 
