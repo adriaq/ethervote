@@ -48,6 +48,10 @@ h3 {
     margin-right: 8%;
 }
 
+.DP {
+    margin-left: 5%;
+}
+
 #dropdown-no-caret{
     color: white;
     background-color: #003852;
@@ -60,6 +64,11 @@ h3 {
 #create-explanation {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
+}
+
+
+.LGI {
+    color: black ;
 }
 
 .logout {

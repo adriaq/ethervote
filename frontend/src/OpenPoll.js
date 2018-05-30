@@ -7,10 +7,13 @@ import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText} from 'reactstrap';
 import './styles/OpenPoll.css';
 import Header from "./components/Header";
-import getPoll from './web3Functions'
+import {getPoll} from './web3Functions';
 
 
-function notify(el) {
+
+
+//FUNCIONS DE PROVA X RECONEIXER L'ELEMENT SELECIONAT
+/*function notify(el) {
     resetElements();
 
     console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
@@ -32,10 +35,13 @@ function findElement(id) {
     var ele = document.getElementsByClassName(id);
     notify(ele);
 }
+*/
+
+
 
 function PollListGroupItem(props) {
     return (
-        <ListGroupItem tag="button">
+        <ListGroupItem tag="button"  >
             <ListGroupItemHeading className="title"> {props.title} </ListGroupItemHeading>
             <ListGroupItemText className="description"> {props.description} </ListGroupItemText>
         </ListGroupItem>
@@ -43,20 +49,58 @@ function PollListGroupItem(props) {
 }
 
 
-class OpenVotation extends Component {
+class OpenPoll extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            options: [{
-                "title": "Prova",
-                "description": "Descripció prova"
-            }, {
-                "title": "Prova 2",
-                "description": "Descripció prova 2"
-            }],
+            Id: '',
+
+            // petit json montat x fer proves
+            candidats: [
+                {
+                    "id":"0",
+                    "name": "example glossary",
+                    "description": "buaaaaaaaaaaaaaaaaaaaaaa",
+                    "num_opcions": "4",
+                    options: [
+                        {
+                            "name": "S",
+                            "description": "meh",
+                            "votes": "3",
+                         },
+                        {
+                            "name": "B",
+                            "description": "meh",
+                            "votes": "3",
+                        },
+                        {
+                            "name": "G",
+                            "description": "meh",
+                            "votes": "3",
+                        } ]
+                },
+            ],
+
+
         };
+
+        //x agafar la id de la openPoll que hem selecionat des de User(que passem via url) i ppder carregar a info que toca
+       const query = window.location.search.substring(1);
+       const vars = query.split("?");
+       this.state.Id = vars[vars.length -1];
+
+        //aquesta carrega la info de la poll que marca la id obtiguda x la url
+       //this.state.candidats = getPoll(this.state.Id);
     }
 
+    vote() {
+        //aqui hauria de mirar quin ListGroupItem esta marcat i selecionarlo.
+        /* estan xl document tres funcions q he fet servir x provr coses
+         idees: jugar amb el "active" de ListGroupItem.
+        * */
+
+
+    }
 
 
     render() {
@@ -68,26 +112,26 @@ class OpenVotation extends Component {
 
                 <div>
 
-                    <p className="text"> Lorem ipsum dolor sit amet consectetur adipiscing elit velit, curabitur euismod tempus placerat magnis bibendum eros
-                        varius cum, purus odio porttitor congue rhoncus viverra diam. Lacus class montes cursus viverra tortor mauris
-                        accumsan fermentum parturient, potenti quisque eget eu metus neque tristique molestie, semper tellus mus integer
-                        imperdiet odio dis commodo. A integer semper natoque proin per praesent neque nam dignissim litora ad, pretium iaculis dis
-                        cubilia erat feugiat phasellus imperdiet ridiculus auctor, rhoncus tincidunt ligula eleifend quam mattis conubia aliquam
-                        scelerisque ante.
-                    </p>
+                    <p className="text">{this.state.candidats.description}</p>
 
                     <Col>
+
                         <ListGroup className="votations">
 
-                            {this.state.options.map( o =>
-                                <PollListGroupItem tag="a" title={o.title} description={o.description}/>)}
-
+                            /*aqui lo ideal seria poder fer un this.state.candidats.options..map
+                            * pero peta. Buscar com ferho, (potser crear un json a part??)*/
+                       {this.state.candidats.map( o =>
+                           <PollListGroupItem tag="a" title={o.name} description={o.description}/>)}
                         </ListGroup>
+
                     </Col>
+
+                    /*nomes serveix de prova x comprovar que la id es passa correctament*/
+                    <p>{this.state.Id}</p>
 
                     <div className="opcions">
                         <Button className="votar" color="success" onClick={this.vote}> VOTE </Button>
-                        <Button className="enrere" color="danger" href="/app"> Back </Button>
+                        <Button className="enrere" color="danger" href="/User"> Back </Button>
                     </div>
                 </div>
 
@@ -97,4 +141,12 @@ class OpenVotation extends Component {
 
 }
 
-export default OpenVotation;
+export default OpenPoll;
+
+
+        /* <ListGroup className="votations">
+
+                           {this.state.candidats.p.map( o =>
+                               <PollListGroupItem tag="a" title={o.name} description={o.description}/>)}
+
+                       </ListGroup>*/

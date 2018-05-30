@@ -37,17 +37,7 @@ class AddUser extends Component {
 
         }
         else {
-           /* fetch('/admin/:publicKey/addVoter', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userPK: this.state.userPK,
-                    privilegeLevel: this.state.privilegeLevel,
-                })
-            });*/
+
             let b = addVoter(this.state.userPK, this.state.privilegeLevel);
 
             alert("User with public key    **  " + this.state.userPK + "  **    has been submitted");

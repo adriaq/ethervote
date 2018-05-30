@@ -6,6 +6,7 @@ import {ListGroupItem} from 'reactstrap';
 import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText, Col} from 'reactstrap';
 import './styles/OpenPoll.css';
+//import {getClosedPolls} from 'web3Functions';
 
 function PollListGroupItem(props) {
     return (
@@ -20,14 +21,12 @@ class VotationResults extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            options: [{
-                "title": "Prova",
-                "description": "Descripció prova"
-            }, {
-                "title": "Prova 2",
-                "description": "Descripció prova 2"
-            }],
+            options: [],
         };
+
+
+        //de moment hi he posat aquesta xq em falten
+        //this.state.options = getClosedPolls();
     }
 
     back = (event) => {
