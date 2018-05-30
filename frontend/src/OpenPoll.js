@@ -38,7 +38,6 @@ function findElement(id) {
 */
 
 
-
 function PollListGroupItem(props) {
     return (
         <ListGroupItem tag="button"  >
@@ -55,14 +54,17 @@ class OpenPoll extends Component {
         this.state = {
             Id: '',
 
+            prova: [{"name": "xavi"}, {"name": "marti"}, {"name": "joan"}],
+
             // petit json montat x fer proves
             candidats: [
                 {
+                    
                     "id":"0",
                     "name": "example glossary",
                     "description": "buaaaaaaaaaaaaaaaaaaaaaa",
                     "num_opcions": "4",
-                    options: [
+                    "options": [
                         {
                             "name": "S",
                             "description": "meh",
@@ -77,7 +79,7 @@ class OpenPoll extends Component {
                             "name": "G",
                             "description": "meh",
                             "votes": "3",
-                        } ]
+                        } ],
                 },
             ],
 
@@ -87,6 +89,7 @@ class OpenPoll extends Component {
         //x agafar la id de la openPoll que hem selecionat des de User(que passem via url) i ppder carregar a info que toca
        const query = window.location.search.substring(1);
        const vars = query.split("?");
+
        this.state.Id = vars[vars.length -1];
 
         //aquesta carrega la info de la poll que marca la id obtiguda x la url
@@ -102,6 +105,22 @@ class OpenPoll extends Component {
 
     }
 
+    //Aquesta funcio seria per agafar el array element options que conté totes les opcions
+    //i escriureu. NO FUNCIONA, no se ven bé xq
+    /*
+    renderItem() {
+        const elements = [];
+        this.state.candidats.map( function(c, i) {
+            elements.push(c.options)
+            console.log(elements); //Aixó ho agafa bé
+            return (
+                { elements.map( function(o, i) {
+                   return <PollListGroupItem key={i} title={o.name} description={o.description}/>;
+                })}
+            );
+        })
+    }
+*/
 
     render() {
 
@@ -114,15 +133,24 @@ class OpenPoll extends Component {
 
                     <p className="text">{this.state.candidats.description}</p>
 
+
+                        /* Solucionat el problema del map*/
+                        /* Pot ser per pillar el this.state.prova.options -> crear function smart contract per agafar només opcions*/
+                        /*Funcio feta -> getPollOptions(id)*/
+                       {this.state.prova.map( function(o, i) {
+                            return <PollListGroupItem key={i} title={o.name} description={o.description}/>;
+                        })}
+
                     <Col>
 
-                        <ListGroup className="votations">
-
-                            /*aqui lo ideal seria poder fer un this.state.candidats.options..map
-                            * pero peta. Buscar com ferho, (potser crear un json a part??)*/
-                       {this.state.candidats.map( o =>
-                           <PollListGroupItem tag="a" title={o.name} description={o.description}/>)}
+                        /*Una altre maneera de printar per pantalla. mes visual?*/
+                       <ListGroup className="votations">
+                                {this.state.candidats.map( function(p, i) {
+                                    return <ListGroupItem key={i}> {p.name} </ListGroupItem>;
+                                })}
                         </ListGroup>
+
+                        {this.renderItem()}
 
                     </Col>
 

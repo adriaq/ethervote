@@ -187,3 +187,18 @@ export const getPoll = async(id) => {
     return JSON.parse(p);
 
 };
+
+export const getPollOptions = async(id) => {
+    let num_opcions = await ethervote.getNumberOfOptions(id);
+    let options = [];
+    for (let j = 1; j <= num_opcions; ++j) {
+        let option_name = await ethervote.getOptionName(id, j);
+        let option_description = await ethervote.getOptionDescription(id, j);
+        let option_votes = await ethervote.getNumberOfVotes(id, j);
+
+        let o = {"name": option_name, "description": option_description, "votes": option_votes};
+        options.push(o);
+    }
+    return JSON.parse(options);
+
+};
