@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import {Button} from 'reactstrap';
 import {ListGroup, Row} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
-import {Glyphicon} from 'react-bootstrap';
 import './styles/User.css';
 import Header from "./components/Header";
-import {getOpenedPolls, getClosedPolls} from "./web3Functions";
+import OpenPoll from "./OpenPoll";
+import PollResults from "./PollResults";
 
 
 class User extends Component {
     constructor(props) {
         super(props);
+        this.ethervote = this.props.ethervote;
+        this.web3 = this.props.web3;
         this.state = {
             votations: [
                     {
@@ -56,8 +59,19 @@ class User extends Component {
             privilegeLevel: '',
         };
 
+        this.goToOpenPoll = this.goToOpenPoll.bind(this);
+        this.goToResults = this.goToResults.bind(this);
+
         //this.state.votations = getOpenedPolls();
         //this.state.closeVotations = getClosedPolls();
+    }
+
+    goToOpenPoll(pollId) {
+        ReactDOM.render(<OpenPoll web3={this.web3} ethervote={this.ethervote} id={pollId}/>, document.getElementById('root'));
+    }
+
+    goToResults(pollId) {
+        ReactDOM.render(<PollResults web3={this.web3} ethervote={this.ethervote} id={pollId}/>, document.getElementById('root'));
     }
 
   /*  componentDidMount() {
@@ -79,7 +93,7 @@ class User extends Component {
 
                         <ListGroup>
                             {this.state.votations.map( p =>
-                                <ListGroupItem className="LGI" tag="a" key={p.name}  href={"/OpenPoll?"+ p.id}>
+                                <ListGroupItem className="LGI" tag="a" key={p.name}>
                                     {p.name}
                                 </ListGroupItem>)}
                         </ListGroup>
@@ -89,7 +103,7 @@ class User extends Component {
                         <h3> RESULTS </h3>
                         {this.state.closeVotations.map( p =>
 
-                            <ListGroupItem tag="a" key={p.name} href={"/User?"+ p.id}>
+                            <ListGroupItem tag="a" key={p.name}>
                                 {p.name}
                             </ListGroupItem>)}
                     </div>
