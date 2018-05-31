@@ -42,7 +42,7 @@ class User extends Component {
 
 
                 {
-                    "id":"3",
+                    "id":"4",
                     "name": "prova 3",
                     "description": "buaaaaaaaaaaaaaaaaaaaaaa",
                     "num_opcions": "4",
@@ -93,7 +93,7 @@ class User extends Component {
 
                         <ListGroup>
                             {this.state.votations.map( p =>
-                                <ListGroupItem className="LGI" tag="a" key={p.name}>
+                                <ListGroupItem className="LGI" tag="a" onClick={(e) => this.goToOpenPoll(p.id, e)} key={p.name}>
                                     {p.name}
                                 </ListGroupItem>)}
                         </ListGroup>

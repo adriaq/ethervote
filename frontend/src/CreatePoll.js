@@ -31,7 +31,6 @@ class CreatePoll extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
-
     handleChange(date) {
         this.setState({
             startDate: date

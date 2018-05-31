@@ -32,9 +32,6 @@ class PollResults extends Component {
         //this.state.options = getClosedPolls();
     }
 
-    back = (event) => {
-        this.props.history.push('/app');
-    };
 
     render() {
         return (
