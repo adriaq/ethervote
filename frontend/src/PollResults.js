@@ -6,7 +6,7 @@ import {ListGroupItem} from 'reactstrap';
 import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText, Col} from 'reactstrap';
 import './styles/OpenPoll.css';
-//import {getClosedPolls} from 'web3Functions';
+
 
 function PollListGroupItem(props) {
     return (
@@ -17,11 +17,14 @@ function PollListGroupItem(props) {
     );
 }
 
-class VotationResults extends Component {
+class PollResults extends Component {
     constructor(props) {
         super(props);
+        this.ethervote = this.props.ethervote;
+        this.web3 = this.props.web3;
         this.state = {
-            options: [],
+            id: this.props.id,
+            options: []
         };
 
 
@@ -55,9 +58,6 @@ class VotationResults extends Component {
 
         );
     }
-
-
-
 }
 
-export default VotationResults;
+export default PollResults;

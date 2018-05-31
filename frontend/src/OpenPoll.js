@@ -7,9 +7,6 @@ import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText} from 'reactstrap';
 import './styles/OpenPoll.css';
 import Header from "./components/Header";
-import {getPoll} from './web3Functions';
-
-
 
 
 //FUNCIONS DE PROVA X RECONEIXER L'ELEMENT SELECIONAT
@@ -60,8 +57,10 @@ function notify(el) {
 class OpenPoll extends Component {
     constructor(props) {
         super(props);
+        this.ethervote = this.props.ethervote;
+        this.web3 = this.props.web3;
         this.state = {
-            Id: '',
+            Id: this.props.id,
             opcionsPoll: [],
 
             prova: [{"name": "xavi"}, {"name": "marti"}, {"name": "joan"}],
@@ -100,9 +99,9 @@ class OpenPoll extends Component {
 
 
         //x agafar la id de la openPoll que hem selecionat des de User(que passem via url) i ppder carregar a info que toca
-       const query = window.location.search.substring(1);
+      /* const query = window.location.search.substring(1);
        const vars = query.split("?");
-       this.state.Id = vars[vars.length -1];
+       this.state.Id = vars[vars.length -1];*/
 
         //aquesta carrega la info de la poll que marca la id obtiguda x la url
        //this.state.candidats = getPoll(this.state.Id);
@@ -114,11 +113,16 @@ class OpenPoll extends Component {
 
 
     vote() {
+        console.log(this.web3);
         //aqui hauria de mirar quin ListGroupItem esta marcat i selecionarlo.
         /* estan xl document tres funcions q he fet servir x provr coses
          idees: jugar amb el "active" de ListGroupItem.
         * */
 
+
+        /*
+            Quan s'hagi fet la votació, render de User
+         */
 
     }
 

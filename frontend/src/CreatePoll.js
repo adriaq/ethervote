@@ -1,24 +1,24 @@
 import React, {Component} from 'react';
 import Header from "./components/Header"
-import {newPoll} from "./web3Functions"
-
 import { Form, Text, TextArea } from 'react-form';
 import './styles/CreatePoll.css';
-
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-
 import 'react-datepicker/dist/react-datepicker.css';
+
 
 export default class CreatePoll extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.ethervote = this.props.ethervote;
+        this.web3 = this.props.web3;
         this.state = {
             startDate: moment(),
             title: "New Poll",
         };
         this.handleChange = this.handleChange.bind(this);
+        this.submitData = this.submitData.bind(this);
     }
 
     handleChange(date) {
@@ -27,6 +27,11 @@ export default class CreatePoll extends Component {
         });
     }
 
+    submitData() {
+        console.log(this.web3);
+        /* enviar poll a blockchain*/
+
+    }
 
     render() {
         return (
@@ -74,7 +79,7 @@ export default class CreatePoll extends Component {
                                <DatePicker class="data-picker" inline selected={this.state.startDate} onChange={this.handleChange}/><br/>
 
                                  <br/>
-                                 <button type="submit" className="mb-4 btn btn-primary submit-button" onClick={this.submitData()}>Submit</button>
+                                 <button type="submit" className="mb-4 btn btn-primary submit-button" onClick={this.submitData}>Submit</button>
                              </form>
                          </div>
                         )}

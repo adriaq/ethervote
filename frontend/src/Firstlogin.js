@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import {Row} from 'reactstrap';
 import {Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/Firstlogin.css';
+import Admin from "./Admin";
+
 const ethervote_source = require('./contracts/ethervote.json')
 const ethervoteimg = require('./img/logo_prueba.png');
+
 
 class Firstlogin extends Component {
     constructor(props) {
@@ -21,12 +25,18 @@ class Firstlogin extends Component {
         this.deploy_ethervote =  this.deploy_ethervote.bind(this);
     }
 
+
     handleNameChange(event) {
-      this.setState({organitzation_name: event.target.value});
+        event.preventDefault();
+        this.setState({organitzation_name: event.target.value});
     }
+
+
     handleAddressChange(event) {
-      this.setState({existing_ethervote_address: event.target.value});
+        event.preventDefault();
+        this.setState({existing_ethervote_address: event.target.value});
     }
+
 
     connect_to_ethervote() {
         this.ethervote = this.web3.eth.contract(ethervote_source.abi);
@@ -34,27 +44,33 @@ class Firstlogin extends Component {
         this.ethervote.at('0x01');
         console.log(this.ethervote.address);
         //console.log(this.ethervote.address);
+
+        ReactDOM.render(<Admin web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
     }
+
+
     deploy_ethervote() {
+        console.log(this.web3);
         let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
-        tmp_ethervote.new(
-          [this.state.organitzation_name, 3600]
-         ,{
-           from: this.web3.eth.accounts[0],
-           data: ethervote_source.bytecode,
-           gas: 4700000
-       }, (e, tmp_ethervote) => {
-            if (typeof (tmp_ethervote.address) !== 'undefined') {
-               this.ethervote = tmp_ethervote;
-               this.props.getEthervote(tmp_ethervote);
-               console.log('Contract mined! address: ' + tmp_ethervote.address + ' transactionHash: ' + tmp_ethervote.transactionHash);
-             }
-        });
+      /*  tmp_ethervote.new(
+            [this.state.organitzation_name, 3600]
+            ,{
+                from: this.web3.eth.accounts[0],
+                data: ethervote_source.bytecode,
+                gas: 4700000
+            }, (e, tmp_ethervote) => {
+                if (typeof (tmp_ethervote.address) !== 'undefined') {
+                    this.ethervote = tmp_ethervote;
+                    this.props.getEthervote(tmp_ethervote);
+                    console.log('Contract mined! address: ' + tmp_ethervote.address + ' transactionHash: ' + tmp_ethervote.transactionHash);
+                }
+            }
+        );*/
 
-      this.ethervote = tmp_ethervote;
-      console.log(this.ethervote);
-      //Ara fariem el fetch per guardar l'adreça i el bool deployed a true;
+        this.ethervote = tmp_ethervote;
+        console.log(this.ethervote);
 
+        //Ara fariem el fetch per guardar l'adreça i el bool deployed a true;
         fetch('/connect_ethervote', {
             method: 'POST',
             headers: {
@@ -64,15 +80,16 @@ class Firstlogin extends Component {
             body: JSON.stringify({
                 "organitzation_name": this.state.organitzation_name,
                 "ethervote_address": tmp_ethervote.address,
-                "deployed": 1
+                "deployed": true
             })
-        })
+        });
+
+        ReactDOM.render(<Admin web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
     }
 
+
     render() {
-
         return (
-
             <div className="global">
                 <div>
                     <div>
@@ -99,14 +116,15 @@ class Firstlogin extends Component {
                                         <input type="text" className="form-control" value={this.state.value} onChange={this.handleAddressChange} placeholder="Organization's public address"/>
                                     </div>
                                 </div>
-                                <Button className="btn btn-primary connect-btn" color="primary" onClick={this.connect_to_ethervote} > Connect </Button>
+                                    <Button className="btn btn-primary connect-btn" color="primary" onClick={this.connect_to_ethervote}>
+                                        Connect
+                                    </Button>
                             </form>
                         </div>
                     </Row>
                 </div>
             </div>
         );
-
     }
 }
 
