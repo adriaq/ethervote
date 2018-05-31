@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {Button} from 'reactstrap';
 import {ListGroup, Row} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
-import {Glyphicon} from 'react-bootstrap';
+//import {Glyphicon} from 'react-bootstrap';
 import './styles/User.css';
 import Header from "./components/Header";
-import {getOpenedPolls, getClosedPolls} from "./web3Functions"
+//import {getOpenedPolls, getClosedPolls} from "./web3Functions"
 
 
 class User extends Component {

@@ -17,22 +17,22 @@ export default class Header extends Component{
 
 
               <div className="hola">
-                  <ul class="nav .justify-content-end">
+                  <ul className="nav .justify-content-end">
 
-                      <li class="nav-item">
-                          <a class="nav-link" color="white" href="/">Home <span class="sr-only">(current)</span></a>
+                      <li className="nav-item">
+                          <a className="nav-link" color="white" href="/">Home <span className="sr-only">(current)</span></a>
                       </li>
 
-                      <li class="nav-item">
-                          <a class="nav-link" href="/logout">Log out</a>
+                      <li className="nav-item">
+                          <a className="nav-link" href="/logout">Log out</a>
                       </li>
 
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" >Help</a>
-                          <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
+                      <li className="nav-item dropdown">
+                          <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" >Help</a>
+                          <div className="dropdown-menu">
+                              <a className="dropdown-item" href="#">Action</a>
+                              <a className="dropdown-item" href="#">Another action</a>
+                              <a className="dropdown-item" href="#">Something else here</a>
                           </div>
                       </li>
 
@@ -51,7 +51,7 @@ export default class Header extends Component{
   }
 }
 /*  <ButtonToolbar>
-                          <DropdownButton title="Help" pullRight id="dropdown-no-caret" class="nav-item">
+                          <DropdownButton title="Help" pullRight id="dropdown-no-caret" className="nav-item">
                               <MenuItem eventKey="1">
                                   <p> You can see a list of the polls you have access to vote in the
                                       <br/> <i> Open polls </i> division </p>

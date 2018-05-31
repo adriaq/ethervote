@@ -48,7 +48,7 @@ class AddUser extends Component {
                     privilegeLevel: this.state.privilegeLevel,
                 })
             });*/
-            let b = addVoter(this.state.userPK, this.state.privilegeLevel);
+            //let b = addVoter(this.state.userPK, this.state.privilegeLevel);
 
             alert("User with public key    **  " + this.state.userPK + "  **    has been submitted");
         }
