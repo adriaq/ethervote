@@ -26,7 +26,19 @@ const color = {
 const Root = () => {
     return (
         <BrowserRouter>
-        <Ethervote />
+            <Switch>
+                <Route path="/openPoll" component={OpenPolls}/>
+                <Route path="/user" component={User}/>
+                <Route path="/user2" component={User2}/>
+                <Route path="/pollsResult" component={PollsResult}/>
+                <Route path="/admin" component={Admin}/>
+                <Route path="/createPoll" component={CreatePoll}/>
+                <Route path="/addUser" component={AddUser}/>
+                <Route path="/logout" component={Logout}/>
+                <Route path="/main" component={Ethervote}/>
+                <Route path="/Firstlogin" component={Firstlogin}/>
+                <Route path="/" component={Ethervote}/>
+            </Switch>
         </BrowserRouter>
     )
 };

@@ -1,24 +1,80 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import {Button} from 'reactstrap';
 import {ListGroup, Row} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
-//import {Glyphicon} from 'react-bootstrap';
 import './styles/User.css';
 import Header from "./components/Header";
-//import {getOpenedPolls, getClosedPolls} from "./web3Functions"
+import OpenPoll from "./OpenPoll";
+import PollResults from "./PollResults";
 
 
 class User extends Component {
     constructor(props) {
         super(props);
+        this.ethervote = this.props.ethervote;
+        this.web3 = this.props.web3;
         this.state = {
-            votations: [],
+            votations: [
+                    {
+                        "id":"0",
+                        "name": "example glossary",
+                        "description": "buaaaaaaaaaaaaaaaaaaaaaa",
+                        "num_opcions": "4",
+                        "options": {
+                            "name": "S",
+                            "description": "meh",
+                            "votes": "3",
+                        }
+                    },
+
+                    {
+                        "id":"1",
+                        "name": "prova2",
+                        "description": "buaaaaaaaaaaaaaaaaaaaaaa",
+                        "num_opcions": "4",
+                        "options": {
+                            "name": "S",
+                            "description": "meh",
+                            "votes": "3",
+                        }
+                    },
+
+
+                {
+                    "id":"3",
+                    "name": "prova 3",
+                    "description": "buaaaaaaaaaaaaaaaaaaaaaa",
+                    "num_opcions": "4",
+                    "options": {
+                        "name": "S",
+                        "description": "meh",
+                        "votes": "3",
+                    }
+                }
+
+
+            ],
             closeVotations: [],
             privilegeLevel: '',
         };
+
+        this.goToOpenPoll = this.goToOpenPoll.bind(this);
+        this.goToResults = this.goToResults.bind(this);
+
+        //this.state.votations = getOpenedPolls();
+        //this.state.closeVotations = getClosedPolls();
     }
 
-    /* componentDidMount() {
+    goToOpenPoll(pollId) {
+        ReactDOM.render(<OpenPoll web3={this.web3} ethervote={this.ethervote} id={pollId}/>, document.getElementById('root'));
+    }
+
+    goToResults(pollId) {
+        ReactDOM.render(<PollResults web3={this.web3} ethervote={this.ethervote} id={pollId}/>, document.getElementById('root'));
+    }
+
+  /*  componentDidMount() {
         this.state.votations = getOpenedPolls();
         this.state.closeVotations = getClosedPolls();
     }*/
@@ -26,38 +82,36 @@ class User extends Component {
     render() {
 
         return (
-            <div>
+
+            <div >
                 <Header/>
 
-                <Row>
+                <Row  className="DP">
                     <div className="col-lg-6">
 
                         <h3> OPEN POLLS </h3>
 
                         <ListGroup>
-                            <ListGroupItem> Grups FESTAFIB </ListGroupItem>
-                            <ListGroupItem> Nom del meu gos </ListGroupItem>
-                            <ListGroupItem> Antibiòtics més populars </ListGroupItem>
-                            <ListGroupItem> Aprovarem PTI? </ListGroupItem>
+                            {this.state.votations.map( p =>
+                                <ListGroupItem className="LGI" tag="a" key={p.name}>
+                                    {p.name}
+                                </ListGroupItem>)}
                         </ListGroup>
                     </div>
 
                     <div className="col-lg-6">
                         <h3> RESULTS </h3>
-                        <ListGroup>
-                            <ListGroup>
-                                <ListGroupItem> Canvi de material de la sala 238 </ListGroupItem>
-                                <ListGroupItem> Activitats per nadal </ListGroupItem>
-                                <ListGroupItem> Excursions fi de curs </ListGroupItem>
-                            </ListGroup>
-                        </ListGroup>
-                    </div>
+                        {this.state.closeVotations.map( p =>
 
+                            <ListGroupItem tag="a" key={p.name}>
+                                {p.name}
+                            </ListGroupItem>)}
+                    </div>
                 </Row>
+
                 <div>
                     <Button color="danger" className="back" href="/admin" > Back </Button>
                 </div>
-
             </div>
         );
     }

@@ -11,51 +11,46 @@ import {addVoter} from "./web3Functions"
 class AddUser extends Component {
     constructor(props) {
         super(props);
+        this.ethervote = this.props.ethervote;
+        this.web3 = this.props.web3;
         this.state = {
             userPK: '',
             privilegeLevel: '1',
         };
+        this.updateInputValueUser = this.updateInputValueUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.submitbtn = this.submitbtn.bind(this);
     }
 
-    updateInputValueUser(evt) {
+    updateInputValueUser(event) {
+        event.preventDefault();
         this.setState({
-            userPK: evt.target.value
+            userPK: event.target.value
         });
     }
 
     handleChange(event) {
+        event.preventDefault();
         this.setState({privilegeLevel: event.target.value});
     }
 
 
     submitbtn() {
-
+        console.log(this.web3);
         if (this.state.userPK === '') {
             alert ("You must enter a public key before submit");
 
         }
         else {
-           /* fetch('/admin/:publicKey/addVoter', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userPK: this.state.userPK,
-                    privilegeLevel: this.state.privilegeLevel,
-                })
-            });*/
-            //let b = addVoter(this.state.userPK, this.state.privilegeLevel);
+
+            let b = addVoter(this.state.userPK, this.state.privilegeLevel);
 
             alert("User with public key    **  " + this.state.userPK + "  **    has been submitted");
         }
     }
 
 
-render() {
+    render() {
 
         return(
             <div>
@@ -76,8 +71,6 @@ render() {
                                 <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}
                                 />
 
-
-
                                 <div className="col-lg-8">
                                     <p> PRIVILEGE LEVEL: </p>
 
@@ -86,21 +79,12 @@ render() {
                                         <option>2</option>
 
                                     </select>
-
                                 </div>
 
-
-                                    <div className="ei">
-                                        <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Submit</Button>
-                                    </div>
-
-
-
-
+                                <div className="ei">
+                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Submit</Button>
+                                </div>
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>

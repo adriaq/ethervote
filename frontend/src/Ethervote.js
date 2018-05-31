@@ -18,7 +18,15 @@ import ReactLoading from "react-loading";
 const ethervoteimg = require('./img/logo.png');
 const loading = require('./img/loading.gif');
 
+/*
+fetch('/is_deployed')
+            .then(res => {
+                return res.json();
+            }).then(data => {
+                console.log(data);
+        });
 
+ */
 
 
 class Ethervote extends Component {

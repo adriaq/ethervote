@@ -15,7 +15,7 @@ const resolveWeb3 = (resolve) => {
     }
 
     resolve(web3)
-}
+};
 
 export default () =>
     new Promise((resolve) => {

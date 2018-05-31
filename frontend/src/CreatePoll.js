@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Header from "./components/Header"
-import {newPoll} from "./web3Functions"
+import {newPoll, addOptionToPoll} from "./web3Functions"
 
 import { Form, Text, TextArea } from 'react-form';
 import './styles/CreatePoll.css';
@@ -16,9 +16,12 @@ export default class CreatePoll extends Component {
         super();
         this.state = {
             startDate: moment(),
+            selectedDate : '',
             title: "New Poll",
         };
+
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(date) {
@@ -27,6 +30,23 @@ export default class CreatePoll extends Component {
         });
     }
 
+    handleSubmit(submittedValues){
+      {console.log(JSON.stringify(submittedValues, null, 2))}
+      var x;
+      var formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues
+
+      /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
+      var date     = this.state.startDate.format().slice(0,10)
+      var pollID   = newPoll(formData.name, formData.description, date)
+
+      /* Per cada opció afegir-la al smart contract*/
+      var options   = formData.options
+      for (x in options) {
+        {console.log(options[x])}
+        addOptionToPoll(pollID, options[x], "description")
+      }
+
+    }
 
     render() {
         return (
@@ -37,12 +57,12 @@ export default class CreatePoll extends Component {
                     <h1>Create a new Poll</h1>
                     <h4>Here you can create a new poll that will be sent to the blockchain.</h4>
 
-                    <Form onSubmit={submittedValues => this.setState( { submittedValues } )}>
+                    <Form onSubmit={submittedValues => this.handleSubmit( { submittedValues } )}>
                         { formApi => (
                         <div>
                              <form onSubmit={formApi.submitForm} id="dynamic-form">
                                  <label htmlFor="dynamic-first">Name</label><br/>
-                                 <Text field="firstName" id="dynamic-first" /><br/><br/>
+                                 <Text field="name" id="dynamic-first" /><br/><br/>
 
                                  <label htmlFor="description">Description</label><br/>
                                  <TextArea field="description" id="description" /><br/>
@@ -58,23 +78,18 @@ export default class CreatePoll extends Component {
                                          <label htmlFor={`option-name-${i}`}>Option #{i}</label><br/>
                                          <Text className="options" field={['options', i]} id={`option-name-${i}`} /><br/>
                                          <label>Option description </label><br/>
-                                         <Text className="option-description" field={['options-des', i]} id={`option-description-${i}`} /><br/>
+                                         <Text className="option-description" field={['slogans', i]} id={`option-description-${i}`} /><br/>
                                          <button
-                                            onClick={() => {formApi.removeValue('options', i); formApi.removeValue('options-des', i);}}
-
-
+                                            onClick={() => {formApi.removeValue('options', i); formApi.removeValue('slogans', i);}}
                                             type="button"
-                                            className="mb-4 btn btn-danger remove-btn">Remove</button>
+                                            className="mb-4 btn btn-danger remove-btn">Remove</button><br/>
                                      </div>
                                  ))}
 
-                                 <br/>
-
                                <label htmlFor="description">Finish date</label><br/>
-                               <DatePicker class="data-picker" inline selected={this.state.startDate} onChange={this.handleChange}/><br/>
+                               <DatePicker class="data-picker" inline selected={this.state.startDate} onChange={this.handleChange}/><br/><br/>
 
-                                 <br/>
-                                 <button type="submit" className="mb-4 btn btn-primary submit-button" onClick={this.submitData()}>Submit</button>
+                              <button type="submit" className="mb-4 btn btn-primary submit-button">Submit</button>
                              </form>
                          </div>
                         )}
