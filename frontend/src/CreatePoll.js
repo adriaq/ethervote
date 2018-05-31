@@ -42,8 +42,6 @@ class CreatePoll extends Component {
         console.log(JSON.stringify(submittedValues, null, 2));
         let x;
         let formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
-        var x;
-        var formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
 
         /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
         let date     = this.state.startDate.format().slice(0,10);
@@ -55,20 +53,12 @@ class CreatePoll extends Component {
         let options   = formData.options;
         for (x in options) {
             console.log(options[x]);
-            let a = this.ethervote.addOptionToPoll(pollID, options[x], "description");
-            if (!a) alert("Error adding option to poll");
+          //  let a = this.ethervote.addOptionToPoll(pollID, options[x], "description");
+            // TODO: S'Ha de fer asíncrona
+           // if (!a) alert("Error adding option to poll");
         }
 
-        alert("New poll " + formData.name +  "created successfully :)")
-
-      /* Per cada opció afegir-la al smart contract*/
-      var options   = formData.options
-      for (x in options) {
-        addOptionToPoll(pollID, options[x], "description")
-      }
-
-      this.setState({redirect : true})
-
+        alert("New poll " + formData.name +  "created successfully :)");
     }
 
 
