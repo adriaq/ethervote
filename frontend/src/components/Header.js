@@ -51,7 +51,7 @@ export default class Header extends Component{
   }
 }
 /*  <ButtonToolbar>
-                          <DropdownButton title="Help" pullRight id="dropdown-no-caret" class="nav-item">
+                          <DropdownButton title="Help" pullRight id="dropdown-no-caret" className="nav-item">
                               <MenuItem eventKey="1">
                                   <p> You can see a list of the polls you have access to vote in the
                                       <br/> <i> Open polls </i> division </p>

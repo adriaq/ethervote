@@ -8,6 +8,7 @@ import ethervote_source from './contracts/ethervote.json'
 import User from './User';
 //import User2 from './User2';
 import Firstlogin from './Firstlogin';
+import ReactLoading from "react-loading";
 //import Admin from './Admin';
 
 //const ethervote_source = require('./contracts/ethervote.json');
@@ -15,52 +16,88 @@ import Firstlogin from './Firstlogin';
 //const ethervote_bin = require('./contracts/ethervote.bin');
 
 const ethervoteimg = require('./img/logo.png');
+const loading = require('./img/loading.gif');
+
+/*
+fetch('/is_deployed')
+            .then(res => {
+                return res.json();
+            }).then(data => {
+                console.log(data);
+        });
+
+ */
 
 
 class Ethervote extends Component {
-    constructor(props) {
-        super(props);
-        var web3;
-        if(typeof web3 !== 'undefined'){
-            console.log("Using web3 detected from external source like Metamask");
-            this.web3 = new Web3(web3.currentProvider);
-        }
-        else{
-            this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
-        }
-        //this.ethervote_address = '';
-        //this.organitzation_name= '';
-        this.ethervote = null;
-        this.state = {
-            ethervote_address: '',
-            organitzation_name: '',
-            deployed: false,
-        };
-        this.connect_to_ethervote =  this.connect_to_ethervote.bind(this);
-    }
-
-    connect_to_ethervote() {
-        console.log(Ethervote.ethervote_address);
-        let ethervote_contract = this.web3.eth.contract(ethervote_source.abi);
-        Ethervote.ethervote = ethervote_contract.at(Ethervote.ethervote_address);
-        console.log(this.ethervote.address);
-    }
-
-
-    getEthervote = (ethervote_firstlogin) => {
-        Ethervote.ethervote = ethervote_firstlogin;
-        console.log("CALLBACK FUNCIONA");
-        console.log(Ethervote.ethervote);
+  constructor(props) {
+    super(props);
+    var web3;
+    if(typeof web3 !== 'undefined'){
+      console.log("Using web3 detected from external source like Metamask")
+      this.web3 = new Web3(web3.currentProvider)
+   }else{
+      this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
+   }
+   //this.ethervote_address = '';
+   //this.organitzation_name= '';
+   this.ethervote = null;
+    this.state = {
+        user_type : null,
+        ethervote_address: '',
+        organitzation_name: '',
+        deployed: null,
     };
+  }
+  async componentDidMount() {
+      
+      fetch('/is_deployed')
+        .then(res => res.json())
+        .then(async (deployed_status) => {
+            if(deployed_status.deployed === false) {
+                await this.setState({ deployed: false });
 
-    render() {
-        if (this.state.deployed) {
-            return <User web3={this.web3} ethervote={this.ethervote}/>
+            } else {
+                await this.setState({ deployed: deployed_status.deployed });
+                this.setState({ ethervote_address: deployed_status.ethervote_address });
+                this.setState({ deployed: deployed_status.organitzation_name });
+            }
         }
-        else {
-            return <Firstlogin web3={this.web3} getEthervote={this.getEthervote}/>
-        }
+        );
+
+/*
+      fetch('/is_deployed', {
+          method: 'GET',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              "organitzation_name": this.state.organitzation_name,
+              "ethervote_address": tmp_ethervote.address,
+              "deployed": 1
+          })
+      })*/
+  }
+  getEthervote = (ethervote_firstlogin) => {
+      Ethervote.ethervote = ethervote_firstlogin;
+      this.setState({ deployed: true });
+      console.log("CALLBACK FUNCIONA")
+      console.log(Ethervote.ethervote);
+      this.forceUpdate()
     }
+
+
+        render() {
+            if(this.state.deployed === null) return (<div><img className="loading" src={loading} alt="loading"/></div>);
+            if (this.state.deployed) {
+                return <User web3={this.web3} ethervote={this.ethervote}/>
+            } else {
+                return <Firstlogin web3={this.web3} getEthervote={this.getEthervote}/>
+            }
+        }
+
+
 }
 
 export default Ethervote;
