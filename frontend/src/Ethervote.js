@@ -16,6 +16,16 @@ import Firstlogin from './Firstlogin';
 
 const ethervoteimg = require('./img/logo.png');
 
+/*
+fetch('/is_deployed')
+            .then(res => {
+                return res.json();
+            }).then(data => {
+                console.log(data);
+        });
+
+ */
+
 
 class Ethervote extends Component {
     constructor(props) {
