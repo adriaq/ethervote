@@ -56,7 +56,7 @@ class OpenPoll extends Component {
                     
                     "id":"0",
                     "name": "example glossary",
-                    "description": "buaaaaaaaaaaaaaaaaaaaaaa",
+                    "description": "Descripcio de el que votarem a continuacio",
                     "num_opcions": "4",
                     options: [
                         {
@@ -110,7 +110,7 @@ class OpenPoll extends Component {
             });
     }
 
-
+    //ganache-cli -d
     getValue = (selected_value) => {
         console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         console.log(selected_value);
@@ -129,7 +129,7 @@ class OpenPoll extends Component {
 
                 <div>
 
-                    <p className="text">{this.state.candidats.description}</p>
+                    <p className="text"> {this.state.candidats.map(o => o.description)}</p>
 
                     <Col>
                        <ListGroup className="votations">
@@ -139,7 +139,6 @@ class OpenPoll extends Component {
 
                     </Col>
 
-                    /*nomes serveix de prova x comprovar que la id es passa correctament*/
                     <div className="opcions">
                         <Button className="votar" color="success" onClick={this.vote}> VOTE </Button>
                         <Button className="enrere" color="danger" href="/User"> Back </Button>
