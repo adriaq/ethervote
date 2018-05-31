@@ -43,17 +43,27 @@ class Ethervote extends Component {
    //this.organitzation_name= '';
    this.ethervote = null;
     this.state = {
+        user_type : null,
         ethervote_address: '',
         organitzation_name: '',
         deployed: null,
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
       //fetch("/is_deployed" + 'GET').then(response => response.json()).then(data => )console.log("hey");
 
-      fetch('http://localhost:4000/is_deployed')
+      fetch('/is_deployed')
         .then(res => res.json())
-        .then(deployed_status => this.setState({ deployed: deployed_status })
+        .then(async (deployed_status) => {
+            if(deployed_status.deployed === false) {
+                await this.setState({ deployed: false });
+
+            } else {
+                await this.setState({ deployed: deployed_status.deployed });
+                this.setState({ ethervote_address: deployed_status.ethervote_address });
+                this.setState({ deployed: deployed_status.organitzation_name });
+            }
+        }
         );
 
 /*
