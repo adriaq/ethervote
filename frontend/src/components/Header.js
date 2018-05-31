@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {ButtonToolbar, DropdownButton, MenuItem} from 'react-bootstrap';
 import '../styles/Header.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,9 +10,9 @@ export default class Header extends Component{
       <div>
           <nav className="navbar navbar-expand-lg custom-navbar">
 
-                  <div className="navbar-header">
-                      <p className="navbar-brand">Ethervote </p>
-                  </div>
+              <div className="navbar-header">
+                  <p className="navbar-brand">Ethervote </p>
+              </div>
 
 
               <div className="hola">
@@ -35,23 +34,16 @@ export default class Header extends Component{
                               <a className="dropdown-item" href="#">Something else here</a>
                           </div>
                       </li>
-
                   </ul>
               </div>
-
-
           </nav>
-
-
-
-
       </div>
 
       );
   }
 }
 /*  <ButtonToolbar>
-                          <DropdownButton title="Help" pullRight id="dropdown-no-caret" class="nav-item">
+                          <DropdownButton title="Help" pullRight id="dropdown-no-caret" className="nav-item">
                               <MenuItem eventKey="1">
                                   <p> You can see a list of the polls you have access to vote in the
                                       <br/> <i> Open polls </i> division </p>

@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
 import Header from "./components/Header"
+import {newPoll, addOptionToPoll} from "./web3Functions"
+import {Button} from 'reactstrap';
+import swal from 'sweetalert';
+import User from './User';
+import { Redirect } from 'react-router';
+
 import { Form, Text, TextArea } from 'react-form';
 import './styles/CreatePoll.css';
 import DatePicker from 'react-datepicker';
@@ -17,6 +23,8 @@ class CreatePoll extends Component {
             startDate: moment(),
             selectedDate : '',
             title: "New Poll",
+            redirect : false,
+            error : false,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -30,9 +38,12 @@ class CreatePoll extends Component {
     }
 
     handleSubmit(submittedValues){
+
         console.log(JSON.stringify(submittedValues, null, 2));
         let x;
         let formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
+        var x;
+        var formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
 
         /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
         let date     = this.state.startDate.format().slice(0,10);
@@ -49,10 +60,33 @@ class CreatePoll extends Component {
         }
 
         alert("New poll " + formData.name +  "created successfully :)")
+
+      /* Per cada opció afegir-la al smart contract*/
+      var options   = formData.options
+      for (x in options) {
+        addOptionToPoll(pollID, options[x], "description")
+      }
+
+      this.setState({redirect : true})
+
     }
 
 
     render() {
+        if (this.state.redirect) {
+            swal({
+                title: "Good job!",
+                text: "Your poll has been submitted!",
+                icon: "success",
+                button: "Ok!",
+                timer: 3000,
+            })
+        }
+
+        if (this.state.error){
+            swal ( "Oops" ,  "Something went wrong!" ,  "error" )
+        }
+
         return (
             <div>
                 <Header title={this.state.title}/>
@@ -75,7 +109,6 @@ class CreatePoll extends Component {
                                     onClick={() => formApi.addValue('options', '')}
                                     type="button"
                                     className="mb-4 mr-4 btn btn-success">Add Option</button><br/>
-
 
                                  { formApi.values.options && formApi.values.options.map( ( option, i ) => (
                                      <div key={`option${i}`}>
