@@ -4,8 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/AddUser.css'
 import img_user from './img/add-user-2-128.gif';
 import Header from "./components/Header";
-import {addVoter} from "./web3Functions"
-
 
 
 class AddUser extends Component {
@@ -36,16 +34,20 @@ class AddUser extends Component {
 
 
     submitbtn() {
-        console.log(this.web3);
+        console.log(this.ethervote);
         if (this.state.userPK === '') {
             alert ("You must enter a public key before submit");
 
         }
         else {
-
-            let b = addVoter(this.state.userPK, this.state.privilegeLevel);
-
-            alert("User with public key    **  " + this.state.userPK + "  **    has been submitted");
+            this.ethervote.addVoter(this.state.userPK, this.state.privilegeLevel, function (error, result) {
+                if(!error) {
+                    alert("User with public key    **  " + this.state.userPK + "  **    has been submitted");
+                }
+                else {
+                    alert("Error adding voter");
+                }
+            });
         }
     }
 

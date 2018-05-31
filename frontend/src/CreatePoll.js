@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
 import Header from "./components/Header"
-import {newPoll, addOptionToPoll} from "./web3Functions"
-
 import { Form, Text, TextArea } from 'react-form';
 import './styles/CreatePoll.css';
-
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default class CreatePoll extends Component {
 
-    constructor() {
-        super();
+class CreatePoll extends Component {
+
+    constructor(props) {
+        super(props);
+        this.ethervote = this.props.ethervote;
+        this.web3 = this.props.web3;
         this.state = {
             startDate: moment(),
             selectedDate : '',
@@ -31,22 +30,27 @@ export default class CreatePoll extends Component {
     }
 
     handleSubmit(submittedValues){
-      {console.log(JSON.stringify(submittedValues, null, 2))}
-      var x;
-      var formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues
+        console.log(JSON.stringify(submittedValues, null, 2));
+        let x;
+        let formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
 
-      /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
-      var date     = this.state.startDate.format().slice(0,10)
-      var pollID   = newPoll(formData.name, formData.description, date)
+        /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
+        let date     = this.state.startDate.format().slice(0,10);
+        let pollID   = this.ethervote.newPoll(formData.name, formData.description, date);
 
-      /* Per cada opció afegir-la al smart contract*/
-      var options   = formData.options
-      for (x in options) {
-        {console.log(options[x])}
-        addOptionToPoll(pollID, options[x], "description")
-      }
+        if (!pollID) alert("Error creating new poll");
 
+        /* Per cada opció afegir-la al smart contract*/
+        let options   = formData.options;
+        for (x in options) {
+            console.log(options[x]);
+            let a = this.ethervote.addOptionToPoll(pollID, options[x], "description");
+            if (!a) alert("Error adding option to poll");
+        }
+
+        alert("New poll " + formData.name +  "created successfully :)")
     }
+
 
     render() {
         return (
@@ -99,3 +103,5 @@ export default class CreatePoll extends Component {
         );
     }
 }
+
+export default CreatePoll;
