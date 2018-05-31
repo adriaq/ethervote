@@ -50,8 +50,7 @@ class Ethervote extends Component {
     };
   }
   async componentDidMount() {
-      //fetch("/is_deployed" + 'GET').then(response => response.json()).then(data => )console.log("hey");
-
+      
       fetch('/is_deployed')
         .then(res => res.json())
         .then(async (deployed_status) => {
