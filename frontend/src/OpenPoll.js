@@ -53,6 +53,7 @@ class OpenPoll extends Component {
         super(props);
         this.state = {
             Id: '',
+            opcionsPoll: [],
 
             prova: [{"name": "xavi"}, {"name": "marti"}, {"name": "joan"}],
 
@@ -64,20 +65,20 @@ class OpenPoll extends Component {
                     "name": "example glossary",
                     "description": "buaaaaaaaaaaaaaaaaaaaaaa",
                     "num_opcions": "4",
-                    "options": [
+                    options: [
                         {
-                            "name": "S",
-                            "description": "meh",
+                            "name": "M. Rajoy",
+                            "description": "Luis se fuerte",
                             "votes": "3",
                          },
                         {
-                            "name": "B",
-                            "description": "meh",
+                            "name": "G. Rufian",
+                            "description": "Soc una mica demagog",
                             "votes": "3",
                         },
                         {
-                            "name": "G",
-                            "description": "meh",
+                            "name": "A. Rivera",
+                            "description": "Ibex 35",
                             "votes": "3",
                         } ],
                 },
@@ -86,15 +87,22 @@ class OpenPoll extends Component {
 
         };
 
+
+
+
         //x agafar la id de la openPoll que hem selecionat des de User(que passem via url) i ppder carregar a info que toca
        const query = window.location.search.substring(1);
        const vars = query.split("?");
-
        this.state.Id = vars[vars.length -1];
 
         //aquesta carrega la info de la poll que marca la id obtiguda x la url
        //this.state.candidats = getPoll(this.state.Id);
+
+        this.state.candidats.map( o => {this.state.opcionsPoll = o.options });
     }
+
+
+
 
     vote() {
         //aqui hauria de mirar quin ListGroupItem esta marcat i selecionarlo.
@@ -133,24 +141,11 @@ class OpenPoll extends Component {
 
                     <p className="text">{this.state.candidats.description}</p>
 
-
-                        /* Solucionat el problema del map*/
-                        /* Pot ser per pillar el this.state.prova.options -> crear function smart contract per agafar només opcions*/
-                        /*Funcio feta -> getPollOptions(id)*/
-                       {this.state.prova.map( function(o, i) {
-                            return <PollListGroupItem key={i} title={o.name} description={o.description}/>;
-                        })}
-
                     <Col>
-
-                        /*Una altre maneera de printar per pantalla. mes visual?*/
                        <ListGroup className="votations">
-                                {this.state.candidats.map( function(p, i) {
-                                    return <ListGroupItem key={i}> {p.name} </ListGroupItem>;
-                                })}
-                        </ListGroup>
-
-                        {this.renderItem()}
+                           {this.state.opcionsPoll.map( o =>
+                               <PollListGroupItem tag="a" title={o.name} description={o.description}/>)}
+                       </ListGroup>
 
                     </Col>
 
@@ -178,3 +173,12 @@ export default OpenPoll;
                                <PollListGroupItem tag="a" title={o.name} description={o.description}/>)}
 
                        </ListGroup>*/
+
+
+
+/* Solucionat el problema del map*/
+/* Pot ser per pillar el this.state.prova.options -> crear function smart contract per agafar només opcions*/
+/*Funcio feta -> getPollOptions(id)*/
+/*{this.state.prova.map( function(o, i) {
+     return <PollListGroupItem key={i} title={o.name} description={o.description}/>;
+ })}*/

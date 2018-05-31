@@ -78,10 +78,11 @@ export const vote = async(key, id, option) => {
  * PRE: L'administrador ha emplenat el form (json) amb les opcions de la votació
  * POST: S'ha creat una nova votació amb l'smart contract instanciat
  */
-export const newPoll = async(name, description) => {
+export const newPoll = async(name, description, date) => {
     let p1 = await ethervote.getNumberOfProposals();
     await ethervote.newProposal(name, description);
     let p2 = await ethervote.getNumberOfProposals();
+    //parlar de date aquesta tarda
 
     return (p1+1 === p2);
 };
