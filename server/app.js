@@ -47,7 +47,8 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 ===========================*/
 
 app.post('/connect_ethervote', function(req, res) {
-    fs.writeFile(__dirname+"/smartContractData.json", JSON.stringify(req.params.body), "utf8", function(error){
+    console.log(req.body);
+    fs.writeFile(__dirname+"/smartContractData.json", JSON.stringify(req.body), "utf8", function(error){
        if (error) res.status(500).json(error);
        else res.status(200).send("Data written in file");
     });
