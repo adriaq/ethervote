@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Header from "./components/Header"
 import {newPoll, addOptionToPoll} from "./web3Functions"
+import {Button} from 'reactstrap';
+import swal from 'sweetalert';
 
 import { Form, Text, TextArea } from 'react-form';
 import './styles/CreatePoll.css';
@@ -18,6 +20,7 @@ export default class CreatePoll extends Component {
             startDate: moment(),
             selectedDate : '',
             title: "New Poll",
+            redirect : false,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -41,14 +44,26 @@ export default class CreatePoll extends Component {
 
       /* Per cada opció afegir-la al smart contract*/
       var options   = formData.options
+      var slogans   = formData.slogans
       for (x in options) {
-        {console.log(options[x])}
-        addOptionToPoll(pollID, options[x], "description")
+        addOptionToPoll(pollID, options[x], slogans[x])
       }
+
+      this.setState({redirect : true})
 
     }
 
     render() {
+
+      if (this.state.redirect === true) {
+        swal({
+          title: "Good job!",
+          text: "Your poll has been submitted!",
+          icon: "success",
+          button: "Ok!",
+        })
+      }
+
         return (
             <div>
                 <Header title={this.state.title}/>
@@ -71,7 +86,6 @@ export default class CreatePoll extends Component {
                                     onClick={() => formApi.addValue('options', '')}
                                     type="button"
                                     className="mb-4 mr-4 btn btn-success">Add Option</button><br/>
-
 
                                  { formApi.values.options && formApi.values.options.map( ( option, i ) => (
                                      <div key={`option${i}`}>
