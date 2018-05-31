@@ -21,15 +21,6 @@ import {getPoll} from './web3Functions';
     el.classList.add('active');
 }
 
-function resetElements() {
-    // Get all elements with "active" class
-    var els = document.getElementsByClassName("active");
-
-    // Loop over Elements to remove active class;
-    for (var i = 0; i < els.length; i++) {
-        els[i].classList.remove('active')
-    }
-}
 
 function findElement(id) {
     var ele = document.getElementsByClassName(id);
@@ -40,13 +31,31 @@ function findElement(id) {
 
 function PollListGroupItem(props) {
     return (
-        <ListGroupItem tag="button"  >
+        <ListGroupItem tag="button" className={props.key}  onClick={notify(props.key)}>
             <ListGroupItemHeading className="title"> {props.title} </ListGroupItemHeading>
             <ListGroupItemText className="description"> {props.description} </ListGroupItemText>
         </ListGroupItem>
     );
 }
 
+
+
+function resetElements() {
+    // Get all elements with "active" class
+    const els = document.getElementsByClassName("active");
+
+    // Loop over Elements to remove active class;
+    for (let i = 0; i < els.length; i++) {
+        els[i].classList.remove('active')
+    }
+}
+
+
+function notify(el) {
+    //resetElements();
+    const ep = document.getElementsByClassName(el);
+    ep.element.attribute = "active";
+}
 
 class OpenPoll extends Component {
     constructor(props) {
@@ -144,7 +153,7 @@ class OpenPoll extends Component {
                     <Col>
                        <ListGroup className="votations">
                            {this.state.opcionsPoll.map( o =>
-                               <PollListGroupItem tag="a" title={o.name} description={o.description}/>)}
+                               <PollListGroupItem tag="a" key={o.name} title={o.name} description={o.description}/>)}
                        </ListGroup>
 
                     </Col>
