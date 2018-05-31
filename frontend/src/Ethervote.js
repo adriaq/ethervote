@@ -8,7 +8,6 @@ import ethervote_source from './contracts/ethervote.json'
 import User from './User';
 //import User2 from './User2';
 import Firstlogin from './Firstlogin';
-import ReactLoading from "react-loading";
 //import Admin from './Admin';
 
 //const ethervote_source = require('./contracts/ethervote.json');

@@ -7,6 +7,7 @@ import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText} from 'reactstrap';
 import './styles/OpenPoll.css';
 import Header from "./components/Header";
+import swal from 'sweetalert';
 
 
 //FUNCIONS DE PROVA X RECONEIXER L'ELEMENT SELECIONAT
@@ -91,7 +92,22 @@ class OpenPoll extends Component {
 
 
     vote() {
-       alert("you voted for " + this.state.Selected);
+        swal({
+            title: "Are you sure? You are voting for " + this.state.Selected,
+            text: "Once you vote, you will not be able to make any change!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("You have voted successfuly!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Canceled Vote");
+                }
+            });
     }
 
 
