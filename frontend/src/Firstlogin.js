@@ -49,7 +49,7 @@ class Firstlogin extends Component {
     }
 
 
-    deploy_ethervote() {
+    async deploy_ethervote() {
         console.log(this.web3);
         let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
         tmp_ethervote.new(
@@ -68,7 +68,7 @@ class Firstlogin extends Component {
         );
 
         //Ara fariem el fetch per guardar l'adreça i el bool deployed a true;
-        fetch('/connect_ethervote', {
+        await fetch('/connect_ethervote', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
