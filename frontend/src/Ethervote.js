@@ -55,7 +55,7 @@ class Ethervote extends Component {
       console.log("CALLBACK FUNCIONA")
       console.log(Ethervote.ethervote);
       this.forceUpdate()
-    }
+    };
 
 
         render() {
@@ -69,8 +69,7 @@ class Ethervote extends Component {
                 return <Firstlogin web3={this.web3} getEthervote={this.getEthervote}/>
             }
         }
-
-
+    }
 }
 
 export default Ethervote;

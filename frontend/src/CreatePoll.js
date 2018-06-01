@@ -6,19 +6,19 @@ import swal from 'sweetalert';
 import User from './User';
 import { Redirect } from 'react-router';
 
-
 import { Form, Text, TextArea } from 'react-form';
 import './styles/CreatePoll.css';
-
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default class CreatePoll extends Component {
 
-    constructor() {
-        super();
+class CreatePoll extends Component {
+
+    constructor(props) {
+        super(props);
+        this.ethervote = this.props.ethervote;
+        this.web3 = this.props.web3;
         this.state = {
             startDate: moment(),
             selectedDate : '',
@@ -37,38 +37,46 @@ export default class CreatePoll extends Component {
         });
     }
 
+
     handleSubmit(submittedValues){
-      var x;
-      var formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues
 
-      /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
-      var date     = this.state.startDate.format().slice(0,10)
-      var pollID   = newPoll(formData.name, formData.description, date)
+        console.log(JSON.stringify(submittedValues, null, 2));
+        let x;
+        let formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
 
-      /* Per cada opció afegir-la al smart contract*/
-      var options   = formData.options
-      for (x in options) {
-        addOptionToPoll(pollID, options[x], "description")
-      }
+        /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
+        let date     = this.state.startDate.format().slice(0,10);
+        let pollID   = this.ethervote.newPoll(formData.name, formData.description, date);
 
-      this.setState({redirect : true})
+        if (!pollID) alert("Error creating new poll");
 
+        /* Per cada opció afegir-la al smart contract*/
+        let options   = formData.options;
+        for (x in options) {
+            console.log(options[x]);
+          //  let a = this.ethervote.addOptionToPoll(pollID, options[x], "description");
+            // TODO: S'Ha de fer asíncrona
+           // if (!a) alert("Error adding option to poll");
+        }
+
+        alert("New poll " + formData.name +  "created successfully :)");
     }
+
 
     render() {
-      if (this.state.redirect) {
-        swal({
-          title: "Good job!",
-          text: "Your poll has been submitted!",
-          icon: "success",
-          button: "Ok!",
-          timer: 3000,
-        })
-    }
+        if (this.state.redirect) {
+            swal({
+                title: "Good job!",
+                text: "Your poll has been submitted!",
+                icon: "success",
+                button: "Ok!",
+                timer: 3000,
+            })
+        }
 
-      if (this.state.error){
-        swal ( "Oops" ,  "Something went wrong!" ,  "error" )
-      }
+        if (this.state.error){
+            swal ( "Oops" ,  "Something went wrong!" ,  "error" )
+        }
 
         return (
             <div>
@@ -119,3 +127,5 @@ export default class CreatePoll extends Component {
         );
     }
 }
+
+export default CreatePoll;
