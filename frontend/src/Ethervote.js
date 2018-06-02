@@ -70,6 +70,5 @@ class Ethervote extends Component {
             }
         }
     }
-}
 
 export default Ethervote;
