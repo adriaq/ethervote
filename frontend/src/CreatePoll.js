@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import Header from "./components/Header"
-import {newPoll, addOptionToPoll} from "./web3Functions"
 import {Button} from 'reactstrap';
 import swal from 'sweetalert';
 import User from './User';
 import { Redirect } from 'react-router';
+import Admin from "./Admin";
+
 
 import { Form, Text, TextArea } from 'react-form';
 import './styles/CreatePoll.css';
@@ -19,16 +20,17 @@ class CreatePoll extends Component {
         super(props);
         this.ethervote = this.props.ethervote;
         this.web3 = this.props.web3;
+
         this.state = {
             startDate: moment(),
             selectedDate : '',
             title: "New Poll",
-            redirect : false,
             error : false,
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleRedirect = this.handleRedirect.bind(this);
     }
 
     handleChange(date) {
@@ -37,42 +39,48 @@ class CreatePoll extends Component {
         });
     }
 
-
-    handleSubmit(submittedValues){
-
-        console.log(JSON.stringify(submittedValues, null, 2));
-        let x;
+    async handleSubmit(submittedValues){
         let formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
 
         /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
         let date     = this.state.startDate.format().slice(0,10);
-        let pollID   = this.ethervote.newPoll(formData.name, formData.description, date);
+        let preProposals = await this.ethervote.getNumberOfProposals();
+        console.log(preProposals)
 
-        if (!pollID) alert("Error creating new poll");
+        /* Es crea una nova votació. Retorna proposalID o -1 si hi ha un error */
+        let proposalID   = await this.ethervote.newProposal(formData.name, formData.description);
 
-        /* Per cada opció afegir-la al smart contract*/
-        let options   = formData.options;
-        for (x in options) {
-            console.log(options[x]);
-          //  let a = this.ethervote.addOptionToPoll(pollID, options[x], "description");
+        let postProposals = await this.ethervote.getNumberOfProposals();
+        console.log(postProposals)
+
+        if (0 == -1) this.setState({ error : true });
+        else{
+          /* Recollir assignacio options i slogans del JSON */
+          let options   = formData.options;
+          let slogans   = formData.slogans;
+
+          /* Per cada opció afegir-la al smart contract*/
+          let x;
+          for (x in options) {
             // TODO: S'Ha de fer asíncrona
-           // if (!a) alert("Error adding option to poll");
+            //let a = this.ethervote.addOption(proposalID, options[x], slogans[x]);
+            // if (!a) this.setState({ error : true }
+          }
         }
 
-        alert("New poll " + formData.name +  "created successfully :)");
+        this.handleRedirect();
     }
 
+    handleRedirect(){
+      swal({
+          title: "Good job!",
+          text: "Your poll has been submitted!",
+          icon: "success",
+          timer: 3000,
+      });
+    }
 
     render() {
-        if (this.state.redirect) {
-            swal({
-                title: "Good job!",
-                text: "Your poll has been submitted!",
-                icon: "success",
-                button: "Ok!",
-                timer: 3000,
-            })
-        }
 
         if (this.state.error){
             swal ( "Oops" ,  "Something went wrong!" ,  "error" )
