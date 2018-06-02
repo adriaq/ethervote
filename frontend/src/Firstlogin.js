@@ -38,14 +38,25 @@ class Firstlogin extends Component {
     }
 
 
-    connect_to_ethervote() {
-        this.ethervote = this.web3.eth.contract(ethervote_source.abi);
-        //this.ethervote = new this.web3.eth.Contract(ethervote_source.abi, this.state.existing_ethervote_address);
-        this.ethervote.at('0x01');
-        console.log(this.ethervote.address);
-        //console.log(this.ethervote.address);
+    async connect_to_ethervote() {
+        let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
+        let myEthervoteInstance = tmp_ethervote.at(this.state.existing_ethervote_address);
+        console.log(myEthervoteInstance);
+        let ethervote_name = await myEthervoteInstance.name();
 
-        ReactDOM.render(<Admin web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
+        await fetch('/post_ethervote', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "organitzation_name": ethervote_name,
+                "ethervote_address": myEthervoteInstance.address,
+                "deployed": true
+            })
+        });
+        this.props.getEthervote(myEthervoteInstance);
     }
 
 
@@ -59,30 +70,26 @@ class Firstlogin extends Component {
                 data: ethervote_source.bytecode,
                 gas: 4700000
             }, (e, tmp_ethervote) => {
-                if (typeof (tmp_ethervote.address) !== 'undefined') {
-                    this.props.getEthervote(tmp_ethervote);
-                    console.log('Contract mined! address: ' + tmp_ethervote.address + ' transactionHash: ' + tmp_ethervote.transactionHash);
+                if (typeof (myEthervoteInstance.address) !== 'undefined') {
+                    this.ethervote = myEthervoteInstance;
+                    this.props.getEthervote(myEthervoteInstance);
+                    console.log('Contract mined! address: ' + myEthervoteInstance.address + ' transactionHash: ' + myEthervoteInstance.transactionHash);
+
+                    fetch('/post_ethervote', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            "organitzation_name": this.state.organitzation_name,
+                            "ethervote_address": myEthervoteInstance.address,
+                            "deployed": true
+                        })
+                    });
                 }
             }
         );
-
-        this.ethervote = myEthervoteInstance;
-
-        //Ara fariem el fetch per guardar l'adreça i el bool deployed a true;
-        await fetch('/connect_ethervote', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "organitzation_name": this.state.organitzation_name,
-                "ethervote_address": tmp_ethervote.address,
-                "deployed": true
-            })
-        });
-
-        //ReactDOM.render(<Admin web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
     }
 
 

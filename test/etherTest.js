@@ -12,7 +12,7 @@ contract('Ethervote', function (accounts) {
     var voter_6 = accounts[6]
 
     beforeEach('setup contract for each test', async function () {
-     ethervote = await Ethervote.new("Test 1", 300)
+     ethervote = await Ethervote.new("organitzacio test", 300)
     })
 
     //accounts[0] es sempre el owner
@@ -20,10 +20,14 @@ contract('Ethervote', function (accounts) {
         assert.equal(await ethervote.owner(), owner_address)
     })
 
+    it('Get Name of the Organitzation', async function() {
+        assert.equal(await ethervote.getName(), "organitzacio test")
+    })
+
 
     it('add voter', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
-        var res = await ethervote.getNumberOfVoters()  
+        var res = await ethervote.getNumberOfVoters()
         assert.equal(res, 1);
     })
 
@@ -72,12 +76,12 @@ contract('Ethervote', function (accounts) {
 
         var name_p = await ethervote.getProposalName(1)
         assert.equal(name, name_p)
-        
+
         var description_p = await ethervote.getProposalDescription(1)
         assert.equal(description, description_p)
     })
 
-    
+
     it('add options to proposal', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
 
@@ -108,7 +112,7 @@ contract('Ethervote', function (accounts) {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
         await ethervote.addVoter(voter_2, 1, {from: owner_address})
 
-        //voter_1 creates a new proposal and add 2 options 
+        //voter_1 creates a new proposal and add 2 options
         await ethervote.newProposal("proposal_voting", "First proposal test voting", {from: voter_1})
         await ethervote.addOption(1, "Yes", "If you agree", {from: voter_1})
         await ethervote.addOption(1, "No", "If you don't agree", {from: voter_1})
@@ -129,17 +133,17 @@ contract('Ethervote', function (accounts) {
         await ethervote.addVoter(voter_4, 1, {from: owner_address})
         await ethervote.addVoter(voter_5, 1, {from: owner_address})
 
-        //voter_1 creates a new proposal and add 2 options 
+        //voter_1 creates a new proposal and add 2 options
         await ethervote.newProposal("proposal_voting", "First proposal test voting", {from: voter_1})
         await ethervote.addOption(1, "Yes", "If you agree", {from: voter_1})
         await ethervote.addOption(1, "No", "If you don't agree", {from: voter_1})
 
         //Here voters start to vote
-        await ethervote.vote(1, 1, {from: voter_1}) 
+        await ethervote.vote(1, 1, {from: voter_1})
         await ethervote.vote(1, 2, {from: voter_2})
         await ethervote.vote(1, 2, {from: voter_3})
         await ethervote.vote(1, 1, {from: voter_4})
-        await ethervote.vote(1, 2, {from: voter_5})     
+        await ethervote.vote(1, 2, {from: voter_5})
 
         //Print results
         var res_1 = await ethervote.getNumberOfVotes(1, 1)
@@ -175,7 +179,6 @@ contract('Ethervote', function (accounts) {
 
         await ethervote.vote(1, 1, {from: voter_1})
         let b = await ethervote.vote(1, 1, {from: voter_1})
-        console.log(b)
         await ethervote.vote(1, 2, {from: voter_1})
         await ethervote.vote(1, 2, {from: voter_2})
         await ethervote.vote(1, 2, {from: voter_3})
@@ -189,7 +192,6 @@ contract('Ethervote', function (accounts) {
         await ethervote.vote(2, 2, {from: voter_3})
         await ethervote.vote(2, 1, {from: voter_4})
         let a = await ethervote.vote(2, 1, {from: voter_5})
-        console.log(a)
 
         //Print results
         var p1_res_1 = await ethervote.getNumberOfVotes(1, 1)

@@ -145,6 +145,9 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
           return proposals[_proposalID].n_options;
       } else return -1;
     }
+    function getName() public view returns(string) {
+      return name; 
+    }
     function getNumberOfVotes(int _proposalID, int _n_option) public view returns(int){
       if(proposals[_proposalID].exists &&
          proposals[_proposalID].options[_n_option].exists

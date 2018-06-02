@@ -26,16 +26,14 @@ class Ethervote extends Component {
 
    this.ethervote = null;
     this.state = {
-        user_type : 1, //TITU AIXO ESTA HARDCODED, CANVIAHO A NULL I FES LA PETICIO A COMPONENT DID MOUNT PER SABER EL TIPUS DE USUARI
+        user_type : null, //TITU AIXO ESTA HARDCODED, CANVIAHO A NULL I FES LA PETICIO A COMPONENT DID MOUNT PER SABER EL TIPUS DE USUARI
         ethervote_address: null,
         organitzation_name: null,
         deployed: null,
     };
   }
   async componentDidMount() {
-      console.log(this.ethervote);
-
-      fetch('/is_deployed')
+      await fetch('/get_ethervote')
         .then(res => res.json())
         .then(async (deployed_status) => {
             if(deployed_status.deployed === false) {
@@ -45,16 +43,21 @@ class Ethervote extends Component {
                 await this.setState({ deployed: deployed_status.deployed });
                 await this.setState({ ethervote_address: deployed_status.ethervote_address });
                 await this.setState({ deployed: deployed_status.organitzation_name });
+                let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
+                this.ethervote = tmp_ethervote.at(deployed_status.ethervote_address);
+
+                let privilege = await this.ethervote.getPrivilege(this.web3.eth.accounts[0]);
+                await this.setState({ user_type: privilege.toNumber() });
             }
         }
     );
-    console.log(this.ethervote);
+
+
   }
+
   getEthervote = async (ethervote_firstlogin) => {
       Ethervote.ethervote = ethervote_firstlogin;
       await this.setState({ deployed: true });
-      console.log("CALLBACK FUNCIONA")
-      console.log(Ethervote.ethervote);
       this.forceUpdate()
     };
 

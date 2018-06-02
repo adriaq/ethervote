@@ -46,7 +46,7 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 =           ROUTES          =
 ===========================*/
 
-app.post('/connect_ethervote', function(req, res) {
+app.post('/post_ethervote', function(req, res) {
     //console.log(req.body);
     fs.writeFile(__dirname+"/smartContractData.json", JSON.stringify(req.body), "utf8", function(error){
        if (error) res.status(500).json(error);
@@ -54,7 +54,7 @@ app.post('/connect_ethervote', function(req, res) {
     });
 });
 
-app.get('/is_deployed', function (req, res) {
+app.get('/get_ethervote', function (req, res) {
     fs.readFile(__dirname+"/smartContractData.json", "utf8", function (error, response) {
         if (!error) {
             res.status(200).json(JSON.parse(response));
