@@ -33,6 +33,7 @@ class Ethervote extends Component {
     };
   }
   async componentDidMount() {
+      console.log(this.ethervote);
 
       fetch('/is_deployed')
         .then(res => res.json())
@@ -69,7 +70,7 @@ class Ethervote extends Component {
                 return <Firstlogin web3={this.web3} getEthervote={this.getEthervote}/>
             }
         }
-    }
+
 }
 
 export default Ethervote;
