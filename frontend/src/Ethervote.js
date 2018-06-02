@@ -70,7 +70,6 @@ class Ethervote extends Component {
                 return <Firstlogin web3={this.web3} getEthervote={this.getEthervote}/>
             }
         }
-
-}
+    }
 
 export default Ethervote;
