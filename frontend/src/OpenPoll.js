@@ -49,7 +49,6 @@ class OpenPoll extends Component {
             opcionsPoll: [],
             Selected: ' ',
 
-
             // petit json montat x fer proves
             candidats: [
                 {

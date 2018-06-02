@@ -49,10 +49,10 @@ class Firstlogin extends Component {
     }
 
 
-    deploy_ethervote() {
+    async deploy_ethervote() {
         console.log(this.web3);
-        let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
-        tmp_ethervote.new(
+        let tmp_ethervote       = this.web3.eth.contract(ethervote_source.abi);
+        let myEthervoteInstance = tmp_ethervote.new(
             [this.state.organitzation_name, 3600]
             ,{
                 from: this.web3.eth.accounts[0],
@@ -60,15 +60,16 @@ class Firstlogin extends Component {
                 gas: 4700000
             }, (e, tmp_ethervote) => {
                 if (typeof (tmp_ethervote.address) !== 'undefined') {
-                    this.ethervote = tmp_ethervote;
                     this.props.getEthervote(tmp_ethervote);
                     console.log('Contract mined! address: ' + tmp_ethervote.address + ' transactionHash: ' + tmp_ethervote.transactionHash);
                 }
             }
         );
 
+        this.ethervote = myEthervoteInstance;
+
         //Ara fariem el fetch per guardar l'adreça i el bool deployed a true;
-        fetch('/connect_ethervote', {
+        await fetch('/connect_ethervote', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

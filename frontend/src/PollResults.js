@@ -12,7 +12,7 @@ function PollListGroupItem(props) {
     return (
         <ListGroupItem>
             <ListGroupItemHeading className="title"> {props.title} </ListGroupItemHeading>
-            <ListGroupItemText className="description"> {props.description} </ListGroupItemText>
+            <ListGroupItemText className="description"> Votes: {props.description} </ListGroupItemText>
         </ListGroupItem>
     );
 }
@@ -24,12 +24,37 @@ class PollResults extends Component {
         this.web3 = this.props.web3;
         this.state = {
             id: this.props.id,
-            options: []
+            resultats: [],
+            votacio: [
+                {
+                    "id": "0",
+                    "name": "example glossary",
+                    "description": "Descripcio de el que votarem a continuacio",
+                    "num_opcions": "4",
+                    options: [
+                        {
+                            "name": "M. Rajoy",
+                            "description": "Luis se fuerte",
+                            "votes": "3",
+                        },
+                        {
+                            "name": "G. Rufian",
+                            "description": "Soc una mica demagog",
+                            "votes": "3",
+                        },
+                        {
+                            "name": "A. Rivera",
+                            "description": "Ibex 35",
+                            "votes": "3",
+                        }],
+                }],
         };
 
 
         //de moment hi he posat aquesta xq em falten
-        //this.state.options = getClosedPolls();
+        //this.state.options = getPoll(this.state.id);
+
+        this.state.votacio.map( o => {this.state.resultats = o.options });
     }
 
 
@@ -44,8 +69,8 @@ class PollResults extends Component {
                 <Col>
                     <ListGroup className="votations">
 
-                        {this.state.options.map( o =>
-                            <PollListGroupItem title={o.title} description={o.description}/>)}
+                        {this.state.resultats.map( o =>
+                            <PollListGroupItem title={o.name} description={o.votes}/>)}
 
                     </ListGroup>
                 </Col>

@@ -55,7 +55,44 @@ class User extends Component {
 
 
             ],
-            closeVotations: [],
+
+            closeVotations: [{
+                "id":"0",
+                "name": "example glossary",
+                "description": "buaaaaaaaaaaaaaaaaaaaaaa",
+                "num_opcions": "4",
+                "options": {
+                    "name": "S",
+                    "description": "meh",
+                    "votes": "3",
+                }
+            },
+
+                {
+                    "id":"1",
+                    "name": "prova2",
+                    "description": "buaaaaaaaaaaaaaaaaaaaaaa",
+                    "num_opcions": "4",
+                    "options": {
+                        "name": "S",
+                        "description": "meh",
+                        "votes": "3",
+                    }
+                },
+
+
+                {
+                    "id":"4",
+                    "name": "prova 3",
+                    "description": "buaaaaaaaaaaaaaaaaaaaaaa",
+                    "num_opcions": "4",
+                    "options": {
+                        "name": "S",
+                        "description": "meh",
+                        "votes": "3",
+                    }
+                }],
+
             privilegeLevel: '',
         };
 
@@ -73,11 +110,6 @@ class User extends Component {
     goToResults(pollId) {
         ReactDOM.render(<PollResults web3={this.web3} ethervote={this.ethervote} id={pollId}/>, document.getElementById('root'));
     }
-
-  /*  componentDidMount() {
-        this.state.votations = getOpenedPolls();
-        this.state.closeVotations = getClosedPolls();
-    }*/
 
     render() {
 
@@ -102,8 +134,7 @@ class User extends Component {
                     <div className="col-lg-6">
                         <h3> RESULTS </h3>
                         {this.state.closeVotations.map( p =>
-
-                            <ListGroupItem tag="a" key={p.name}>
+                            <ListGroupItem className="LGI2" tag="a" onClick={(e) => this.goToResults(p.id, e)} key={p.name} >
                                 {p.name}
                             </ListGroupItem>)}
                     </div>
