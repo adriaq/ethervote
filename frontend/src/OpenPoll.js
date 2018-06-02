@@ -130,7 +130,7 @@ class OpenPoll extends Component {
     }
 
     async ether_getOpenedPolls() {
-        let num_proposals = await thisethervote.getNumberOfProposals();
+        let num_proposals = await this.ethervote.getNumberOfProposals();
         let proposals = [];
         for(let i=1; i<=num_proposals; ++i) {
             let end = await this.ethervote.hasEnded(i);
