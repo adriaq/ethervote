@@ -62,17 +62,17 @@ class Ethervote extends Component {
     };
 
 
-        render() {
-            if(this.state.deployed === null) return (<div><img className="loading" src={loading} alt="loading"/></div>);
-            if (this.state.deployed) {
-                if(this.state.user_type === "owner") {return <Admin web3={this.web3} ethervote={this.ethervote}/>}
-                if(this.state.user_type === 2) {return <User2 web3={this.web3} ethervote={this.ethervote}/>}
-                else if(this.state.user_type === 1) {return <User web3={this.web3} ethervote={this.ethervote}/>}
-                else {return (<div><h1>usuari invalid</h1></div>);}
-            } else {
-                return <Firstlogin web3={this.web3} getEthervote={this.getEthervote}/>
-            }
+    render() {
+        if(this.state.deployed === null) return (<div><img className="loading" src={loading} alt="loading"/></div>);
+        if (this.state.deployed) {
+            if(this.state.user_type === "owner") {return <Admin web3={this.web3} ethervote={this.ethervote}/>}
+            if(this.state.user_type === 2) {return <User2 web3={this.web3} ethervote={this.ethervote}/>}
+            else if(this.state.user_type === 1) {return <User web3={this.web3} ethervote={this.ethervote}/>}
+            else {return (<div><h1>usuari invalid</h1></div>);}
+        } else {
+            return <Firstlogin web3={this.web3} getEthervote={this.getEthervote}/>
         }
-    }
+    }  
+}
 
 export default Ethervote;

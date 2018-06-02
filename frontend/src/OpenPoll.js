@@ -38,7 +38,6 @@ function PollListGroupItem(props) {
 }
 
 
-
 class OpenPoll extends Component {
     constructor(props) {
         super(props);
@@ -87,7 +86,74 @@ class OpenPoll extends Component {
         this.state.candidats.map( o => {this.state.opcionsPoll = o.options });
     }
 
+    async ether_vote() {
+        console.log("asdasdadsa");    
+        let v = false;
+        let idPoll = 1;
+        let idOption = 1;
+        let voted = await this.ethervote.hasVoted(this.web3.eth.accounts[0], idPoll); //retorna tal qual true or false
+        if(!voted) { 
+            await this.ethervote.vote(idPoll, idOption); //no retorna res important
+            v = await this.ethervote.hasVoted(this.web3.eth.accounts[0], idPoll); 
+        }
+        //v si false hi ha hagut un error, 
+        //ja sigui xq ya ha votat o perque no ha pogut votar per algo extrany
+        return v;
+        console.log(v);
+    }
 
+    async ether_getClosedPolls() {
+        let num_proposals = await this.ethervote.getNumberOfProposals(); 
+        let proposals = [];
+        for(let i=0; i<num_proposals; ++i) {
+            let end = this.ethervote.hasEnded(i);
+            if(end) { 
+                let name = await this.ethervote.getProposalName(i); 
+                let description = await this.ethervote.getProposalDescription(i); 
+                let num_opcions = await this.ethervote.getNumberOfOptions(i); 
+
+                let options = [];
+                for(let j=1; j<=num_opcions; ++j) {
+                    let option_name = await this.ethervote.getOptionName(i, j); 
+                    let option_description = await this.ethervote.getOptionDescription(i, j); 
+                    let option_votes = await this.ethervote.getNumberOfVotes(i, j);
+                    
+                    let o = {"name": option_name, "description": option_description, "votes": option_votes};
+                    options.push(o);
+                }
+
+                let p = {"id": i, "name": name, "description": description, "num_opcions": num_opcions, "options": options};
+                proposals.push(p);
+            }
+        }
+        return JSON.parse(proposals);
+    }
+
+    async ether_getOpenedPolls() {
+        let num_proposals = await thisethervote.getNumberOfProposals();
+        let proposals = [];
+        for(let i=1; i<=num_proposals; ++i) {
+            let end = await this.ethervote.hasEnded(i);
+            if(!end) {
+                let name = await this.ethervote.getProposalName(i);
+                let description = await this.ethervote.getProposalDescription(i);
+                let num_opcions = await this.ethervote.getNumberOfOptions(i);
+                let options = [];
+                for (let j=1; j<=num_opcions; ++j) {
+                    let option_name = await this.ethervote.getOptionName(i, j);
+                    let option_description = await this.ethervote.getOptionDescription(i, j);
+                    let option_votes = await this.ethervote.getNumberOfVotes(i, j);
+
+                    let o = {"name": option_name, "description": option_description, "votes": option_votes};
+                    options.push(o);
+                }
+
+                let p = {"id": i, "name": name, "description": description, "num_opcions": num_opcions, "options": options};
+                proposals.push(p);
+            }
+        }
+        return JSON.parse(proposals);
+    }
 
 
     vote() {
@@ -103,6 +169,10 @@ class OpenPoll extends Component {
                     swal("You have voted successfuly!", {
                         icon: "success",
                     });
+
+                    //S'hauria de cridar abans de que surti com a succes, no?
+                    let asd = this.ether_vote().bind(this);
+                    console.log(asd);
                 } else {
                     swal("Canceled Vote");
                 }
