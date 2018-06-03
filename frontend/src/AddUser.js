@@ -12,8 +12,8 @@ class AddUser extends Component {
         this.ethervote = this.props.ethervote;
         this.web3 = this.props.web3;
         this.state = {
-            userPK: '',
-            privilegeLevel: '1',
+            userPK: null,
+            privilegeLevel: '0',
         };
         this.updateInputValueUser = this.updateInputValueUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -42,7 +42,8 @@ class AddUser extends Component {
         else {
             this.ethervote.addVoter(this.state.userPK, this.state.privilegeLevel, function (error, result) {
                 if(!error) {
-                    alert("User with public key    **  " + this.state.userPK + "  **    has been submitted");
+                    console.log(result);
+                    alert("voter added!")
                 }
                 else {
                     alert("Error adding voter");
@@ -92,7 +93,7 @@ class AddUser extends Component {
                 </div>
 
                 <div className="col-lg-12">
-                    <Button  color="danger" href="/admin"> Back </Button>
+                    <Button  color="danger" href="/"> Back </Button>
                 </div>
 
             </div>

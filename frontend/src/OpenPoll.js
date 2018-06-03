@@ -51,7 +51,7 @@ class OpenPoll extends Component {
             // petit json montat x fer proves
             candidats: [
                 {
-                    
+
                     "id":"0",
                     "name": "example glossary",
                     "description": "Descripcio de el que votarem a continuacio",
@@ -87,37 +87,37 @@ class OpenPoll extends Component {
     }
 
     async ether_vote() {
-        console.log("asdasdadsa");    
+        console.log("asdasdadsa");
         let v = false;
         let idPoll = 1;
         let idOption = 1;
         let voted = await this.ethervote.hasVoted(this.web3.eth.accounts[0], idPoll); //retorna tal qual true or false
-        if(!voted) { 
+        if(!voted) {
             await this.ethervote.vote(idPoll, idOption); //no retorna res important
-            v = await this.ethervote.hasVoted(this.web3.eth.accounts[0], idPoll); 
+            v = await this.ethervote.hasVoted(this.web3.eth.accounts[0], idPoll);
         }
-        //v si false hi ha hagut un error, 
+        //v si false hi ha hagut un error,
         //ja sigui xq ya ha votat o perque no ha pogut votar per algo extrany
         return v;
         console.log(v);
     }
 
     async ether_getClosedPolls() {
-        let num_proposals = await this.ethervote.getNumberOfProposals(); 
+        let num_proposals = await this.ethervote.getNumberOfProposals();
         let proposals = [];
         for(let i=0; i<num_proposals; ++i) {
             let end = this.ethervote.hasEnded(i);
-            if(end) { 
-                let name = await this.ethervote.getProposalName(i); 
-                let description = await this.ethervote.getProposalDescription(i); 
-                let num_opcions = await this.ethervote.getNumberOfOptions(i); 
+            if(end) {
+                let name = await this.ethervote.getProposalName(i);
+                let description = await this.ethervote.getProposalDescription(i);
+                let num_opcions = await this.ethervote.getNumberOfOptions(i);
 
                 let options = [];
                 for(let j=1; j<=num_opcions; ++j) {
-                    let option_name = await this.ethervote.getOptionName(i, j); 
-                    let option_description = await this.ethervote.getOptionDescription(i, j); 
+                    let option_name = await this.ethervote.getOptionName(i, j);
+                    let option_description = await this.ethervote.getOptionDescription(i, j);
                     let option_votes = await this.ethervote.getNumberOfVotes(i, j);
-                    
+
                     let o = {"name": option_name, "description": option_description, "votes": option_votes};
                     options.push(o);
                 }
@@ -130,7 +130,7 @@ class OpenPoll extends Component {
     }
 
     async ether_getOpenedPolls() {
-        let num_proposals = await thisethervote.getNumberOfProposals();
+        let num_proposals = await this.ethervote.getNumberOfProposals();
         let proposals = [];
         for(let i=1; i<=num_proposals; ++i) {
             let end = await this.ethervote.hasEnded(i);

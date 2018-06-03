@@ -38,21 +38,22 @@ class Ethervote extends Component {
         .then(async (deployed_status) => {
             if(deployed_status.deployed === false) {
                 await this.setState({ deployed: false });
-
             } else {
                 await this.setState({ deployed: deployed_status.deployed });
                 await this.setState({ ethervote_address: deployed_status.ethervote_address });
                 await this.setState({ deployed: deployed_status.organitzation_name });
                 let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
                 this.ethervote = tmp_ethervote.at(deployed_status.ethervote_address);
-
-                let privilege = await this.ethervote.getPrivilege(this.web3.eth.accounts[0]);
-                await this.setState({ user_type: privilege.toNumber() });
+                this.web3.eth.defaultAccount = this.web3.eth.accounts[0]
+                if(this.ethervote.owner() === this.web3.eth.accounts[0]) {
+                    await this.setState({ user_type: "owner" });
+                } else {
+                    let privilege = await this.ethervote.getPrivilege(this.web3.eth.accounts[0]).toNumber();
+                    await this.setState({ user_type: privilege });
+                }
             }
         }
     );
-
-
   }
 
   getEthervote = async (ethervote_firstlogin) => {
@@ -66,13 +67,13 @@ class Ethervote extends Component {
         if(this.state.deployed === null) return (<div><img className="loading" src={loading} alt="loading"/></div>);
         if (this.state.deployed) {
             if(this.state.user_type === "owner") {return <Admin web3={this.web3} ethervote={this.ethervote}/>}
-            if(this.state.user_type === 2) {return <User2 web3={this.web3} ethervote={this.ethervote}/>}
+            else if(this.state.user_type === 2) {return <User2 web3={this.web3} ethervote={this.ethervote}/>}
             else if(this.state.user_type === 1) {return <User web3={this.web3} ethervote={this.ethervote}/>}
             else {return (<div><h1>usuari invalid</h1></div>);}
         } else {
             return <Firstlogin web3={this.web3} getEthervote={this.getEthervote}/>
         }
-    }  
+    }
 }
 
 export default Ethervote;
