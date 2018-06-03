@@ -118,7 +118,7 @@ class User extends Component {
             <div >
                 <Header/>
 
-                <Row  className="DP">
+                <Row className="DP">
                     <div className="col-lg-6">
 
                         <h3> OPEN POLLS </h3>
@@ -130,7 +130,9 @@ class User extends Component {
                                 </ListGroupItem>)}
                         </ListGroup>
                     </div>
+                </Row>
 
+                <Row className={"DP"}>
                     <div className="col-lg-6">
                         <h3> RESULTS </h3>
                         {this.state.closeVotations.map( p =>
@@ -141,7 +143,7 @@ class User extends Component {
                 </Row>
 
                 <div>
-                    <Button color="danger" className="back" href="/admin" > Back </Button>
+                    <Button color="danger" className="back"> Back </Button>
                 </div>
             </div>
         );
