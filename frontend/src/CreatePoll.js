@@ -4,8 +4,6 @@ import {Button} from 'reactstrap';
 import { Redirect } from 'react-router';
 
 /* Frontend components*/
-import Admin from "./Admin";
-import User from './User';
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 
@@ -28,7 +26,7 @@ class CreatePoll extends Component {
         super(props);
         this.ethervote = this.props.ethervote;
         this.web3 = this.props.web3;
-
+        this.counter = 1;
         this.state = {
             startDate: moment(),
             selectedDate : '',
@@ -51,17 +49,13 @@ class CreatePoll extends Component {
         let formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
 
         /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
-        let date     = this.state.startDate.format().slice(0,10);
-        let preProposals = await this.ethervote.getNumberOfProposals();
-        console.log(preProposals)
+        let date          = this.state.startDate.format().slice(0,10);
+        let preProposals  = await this.ethervote.getNumberOfProposals();
 
         /* Es crea una nova votació. Retorna proposalID o -1 si hi ha un error */
-        console.log(this.ethervote);
-        console.log(this.web3);
-        let proposalID   = await this.ethervote.newProposal(formData.name, formData.description, { gas: (10000000) });
+        let proposalID   = await this.ethervote.newProposal(formData.name, formData.description, { gas: (1000000) });
 
         let postProposals = await this.ethervote.getNumberOfProposals();
-        console.log(postProposals)
 
         if (0 == -1) this.setState({ error : true });
         else{
@@ -70,17 +64,12 @@ class CreatePoll extends Component {
           let slogans   = formData.slogans;
 
           /* Per cada opció afegir-la al smart contract*/
+          let result;
           for (var x in options) {
-            /*
-            TODO: S'Ha de fer asíncrona
-            Retorna el número de la opció o -1 si hi ha un error
-            */
-
-            //let a = await this.ethervote.addOption(proposalID, options[x], slogans[x]);
-            //if (!a) this.setState({ error : true });
+              result = await this.ethervote.addOption(this.counter, options[x], slogans[x],{ gas: (1000000) });
           }
+          ++this.counter;
         }
-
         this.handleRedirect();
     }
 
@@ -90,14 +79,10 @@ class CreatePoll extends Component {
           text: "Your poll has been submitted!",
           icon: "success",
           timer: 3000,
-      });
-
-      setTimeout(
-        function(){
-           ReactDOM.render(<User web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
-         }, 1500);
-    }
-
+      }).then(function() {
+        window.location.href = '/';
+      })
+   }
     render() {
 
         if (this.state.error){
