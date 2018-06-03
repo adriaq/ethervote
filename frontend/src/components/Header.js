@@ -9,7 +9,7 @@ export default class Header extends Component{
 
       <div>
           <nav className="navbar navbar-expand-lg custom-navbar">
-
+            <div class="container">
               <div className="navbar-header">
                   <p className="navbar-brand">Ethervote </p>
               </div>
@@ -36,6 +36,7 @@ export default class Header extends Component{
                       </li>
                   </ul>
               </div>
+            </div>
           </nav>
       </div>
 

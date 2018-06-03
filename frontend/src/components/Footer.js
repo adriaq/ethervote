@@ -7,9 +7,9 @@ export default class Footer extends Component{
 
   render(){
     return(
-      <nav class="navbar fixed-bottom navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-          <a class="navbar-brand-footer">Ethervote 2018 - A blockchain based voting system </a>
+      <nav className="navbar fixed-bottom navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container">
+          <a className="navbar-brand-footer">Ethervote 2018 - A blockchain based voting system </a>
         </div>
       </nav>
     );
