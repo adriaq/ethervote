@@ -48,7 +48,9 @@ class CreatePoll extends Component {
         console.log(preProposals)
 
         /* Es crea una nova votació. Retorna proposalID o -1 si hi ha un error */
-        let proposalID   = await this.ethervote.newProposal(formData.name, formData.description);
+        console.log(this.ethervote);
+        console.log(this.web3);
+        let proposalID   = await this.ethervote.newProposal(formData.name, formData.description, { gas: (10000000) });
 
         let postProposals = await this.ethervote.getNumberOfProposals();
         console.log(postProposals)
