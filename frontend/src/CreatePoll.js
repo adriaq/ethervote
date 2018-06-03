@@ -69,11 +69,10 @@ class CreatePoll extends Component {
           let slogans   = formData.slogans;
 
           /* Per cada opció afegir-la al smart contract*/
-          let x;
-          for (x in options) {
+          for (var x in options) {
             // TODO: S'Ha de fer asíncrona
-            //let a = this.ethervote.addOption(proposalID, options[x], slogans[x]);
-            // if (!a) this.setState({ error : true }
+            //let a = await this.ethervote.addOption(proposalID, options[x], slogans[x]);
+            //if (!a) this.setState({ error : true });
           }
         }
 
@@ -104,7 +103,7 @@ class CreatePoll extends Component {
             <div>
                 <Header title={this.state.title}/>
 
-                <div className="main-window">
+                <div className="main-window-2">
                     <h1>Create a new Poll</h1>
                     <h4>Here you can create a new poll that will be sent to the blockchain.</h4>
 
