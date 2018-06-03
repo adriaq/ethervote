@@ -5,6 +5,7 @@ import {ListGroup, Row} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
 import './styles/User.css';
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import OpenPoll from "./OpenPoll";
 import PollResults from "./PollResults";
 
@@ -114,36 +115,40 @@ class User extends Component {
     render() {
 
         return (
+          
+          <div >
+            <Header/>
+            <div class="container">
+              <Row className="DP">
+                <div className="col-lg-6">
 
-            <div >
-                <Header/>
+                  <h3> OPEN POLLS </h3>
 
-                <Row  className="DP">
-                    <div className="col-lg-6">
-
-                        <h3> OPEN POLLS </h3>
-
-                        <ListGroup>
-                            {this.state.votations.map( p =>
-                                <ListGroupItem className="LGI" tag="a" onClick={(e) => this.goToOpenPoll(p.id, e)} key={p.name}>
-                                    {p.name}
-                                </ListGroupItem>)}
-                        </ListGroup>
-                    </div>
-
-                    <div className="col-lg-6">
-                        <h3> RESULTS </h3>
-                        {this.state.closeVotations.map( p =>
-                            <ListGroupItem className="LGI2" tag="a" onClick={(e) => this.goToResults(p.id, e)} key={p.name} >
-                                {p.name}
-                            </ListGroupItem>)}
-                    </div>
+                  <ListGroup>
+                    {this.state.votations.map( p =>
+                      <ListGroupItem className="LGI" tag="a" onClick={(e) => this.goToOpenPoll(p.id, e)} key={p.name}>
+                        {p.name}
+                      </ListGroupItem>)}
+                    </ListGroup>
+                  </div>
                 </Row>
 
-                <div>
-                    <Button color="danger" className="back" href="/admin" > Back </Button>
+                <Row className={"DP"}>
+                  <div className="col-lg-6">
+                    <h3> RESULTS </h3>
+                    {this.state.closeVotations.map( p =>
+                      <ListGroupItem className="LGI2" tag="a" onClick={(e) => this.goToResults(p.id, e)} key={p.name} >
+                        {p.name}
+                      </ListGroupItem>)}
+                    </div>
+                  </Row>
+
+                  <div>
+                    <Button color="danger" className="back"> Back </Button>
+                  </div>
                 </div>
-            </div>
+                <Footer/>
+              </div>
         );
     }
 }

@@ -1,14 +1,9 @@
-.col-lg-10 {
-    margin-top: 1%;
-    padding-left: 8%;
-    padding-right: 8%;
-}
-
-.col-lg-6 {
-    margin-top: 3%;
-    padding-left: 8%;
-    padding-right: 8%;
+.DP {
+    margin-top: 2%;
+    padding-left: 7%;
     padding-top: 3%;
+    padding-bottom: 3%;
+    padding-right: 7%;
 }
 
 .center {
@@ -46,11 +41,7 @@ h3 {
     float: right;
     margin-top: 3%;
     margin-right: 8%;
-}
-
-.DP {
-    margin-left: 5%;
-    margin-right: 5%;
+    width: 15%;
 }
 
 #dropdown-no-caret{
@@ -85,4 +76,8 @@ h3 {
 
 a {
     color: black;
+}
+
+.back {
+    margin-bottom: 3%;
 }

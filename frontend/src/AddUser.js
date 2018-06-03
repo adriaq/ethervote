@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/AddUser.css'
 import img_user from './img/add-user-2-128.gif';
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 
 class AddUser extends Component {
@@ -64,7 +65,6 @@ class AddUser extends Component {
                 <div className="row">
                     <div className="col-lg-3">
                         <img src={img_user} alt="user"/>
-
                     </div>
 
                     <div className="col-lg-9">
@@ -76,11 +76,9 @@ class AddUser extends Component {
 
                                 <div className="col-lg-8">
                                     <p> PRIVILEGE LEVEL: </p>
-
                                     <select className="selectpicker" value={this.state.value} onChange={this.handleChange} >
                                         <option>1</option>
                                         <option>2</option>
-
                                     </select>
                                 </div>
 
@@ -95,7 +93,7 @@ class AddUser extends Component {
                 <div className="col-lg-12">
                     <Button  color="danger" href="/"> Back </Button>
                 </div>
-
+              <Footer/>
             </div>
         );
     }
