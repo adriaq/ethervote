@@ -2,6 +2,8 @@
     margin-top: 2%;
     padding-left: 7%;
     padding-top: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
 }
 
 .center {
@@ -39,6 +41,7 @@ h3 {
     float: right;
     margin-top: 3%;
     margin-right: 8%;
+    width: 15%;
 }
 
 #dropdown-no-caret{
