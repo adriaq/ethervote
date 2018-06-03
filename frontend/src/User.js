@@ -5,6 +5,7 @@ import {ListGroup, Row} from 'reactstrap';
 import {ListGroupItem} from 'reactstrap';
 import './styles/User.css';
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import OpenPoll from "./OpenPoll";
 import PollResults from "./PollResults";
 
@@ -143,6 +144,7 @@ class User extends Component {
                 <div>
                     <Button color="danger" className="back" href="/admin" > Back </Button>
                 </div>
+                <Footer/>
             </div>
         );
     }
