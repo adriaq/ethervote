@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 
 /* Frontend components*/
 import Admin from "./Admin";
+import Ethervote from "./Ethervote";
 import User from './User';
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -93,7 +94,7 @@ class CreatePoll extends Component {
 
       setTimeout(
         function(){
-           ReactDOM.render(<User web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
+           ReactDOM.render(<Ethervote />, document.getElementById('root'));
          }, 1500);
     }
 
