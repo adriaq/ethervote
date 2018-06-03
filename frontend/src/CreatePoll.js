@@ -1,17 +1,24 @@
 import React, {Component} from 'react';
-import Header from "./components/Header"
+import ReactDOM from 'react-dom';
 import {Button} from 'reactstrap';
-import swal from 'sweetalert';
-import User from './User';
 import { Redirect } from 'react-router';
+
+/* Frontend components*/
 import Admin from "./Admin";
+import User from './User';
+import Header from "./components/Header"
 
-
+/* react-form import */
 import { Form, Text, TextArea } from 'react-form';
 import './styles/CreatePoll.css';
+
+/* DatePicker import */
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+
+/* sweetalert import */
+import swal from 'sweetalert';
 
 
 class CreatePoll extends Component {
@@ -80,6 +87,11 @@ class CreatePoll extends Component {
           icon: "success",
           timer: 3000,
       });
+
+      setTimeout(
+        function(){
+           ReactDOM.render(<User web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
+         }, 1500);
     }
 
     render() {
