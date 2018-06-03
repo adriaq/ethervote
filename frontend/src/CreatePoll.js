@@ -4,6 +4,9 @@ import {Button} from 'reactstrap';
 import { Redirect } from 'react-router';
 
 /* Frontend components*/
+import Admin from "./Admin";
+import Ethervote from "./Ethervote";
+import User from './User';
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 
