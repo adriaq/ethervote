@@ -7,6 +7,7 @@ import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText} from 'reactstrap';
 import './styles/OpenPoll.css';
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import swal from 'sweetalert';
 
 
@@ -195,25 +196,20 @@ class OpenPoll extends Component {
 
             <div>
                 <Header/>
-
                 <div>
-
                     <p className="text"> {this.state.candidats.map(o => o.description)}</p>
-
                     <Col>
                        <ListGroup className="votations">
                            {this.state.opcionsPoll.map( o =>
                                <PollListGroupItem tag="a" key={o.name} title={o.name} description={o.description} getValue={this.getValue} />)}
                        </ListGroup>
-
                     </Col>
-
                     <div className="opcions">
                         <Button className="votar" color="success" onClick={this.vote}> VOTE </Button>
                         <Button className="enrere" color="danger" href="/User"> Back </Button>
                     </div>
                 </div>
-
+                <Footer/>
             </div>
         );
     }
