@@ -83,7 +83,7 @@ class CreatePoll extends Component {
           icon: "success",
           timer: 3000,
       }).then(function() {
-        window.location.href = '/';
+          ReactDOM.render(<Ethervote/>, document.getElementById('root'));
       })
    }
     render() {

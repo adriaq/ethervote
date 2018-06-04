@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import {Col } from 'reactstrap';
 import {Button} from 'reactstrap';
 import {ListGroup} from 'reactstrap';
@@ -8,6 +9,7 @@ import {ListGroupItemText} from 'reactstrap';
 import './styles/OpenPoll.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Ethervote from "./Ethervote";
 import swal from 'sweetalert';
 
 
@@ -153,6 +155,7 @@ class OpenPoll extends Component {
 
                     //S'hauria de cridar abans de que surti com a succes, no?
                     let asd = this.ether_vote();
+                    ReactDOM.render(<Ethervote/>, document.getElementById('root'));
                     console.log(asd);
                 } else {
                     swal("Canceled Vote");

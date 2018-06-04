@@ -6,6 +6,7 @@ import {ListGroupItem} from 'reactstrap';
 import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText, Col} from 'reactstrap';
 import './styles/OpenPoll.css';
+import Footer from "./components/Footer";
 
 
 function PollListGroupItem(props) {
@@ -75,9 +76,7 @@ class PollResults extends Component {
                     </ListGroup>
                 </Col>
 
-                <div className="opcions">
-                    <Button className="enrere" color="danger" href="/user"  > Back </Button>
-                </div>
+                <Footer/>
 
             </div>
 

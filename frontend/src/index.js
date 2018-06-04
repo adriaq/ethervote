@@ -7,7 +7,7 @@ import User from './User';
 import User2 from './User2';
 import Admin from './Admin';
 import OpenPolls from './OpenPoll';
-import PollsResult from './PollResults';
+import PollResults from './PollResults';
 import CreatePoll from './CreatePoll';
 import AddUser from './AddUser';
 import Logout from './Logout';
@@ -30,7 +30,7 @@ const Root = () => {
                 <Route path="/openPoll" component={OpenPolls}/>
                 <Route path="/user" component={User}/>
                 <Route path="/user2" component={User2}/>
-                <Route path="/pollsResult" component={PollsResult}/>
+                <Route path="/pollResults" component={PollResults}/>
                 <Route path="/admin" component={Admin}/>
                 <Route path="/createPoll" component={CreatePoll}/>
                 <Route path="/addUser" component={AddUser}/>
