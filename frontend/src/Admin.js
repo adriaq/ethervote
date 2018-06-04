@@ -17,13 +17,14 @@ class Admin extends Component {
     super(props);
     this.ethervote = this.props.ethervote;
     this.web3 = this.props.web3;
+    this.goToUser = this.goToUser.bind(this);
     this.goToNewPoll = this.goToNewPoll.bind(this);
     this.goToAddUser = this.goToAddUser.bind(this);
   }
 
-  goToOpenPoll() {
+  goToUser() {
     console.log(this.web3);
-    ReactDOM.render(<OpenPoll web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
+    ReactDOM.render(<User web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
   }
 
   goToNewPoll() {
@@ -47,9 +48,9 @@ class Admin extends Component {
         <div className="main-window">
           <div className="btn-group-lg">
             <img src={img_admin} alt="admin"/><br/>
-            <Button className="btn_admin btn-generic" color="primary" onClick={this.goToOpenPoll} > Show Open Polls</Button><br/>
+            <Button className="btn_admin btn-generic" color="primary" onClick={this.goToUser} > Go to Polls </Button><br/>
             <Button className="btn_admin btn-generic" color="primary" onClick={this.goToNewPoll}> Create a New Poll </Button><br/>
-            <Button className="btn_admin btn-generic" color="primary" onClick={this.goToAddUser} > Add a User</Button><br/>
+            <Button className="btn_admin btn-generic" color="primary" onClick={this.goToAddUser} > Add User</Button><br/>
             <Button className="btn_admin btn-generic btn-danger" color="primary" href="/logout" > Log out</Button>
           </div>
         </div>

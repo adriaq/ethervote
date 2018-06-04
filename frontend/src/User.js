@@ -143,12 +143,11 @@ class User extends Component {
                     </div>
                   </Row>
 
-                  <div>
-                    <Button color="danger" className="back"> Back </Button>
-                  </div>
+            </div>
+              <div>
+                    <Footer/>
                 </div>
-                <Footer/>
-              </div>
+          </div>
         );
     }
 }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {ButtonToolbar, DropdownButton, MenuItem} from 'react-bootstrap';
 import '../styles/Header.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -8,34 +9,33 @@ export default class Header extends Component{
       return(
 
       <div>
-          <nav className="navbar navbar-expand-lg custom-navbar">
-            <div className="container">
-              <div className="navbar-header">
-                  <p className="navbar-brand">Ethervote </p>
-              </div>
+          <nav className="navbar navbar-expand-lg header custom-navbar">
+            <div className="container-fluid">
+                <div className="navbar-header">
+                  <a className="navbar-brand" href="/">Ethervote </a>
+                </div>
 
-
-              <div className="hola">
-                  <ul className="nav .justify-content-end">
-
-                      <li className="nav-item">
-                          <a className="nav-link" color="white" href="/">Home <span className="sr-only">(current)</span></a>
-                      </li>
-
-                      <li className="nav-item">
-                          <a className="nav-link" href="/logout">Log out</a>
-                      </li>
-
-                      <li className="nav-item dropdown">
-                          <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" >Help</a>
-                          <div className="dropdown-menu">
-                              <a className="dropdown-item" href="#">Action</a>
-                              <a className="dropdown-item" href="#">Another action</a>
-                              <a className="dropdown-item" href="#">Something else here</a>
-                          </div>
-                      </li>
-                  </ul>
-              </div>
+                <div className="collapse navbar-collapse" >
+                    <ul className="nav navbar-nav hola">
+                        <ButtonToolbar>
+                            <DropdownButton title="Help" pullRight id="dropdown-no-caret">
+                                <MenuItem eventKey="1">
+                                    <p> You can create a new poll in the <i> Create poll </i> division </p>
+                                </MenuItem>
+                                <MenuItem divider />
+                                <MenuItem eventKey="2">
+                                    <p> You can see a list of the polls you have access to vote in the
+                                        <br/> <i> Open polls </i> division </p>
+                                </MenuItem>
+                                <MenuItem divider />
+                                <MenuItem eventKey="3">
+                                    <p> You can see a list of the polls in which you have participated
+                                        <br/>  in the <i> Results </i> division </p>
+                                </MenuItem>
+                            </DropdownButton>
+                        </ButtonToolbar>
+                    </ul>
+                </div>
             </div>
           </nav>
       </div>
