@@ -54,7 +54,7 @@ class OpenPoll extends Component {
 
 
             // petit json montat x fer proves
-            /*
+
             candidats: [
                 {
 
@@ -83,7 +83,7 @@ class OpenPoll extends Component {
                         } ],
                 },
             ],
-            */
+            
             candidats: [],
 
 

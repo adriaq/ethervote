@@ -70,7 +70,7 @@ class AddUser extends Component {
                     <div className="col-lg-9">
                         <div className="input">
                             <div>
-                                <p> USERNAME: </p>
+                                <p> USER PUBLIC KEY </p>
                                 <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}
                                 />
 

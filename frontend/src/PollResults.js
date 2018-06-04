@@ -65,7 +65,7 @@ class PollResults extends Component {
 
                 <Header/>
 
-                <p className="text"> Resultat de la votació tal </p>
+                <p className="text"> Poll results </p>
 
                 <Col>
                     <ListGroup className="votations">
@@ -74,6 +74,9 @@ class PollResults extends Component {
                             <PollListGroupItem title={o.name} description={o.votes}/>)}
 
                     </ListGroup>
+                    <div className="btn-group-lg">
+                    <Button className="btn_admin btn-generic btn-danger" color="primary" href="/" > Back</Button>
+                    </div>
                 </Col>
 
                 <Footer/>
