@@ -1,29 +1,41 @@
 {
-	"name": "frontend",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"basscss-background-colors": "2.1.0",
-		"bootstrap": "4.1.1",
-		"moment": "^2.20.0",
-		"react": "^16.3.2",
-		"react-bootstrap": "^0.32.1",
-		"react-datepicker": "1.4.1",
-		"react-dom": "^16.3.2",
-		"react-form": "3.5.5",
-		"react-loading": "^2.0.2",
-		"react-router": "^4.0.0",
-		"react-router-dom": "4.2.2",
-		"react-scripts": "1.1.1",
-		"reactstrap": "^6.0.1",
-		"sweetalert": "^2.1.0",
-		"web3": "github:ethereum/web3.js"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test --env=jsdom",
-		"eject": "react-scripts eject"
-	},
-	"proxy": "http://localhost:4000"
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "basscss-background-colors": "2.1.0",
+    "bootstrap": "4.1.1",
+    "moment": "^2.20.0",
+    "react": "^16.3.2",
+    "react-bootstrap": "^0.32.1",
+    "react-datepicker": "1.4.1",
+    "react-dom": "^16.3.2",
+    "react-form": "3.5.5",
+    "react-loading": "^2.0.2",
+    "react-router": "^4.0.0",
+    "react-router-dom": "4.2.2",
+    "react-scripts": "^3.0.0",
+    "reactstrap": "^6.0.1",
+    "sweetalert": "^2.1.0",
+    "web3": "^1.0.0-beta.54"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:4000",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
