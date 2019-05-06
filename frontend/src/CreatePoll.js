@@ -62,30 +62,30 @@ class CreatePoll extends Component {
 
         if (0 == -1) this.setState({ error : true });
         else{
-          /* Recollir assignacio options i slogans del JSON */
-          let options   = formData.options;
-          let slogans   = formData.slogans;
+            /* Recollir assignacio options i slogans del JSON */
+            let options   = formData.options;
+            let slogans   = formData.slogans;
 
-          /* Per cada opció afegir-la al smart contract*/
-          let result;
-          for (var x in options) {
-              result = await this.ethervote.addOption(this.counter, options[x], slogans[x],{ gas: (1000000) });
-          }
-          ++this.counter;
+            /* Per cada opció afegir-la al smart contract*/
+            let result;
+            for (var x in options) {
+                result = await this.ethervote.addOption(this.counter, options[x], slogans[x],{ gas: (1000000) });
+            }
+            ++this.counter;
         }
         this.handleRedirect();
     }
 
     handleRedirect(){
-      swal({
-          title: "Good job!",
-          text: "Your poll has been submitted!",
-          icon: "success",
-          timer: 3000,
-      }).then(function() {
-          ReactDOM.render(<Ethervote/>, document.getElementById('root'));
-      })
-   }
+        swal({
+            title: "Good job!",
+            text: "Your poll has been submitted!",
+            icon: "success",
+            timer: 3000,
+        }).then(function() {
+            ReactDOM.render(<Ethervote/>, document.getElementById('root'));
+        })
+    }
     render() {
 
         if (this.state.error){
@@ -93,52 +93,52 @@ class CreatePoll extends Component {
         }
 
         return (
-          <div>
-            <Header title={this.state.title}/>
+            <div>
+                <Header title={this.state.title}/>
 
-            <div className="main-window-2">
-              <h1>Create a new Poll</h1>
-              <h4>Here you can create a new poll that will be sent to the blockchain.</h4>
+                <div className="main-window-2">
+                    <h1>Create new Poll</h1>
+                    <h5>Here you can create a new poll that will be sent to the blockchain.</h5><br/>
 
-              <Form onSubmit={submittedValues => this.handleSubmit( { submittedValues } )}>
-                { formApi => (
-                  <div>
-                    <form onSubmit={formApi.submitForm} id="dynamic-form">
-                      <label htmlFor="dynamic-first">Name</label><br/>
-                      <Text field="name" id="dynamic-first" /><br/><br/>
+                    <Form onSubmit={submittedValues => this.handleSubmit( { submittedValues } )}>
+                        { formApi => (
+                            <div>
+                                <form onSubmit={formApi.submitForm} id="dynamic-form">
+                                    <label htmlFor="dynamic-first"><b>Name</b></label><br/>
+                                    <Text field="name" id="dynamic-first" /><br/><br/>
 
-                      <label htmlFor="description">Description</label><br/>
-                      <TextArea field="description" id="description" /><br/>
+                                    <label htmlFor="description"><b>Description</b></label><br/>
+                                    <TextArea field="description" id="description" /><br/>
 
-                      <button id="addOption"
-                        onClick={() => formApi.addValue('options', '')}
-                        type="button"
-                        className="mb-4 mr-4 btn btn-success">Add Option</button><br/>
+                                    <button id="addOption"
+                                            onClick={() => formApi.addValue('options', '')}
+                                            type="button"
+                                            className="mb-4 mr-4 btn btn-success">Add Option</button><br/>
 
-                      { formApi.values.options && formApi.values.options.map( ( option, i ) => (
-                        <div key={`option${i}`}>
-                          <label htmlFor={`option-name-${i}`}>Option #{i}</label><br/>
-                          <Text className="options" field={['options', i]} id={`option-name-${i}`} /><br/>
-                          <label>Option description </label><br/>
-                          <Text className="option-description" field={['slogans', i]} id={`option-description-${i}`} /><br/>
-                          <button
-                            onClick={() => {formApi.removeValue('options', i); formApi.removeValue('slogans', i);}}
-                            type="button"
-                            className="mb-4 btn btn-danger remove-btn">Remove</button><br/>
-                        </div>
-                      ))}
+                                    { formApi.values.options && formApi.values.options.map( ( option, i ) => (
+                                        <div key={`option${i}`}>
+                                            <label htmlFor={`option-name-${i}`}><b>Option #{i}</b></label><br/>
+                                            <Text className="options" field={['options', i]} id={`option-name-${i}`} /><br/>
+                                            <label>Option description </label><br/>
+                                            <Text className="option-description" field={['slogans', i]} id={`option-description-${i}`} /><br/>
+                                            <button
+                                                onClick={() => {formApi.removeValue('options', i); formApi.removeValue('slogans', i);}}
+                                                type="button"
+                                                className="mb-4 btn btn-danger remove-btn">Remove</button><br/>
+                                        </div>
+                                    ))}
 
-                      <label htmlFor="description">Finish date</label><br/>
-                      <DatePicker class="data-picker" inline selected={this.state.startDate} onChange={this.handleChange}/><br/><br/>
+                                    <label htmlFor="description"><b>End date</b></label><br/>
+                                    <DatePicker class="data-picker" inline selected={this.state.startDate} onChange={this.handleChange}/><br/><br/>
 
-                      <button type="submit" className="mb-4 btn btn-primary submit-button">Submit</button>
-                    </form>
-                  </div>
-                )}
-              </Form>
+                                    <button type="submit" className="mb-4 btn btn-primary submit-button">Submit</button>
+                                </form>
+                            </div>
+                        )}
+                    </Form>
+                </div>
+                <Footer/>
             </div>
-            <Footer/>
-          </div>
         );
     }
 }

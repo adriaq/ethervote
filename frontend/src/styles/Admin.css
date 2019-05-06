@@ -14,16 +14,21 @@
 }
 
 img {
-  margin: 0 auto;
-  margin: 1%;
-  height: 150px;
+    margin: 0 auto;
+    margin: 1%;
+    height: 150px;
 }
 
 .btn-group-lg {
-  margin: 5%;
-  text-align: center;
+    margin: 5%;
+    text-align: center;
 }
 
 .btn-generic {
-  width: 25%;
+    width: 25%;
+    background-color: #003852;
+}
+
+.btn-danger {
+    width: 25%;
 }

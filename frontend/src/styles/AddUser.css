@@ -61,9 +61,13 @@
 }
 
 
-
 .submit-btn {
     float: right;
+    width: 25%;
+    background-color: #003852;
 }
 
+.btn-danger {
+    width: 15%;
+}
 

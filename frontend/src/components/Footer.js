@@ -10,7 +10,7 @@ export default class Footer extends Component{
       <nav className="navbar navbar-expand-lg navbar-light bg-light navbar-footer-height" >
         <div className="container">
           <ul className="nav navbar-nav lg-auto">
-            <li className="nav-item"><a className="nav-link" href="#">© 2018 Ethervote</a></li>
+            <li className="nav-item"><a className="nav-link" href="#">© 2019 Ethervote</a></li>
           </ul>
           <ul className="nav navbar-nav">
 

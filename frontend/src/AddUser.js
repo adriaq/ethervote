@@ -83,7 +83,7 @@ class AddUser extends Component {
                                 </div>
 
                                 <div className="ei">
-                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Submit</Button>
+                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Add user</Button>
                                 </div>
                             </div>
                         </div>
@@ -93,6 +93,7 @@ class AddUser extends Component {
                 <div className="col-lg-12">
                     <Button  color="danger" href="/"> Back </Button>
                 </div>
+                <br/>
               <Footer/>
             </div>
         );

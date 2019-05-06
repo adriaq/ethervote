@@ -14,52 +14,52 @@ const ethervoteimg = require('./img/logo.png');
 const loading = require('./img/loading.gif');
 
 class Ethervote extends Component {
-  constructor(props) {
-    super(props);
-    var web3;
-    if(typeof web3 !== 'undefined'){
-      console.log("Using web3 detected from external source like Metamask")
-      this.web3 = new Web3(web3.currentProvider)
-   }else{
-      this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
-   }
-
-   this.ethervote = null;
-    this.state = {
-        user_type : null, //TITU AIXO ESTA HARDCODED, CANVIAHO A NULL I FES LA PETICIO A COMPONENT DID MOUNT PER SABER EL TIPUS DE USUARI
-        ethervote_address: null,
-        organitzation_name: null,
-        deployed: null,
-    };
-  }
-  async componentDidMount() {
-      await fetch('/get_ethervote')
-        .then(res => res.json())
-        .then(async (deployed_status) => {
-            if(deployed_status.deployed === false) {
-                await this.setState({ deployed: false });
-            } else {
-                await this.setState({ deployed: deployed_status.deployed });
-                await this.setState({ ethervote_address: deployed_status.ethervote_address });
-                await this.setState({ deployed: deployed_status.organitzation_name });
-                let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
-                this.ethervote = tmp_ethervote.at(deployed_status.ethervote_address);
-                this.web3.eth.defaultAccount = this.web3.eth.accounts[0]
-                if(this.ethervote.owner() === this.web3.eth.accounts[0]) {
-                    await this.setState({ user_type: "owner" });
-                } else {
-                    let privilege = await this.ethervote.getPrivilege(this.web3.eth.accounts[0]).toNumber();
-                    await this.setState({ user_type: privilege });
-                }
-            }
+    constructor(props) {
+        super(props);
+        var web3;
+        if(typeof web3 !== 'undefined'){
+            console.log("Using web3 detected from external source like Metamask")
+            this.web3 = new Web3(web3.currentProvider)
+        }else{
+            this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
         }
-    );
-  }
 
-  getEthervote = async (ethervote_firstlogin) => {
-      Ethervote.ethervote = ethervote_firstlogin;
-      await this.setState({ deployed: true });
-      this.forceUpdate()
+        this.ethervote = null;
+        this.state = {
+            user_type : null, //TITU AIXO ESTA HARDCODED, CANVIAHO A NULL I FES LA PETICIO A COMPONENT DID MOUNT PER SABER EL TIPUS DE USUARI
+            ethervote_address: null,
+            organitzation_name: null,
+            deployed: null,
+        };
+    }
+    async componentDidMount() {
+        await fetch('/get_ethervote')
+            .then(res => res.json())
+            .then(async (deployed_status) => {
+                    if(deployed_status.deployed === false) {
+                        await this.setState({ deployed: false });
+                    } else {
+                        await this.setState({ deployed: deployed_status.deployed });
+                        await this.setState({ ethervote_address: deployed_status.ethervote_address });
+                        await this.setState({ deployed: deployed_status.organitzation_name });
+                        let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
+                        this.ethervote = tmp_ethervote.at(deployed_status.ethervote_address);
+                        this.web3.eth.defaultAccount = this.web3.eth.accounts[0]
+                        if(this.ethervote.owner() === this.web3.eth.accounts[0]) {
+                            await this.setState({ user_type: "owner" });
+                        } else {
+                            let privilege = await this.ethervote.getPrivilege(this.web3.eth.accounts[0]).toNumber();
+                            await this.setState({ user_type: privilege });
+                        }
+                    }
+                }
+            );
+    }
+
+    getEthervote = async (ethervote_firstlogin) => {
+        Ethervote.ethervote = ethervote_firstlogin;
+        await this.setState({ deployed: true });
+        this.forceUpdate()
     };
 
 
