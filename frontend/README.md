@@ -11,9 +11,6 @@ $ export PATH=$PATH:$(yarn global bin)
 
 ## Docker
 
-#### Docker credentials
-- username: qonaisys
-- password: a1e8d82714130cfd3a5efecde70abf61
 
 #### Uploading a new image to docker-hub
 
