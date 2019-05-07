@@ -16,17 +16,27 @@ const loading = require('./img/loading.gif');
 class Ethervote extends Component {
     constructor(props) {
         super(props);
-        var web3;
+        window.web3 = new Web3(window.ethereum);
+        var web3 = window.web3;
+        try {
+            // Request account access if needed
+             window.ethereum.enable();
+            // Acccounts now exposed
+        } catch (error) {
+            console.log(error);
+          }
         if(typeof web3 !== 'undefined'){
-            console.log("Using web3 detected from external source like Metamask")
-            this.web3 = new Web3(web3.currentProvider)
+          console.log("Using web3 detected from external source like Metamask")
+          this.web3 = new Web3(web3.currentProvider)
         }else{
-            this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
+          this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
         }
+
 
         this.ethervote = null;
         this.state = {
-            user_type : null, //TITU AIXO ESTA HARDCODED, CANVIAHO A NULL I FES LA PETICIO A COMPONENT DID MOUNT PER SABER EL TIPUS DE USUARI
+            user_address: null,
+            user_type : null,
             ethervote_address: null,
             organitzation_name: null,
             deployed: null,
@@ -42,19 +52,22 @@ class Ethervote extends Component {
                         await this.setState({ deployed: deployed_status.deployed });
                         await this.setState({ ethervote_address: deployed_status.ethervote_address });
                         await this.setState({ deployed: deployed_status.organitzation_name });
-                        let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
-                        this.ethervote = tmp_ethervote.at(deployed_status.ethervote_address);
-                        this.web3.eth.defaultAccount = this.web3.eth.accounts[0]
-                        if(this.ethervote.owner() === this.web3.eth.accounts[0]) {
-                            await this.setState({ user_type: "owner" });
-                        } else {
-                            let privilege = await this.ethervote.getPrivilege(this.web3.eth.accounts[0]).toNumber();
-                            await this.setState({ user_type: privilege });
-                        }
+                        //we create a contract with the abi and the existing address
+                        this.ethervote = new this.web3.eth.Contract(ethervote_source.abi, deployed_status.ethervote_address);
+                        this.web3.eth.getAccounts((error, accounts) => {
+                            if (error) {
+                                console.log(error)
+                            } else {
+                                this.setState({ user_address: accounts[0] });
+                            }
+
+                        });
                     }
-                }
-            );
-    }
+            });
+            //aqui sha de setejar el tipus de account
+
+        }
+
 
     getEthervote = async (ethervote_firstlogin) => {
         Ethervote.ethervote = ethervote_firstlogin;
