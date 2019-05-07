@@ -25,10 +25,20 @@ img {
 }
 
 .btn-generic {
-    width: 25%;
     background-color: #003852;
+    width: 25%;
+}
+.btn-generic:hover {
+    border-color: #b77318;
+    background-color: #b77318;
 }
 
-.btn-danger {
-    width: 25%;
+.btn-logout {
+    background-color: #be0d04;
+    border-color: #be0d04;
+}
+
+.btn-logout:hover{
+    border-color: #8e0904;
+    background-color: #8e0904;
 }
