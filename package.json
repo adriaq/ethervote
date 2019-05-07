@@ -51,9 +51,9 @@
     "web3": "github:ethereum/web3.js"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
+    "babel-cli": "^6.26.0",
     "chalk": "^2.4.1",
     "concurrently": "^3.5.0",
     "create-react-app": "^3.0.0",
