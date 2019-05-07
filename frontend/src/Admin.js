@@ -48,10 +48,10 @@ class Admin extends Component {
                 <div className="main-window">
                     <div className="btn-group-lg">
                         <img src={img_admin} alt="admin"/><br/>
-                        <Button className="btn_admin btn-generic" color="primary" onClick={this.goToUser} > Go to Polls </Button><br/>
-                        <Button className="btn_admin btn-generic" color="primary" onClick={this.goToNewPoll}> Create a New Poll </Button><br/>
-                        <Button className="btn_admin btn-generic" color="primary" onClick={this.goToAddUser} > Add User</Button><br/>
-                        <Button className="btn_admin btn-danger" color="primary" href="/logout" > Log out</Button>
+                        <Button className="btn_admin btn-generic" onClick={this.goToUser} > Go to Polls </Button><br/>
+                        <Button className="btn_admin btn-generic" onClick={this.goToNewPoll}> Create a New Poll </Button><br/>
+                        <Button className="btn_admin btn-generic" onClick={this.goToAddUser} > Add User</Button><br/>
+                        <Button className="btn_admin btn-generic btn-logout" href="/logout" > Log out</Button>
                     </div>
                 </div>
                 <Footer/>
