@@ -16,13 +16,15 @@ class Firstlogin extends Component {
         this.ethervote = null;
         this.web3 = this.props.web3;
         this.state = {
+            ethervoteAddress: null,
+            user_address: null,
             organitzation_name: null,
             existing_ethervote_address: null
         };
         this.handleAddressChange = this.handleAddressChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.connect_to_ethervote = this.connect_to_ethervote.bind(this);
-        this.deploy_ethervote =  this.deploy_ethervote.bind(this);
+        this.onSubmitNew = this.onSubmitNew.bind(this);
     }
 
 
@@ -60,38 +62,30 @@ class Firstlogin extends Component {
     }
 
 
-    async deploy_ethervote() {
-        console.log(this.web3);
-        let tmp_ethervote       = this.web3.eth.contract(ethervote_source.abi);
-        let myEthervoteInstance = tmp_ethervote.new(
-            [this.state.organitzation_name, 3600]
-            ,{
-                from: this.web3.eth.accounts[0],
-                data: ethervote_source.bytecode,
-                gas: 4700000
-            }, (e, tmp_ethervote) => {
-                if (typeof (myEthervoteInstance.address) !== 'undefined') {
-                    this.ethervote = myEthervoteInstance;
-                    this.props.getEthervote(myEthervoteInstance);
-                    console.log('Contract mined! address: ' + myEthervoteInstance.address + ' transactionHash: ' + myEthervoteInstance.transactionHash);
+    async onSubmitNew(e) {
+      e.preventDefault();
+        console.log(this.user_address);
 
-                    fetch('/post_ethervote', {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            "organitzation_name": this.state.organitzation_name,
-                            "ethervote_address": myEthervoteInstance.address,
-                            "deployed": true
-                        })
-                    });
-                }
-            }
-        );
+        let ethervoteContract = new this.props.web3.eth.Contract(ethervote_source.abi)
+        const instanceEthervote = await ethervoteContract
+      .deploy({
+        data: ethervote_source.bytecode,
+        arguments: [this.state.organitzation_name, 3600]})
+      .send({ from: this.state.user_address });
+      // HELP HERE, NO EXECUTA RE A PARTIR DAQUI
+      this.setState({ethervoteAddress: instanceEthervote.options.address});
+      alert("test")
     }
 
+    async componentDidMount() {
+      this.web3.eth.getAccounts((error, accounts) => {
+          if (error) {
+              console.log(error)
+          } else {
+            this.setState({ user_address: accounts[0] });
+          }
+      });
+    }
 
     render() {
         return (
@@ -104,12 +98,12 @@ class Firstlogin extends Component {
 
                     <Row>
                         <div className="col-lg-6 esquerra">
-                            <form>
+                            <form onSubmit={this.onSubmitNew}>
                                 <div className="form-group">
                                     <p className="join-text"> Join Ethervote </p>
                                     <input type="text" className="form-control" value={this.state.value} onChange={this.handleNameChange} placeholder="Enter organization's name" />
                                 </div>
-                                <Button className="btn btn-primary connect-btn" onClick={this.deploy_ethervote}> Submit </Button>
+                                <Button className="btn btn-primary connect-btn"> Submit </Button>
                             </form>
                         </div>
 

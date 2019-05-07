@@ -42,27 +42,28 @@ class Ethervote extends Component {
             deployed: null,
         };
     }
-    async componentDidMount() {
-        await fetch('/get_ethervote')
+     async componentDidMount() {
+       this.web3.eth.getAccounts((error, accounts) => {
+           if (error) {
+               console.log(error)
+           } else {
+             this.setState({ user_address: accounts[0] });
+           }
+       });
+         fetch('/get_ethervote')
             .then(res => res.json())
-            .then(async (deployed_status) => {
-                    if(deployed_status.deployed === false) {
-                        await this.setState({ deployed: false });
+            .then(async (result) => {
+                    if(result.deployed_status == false) {
+                        this.setState({ deployed: false });
                     } else {
-                        await this.setState({ deployed: deployed_status.deployed });
-                        await this.setState({ ethervote_address: deployed_status.ethervote_address });
-                        await this.setState({ deployed: deployed_status.organitzation_name });
+                        await this.setState({ deployed: result.deployed });
+                        await this.setState({ ethervote_address: result.ethervote_address });
+                        await this.setState({ deployed: result.organitzation_name });
                         //we create a contract with the abi and the existing address
-                        this.ethervote = new this.web3.eth.Contract(ethervote_source.abi, deployed_status.ethervote_address);
-                        this.web3.eth.getAccounts((error, accounts) => {
-                            if (error) {
-                                console.log(error)
-                            } else {
-                                this.setState({ user_address: accounts[0] });
-                            }
+                        this.ethervote = new this.web3.eth.Contract(ethervote_source.abi, result.ethervote_address);
 
-                        });
                     }
+
             });
             //aqui sha de setejar el tipus de account
 
@@ -70,6 +71,7 @@ class Ethervote extends Component {
 
 
     getEthervote = async (ethervote_firstlogin) => {
+      console.log("aqui?")
         Ethervote.ethervote = ethervote_firstlogin;
         await this.setState({ deployed: true });
         this.forceUpdate()
@@ -84,7 +86,7 @@ class Ethervote extends Component {
             else if(this.state.user_type === 1) {return <User web3={this.web3} ethervote={this.ethervote}/>}
             else {return (<div><h1>usuari invalid</h1></div>);}
         } else {
-            return <Firstlogin web3={this.web3} getEthervote={this.getEthervote}/>
+            return <Firstlogin web3={this.web3}  getEthervote={this.getEthervote}/>
         }
     }
 }
