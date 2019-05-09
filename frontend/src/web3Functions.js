@@ -6,29 +6,29 @@ var ethervote;
 
 /************************ USER **********************/
 export const getOpenedPolls = async () => {
-        let num_proposals = await ethervote.getNumberOfProposals();
-        let proposals = [];
-        for(let i=1; i<=num_proposals; ++i) {
-            let end = await ethervote.hasEnded(i);
-            if(!end) {
-                let name = await ethervote.getProposalName(i);
-                let description = await ethervote.getProposalDescription(i);
-                let num_opcions = await ethervote.getNumberOfOptions(i);
-                let options = [];
-                for (let j=1; j<=num_opcions; ++j) {
-                    let option_name = await ethervote.getOptionName(i, j);
-                    let option_description = await ethervote.getOptionDescription(i, j);
-                    let option_votes = await ethervote.getNumberOfVotes(i, j);
+    let num_proposals = await ethervote.getNumberOfProposals();
+    let proposals = [];
+    for(let i=1; i<=num_proposals; ++i) {
+        let end = await ethervote.hasEnded(i);
+        if(!end) {
+            let name = await ethervote.getProposalName(i);
+            let description = await ethervote.getProposalDescription(i);
+            let num_opcions = await ethervote.getNumberOfOptions(i);
+            let options = [];
+            for (let j=1; j<=num_opcions; ++j) {
+                let option_name = await ethervote.getOptionName(i, j);
+                let option_description = await ethervote.getOptionDescription(i, j);
+                let option_votes = await ethervote.getNumberOfVotes(i, j);
 
-                    let o = {"name": option_name, "description": option_description, "votes": option_votes};
-                    options.push(o);
-                }
-
-                let p = {"id": i, "name": name, "description": description, "num_opcions": num_opcions, "options": options};
-                proposals.push(p);
+                let o = {"name": option_name, "description": option_description, "votes": option_votes};
+                options.push(o);
             }
+
+            let p = {"id": i, "name": name, "description": description, "num_opcions": num_opcions, "options": options};
+            proposals.push(p);
         }
-        return JSON.parse(proposals);
+    }
+    return JSON.parse(proposals);
 };
 
 export const getClosedPolls = async() => {
@@ -46,7 +46,7 @@ export const getClosedPolls = async() => {
                 let option_name = await ethervote.getOptionName(i, j); //retorna tal qual el nom
                 let option_description = await ethervote.getOptionDescription(i, j); //retorna tal qual la descripció
                 let option_votes = await ethervote.getNumberOfVotes(i, j); //BigNumber { s: x, e: y, c: [ z ] } -> c es el que es necessita
-                
+
                 let o = {"name": option_name, "description": option_description, "votes": option_votes};
                 options.push(o);
             }
@@ -61,10 +61,10 @@ export const getClosedPolls = async() => {
 export const vote = async(key, id, option) => {
     let v = false;
     let voted = await ethervote.hasVoted(key, id); //retorna tal qual true or false
-    if(!voted) { 
+    if(!voted) {
         await ethervote.vote(id, option); //no retorna res important
 
-        v = await ethervote.hasVoted(key, id); 
+        v = await ethervote.hasVoted(key, id);
     }
 
     //v si false hi ha hagut un error, 
@@ -128,10 +128,10 @@ export const getOpenedPolls = async(id) => {
  * PRE: Administador entra a la web
  * POST: json amb un llistat de les votacions tancades que ha creat
  */
- /*
+/*
 export const getClosedPolls = async(id) => {
-    //Al ser el mateix cens serà igual que per User
-    return 1;
+   //Al ser el mateix cens serà igual que per User
+   return 1;
 };
 */
 /************************************************************************************/
@@ -147,25 +147,25 @@ export const deploySmartContract = async(addr) => {
      * deploy contract
      * var contractInstance = MyContract.new([constructorParam1] [, constructorParam2], {data: '0x12345...', from: myAccount, gas: 1000000});
      */
-   /* let input = {
-        'ethervote.sol': fs.readFileSync(__dirname+'/smartcontract/ethervote.sol', 'utf8')
-    };
+    /* let input = {
+         'ethervote.sol': fs.readFileSync(__dirname+'/smartcontract/ethervote.sol', 'utf8')
+     };
 
-    let compiled = solc.compile({sources: input}, 1);
-    let abi = compiled.contracts['ethervote.sol:ethervote'].interface;
-    let Ethervote = web3.eth.contract(JSON.parse(abi));
-    let CURRENT_USER; //aquesta variable es la persona que fara la peticio cap a crear nou contract o existent, sha de canviar el nom i agafarla d'on toca
-    let existing_ethervote, ethervote_nom, ethervote_default_time, maxGas;
-    if (existing_ethervote) { //si el smart contract ja existeix
-        ethervote = Ethervote.at(existing_ethervote);
-    }
-    else { // si no existeix
-        ethervote = Ethervote.new(ethervote_nom,ethervote_default_time, {from: CURRENT_USER, gas: maxGas}, function(err, contract) {
-            if (!err && contract.address){
-                console.log("deployed on:", contract.address);
-            }
-        });
-    }*/
+     let compiled = solc.compile({sources: input}, 1);
+     let abi = compiled.contracts['ethervote.sol:ethervote'].interface;
+     let Ethervote = web3.eth.contract(JSON.parse(abi));
+     let CURRENT_USER; //aquesta variable es la persona que fara la peticio cap a crear nou contract o existent, sha de canviar el nom i agafarla d'on toca
+     let existing_ethervote, ethervote_nom, ethervote_default_time, maxGas;
+     if (existing_ethervote) { //si el smart contract ja existeix
+         ethervote = Ethervote.at(existing_ethervote);
+     }
+     else { // si no existeix
+         ethervote = Ethervote.new(ethervote_nom,ethervote_default_time, {from: CURRENT_USER, gas: maxGas}, function(err, contract) {
+             if (!err && contract.address){
+                 console.log("deployed on:", contract.address);
+             }
+         });
+     }*/
     return 1;
 };
 

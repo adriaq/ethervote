@@ -7,7 +7,7 @@ import './styles/Firstlogin.css';
 import Admin from "./Admin";
 
 const ethervote_source = require('./contracts/ethervote.json')
-const ethervoteimg = require('./img/logo_prueba.png');
+const ethervoteimg = require('./img/logo.png');
 
 
 class Firstlogin extends Component {
@@ -41,7 +41,7 @@ class Firstlogin extends Component {
 
 
     async connect_to_ethervote() {
-        let tmp_ethervote = this.web3.eth.contract(ethervote_source.abi);
+        let tmp_ethervote = this.web3.eth.Contract(ethervote_source.abi);
         let myEthervoteInstance = tmp_ethervote.at(this.state.existing_ethervote_address);
         console.log(myEthervoteInstance);
         let ethervote_name = await myEthervoteInstance.name();
@@ -62,29 +62,60 @@ class Firstlogin extends Component {
     }
 
 
-    async onSubmitNew(e) {
-      e.preventDefault();
-        console.log(this.user_address);
+    async onSubmitNew(event) {
+        event.preventDefault();
+        //console.log("adreça: " + this.state.user_address);
 
-        let ethervoteContract = new this.props.web3.eth.Contract(ethervote_source.abi)
-        const instanceEthervote = await ethervoteContract
-      .deploy({
-        data: ethervote_source.bytecode,
-        arguments: [this.state.organitzation_name, 3600]})
-      .send({ from: this.state.user_address });
-      // HELP HERE, NO EXECUTA RE A PARTIR DAQUI
-      this.setState({ethervoteAddress: instanceEthervote.options.address});
-      alert("test")
+        /* let ethervoteContract = new this.props.web3.eth.Contract(ethervote_source.abi);
+         const instanceEthervote = await ethervoteContract
+             .deploy({
+                 data: ethervote_source.bytecode,
+                 arguments: [this.state.organitzation_name, 3600]})
+             .send({ from: this.state.user_address });
+         // HELP HERE, NO EXECUTA RE A PARTIR DAQUI
+         //console.log("HOLAAAAAAAAAAAA");
+         this.setState({ethervoteAddress: instanceEthervote.options.address});
+         //alert("test");*/
+        let ethervoteContract = new this.props.web3.eth.Contract(ethervote_source.abi);
+        const instance = ethervoteContract
+            .deploy({
+                data: ethervote_source.bytecode,
+                arguments: [this.state.organitzation_name, 3600]});
+        //https://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#deploy
+        instance.send({
+            from: this.state.user_address
+        }, (error, transactionHash) => {
+            console.log("ERROR: " + error);
+        }).on('error', (error) => {
+                console.log("error!:" + error);
+            })
+            .on('transactionHash', (transactionHash) => {
+                console.log("transaction hash: " + transactionHash);
+            })
+            .on('receipt', (receipt) => {
+                console.log("new contract address: " + receipt.contractAddress); // contains the new contract address
+            })
+            .on('confirmation', (confirmationNumber, receipt) => {
+                console.log(confirmationNumber);
+            })
+            .then((newContractInstance) => {
+                console.log(newContractInstance.options.address); // instance with the new contract address
+                this.setState({ethervoteAddress: newContractInstance.options.address});
+            });
+
+
+        console.log("adhskf; " + ethervoteContract);
     }
 
     async componentDidMount() {
-      this.web3.eth.getAccounts((error, accounts) => {
-          if (error) {
-              console.log(error)
-          } else {
-            this.setState({ user_address: accounts[0] });
-          }
-      });
+        //console.log("carrega");
+        this.web3.eth.getAccounts((error, accounts) => {
+            if (error) {
+                console.log(error);
+            } else {
+                this.setState({ user_address: accounts[0] });
+            }
+        });
     }
 
     render() {
@@ -103,7 +134,7 @@ class Firstlogin extends Component {
                                     <p className="join-text"> Join Ethervote </p>
                                     <input type="text" className="form-control" value={this.state.value} onChange={this.handleNameChange} placeholder="Enter organization's name" />
                                 </div>
-                                <Button className="btn btn-primary connect-btn"> Submit </Button>
+                                <Button className="btn btn-primary register-btn"> Submit </Button>
                             </form>
                         </div>
 
@@ -115,9 +146,9 @@ class Firstlogin extends Component {
                                         <input type="text" className="form-control" value={this.state.value} onChange={this.handleAddressChange} placeholder="Organization's public address"/>
                                     </div>
                                 </div>
-                                    <Button className="btn btn-primary connect-btn" color="primary" onClick={this.connect_to_ethervote}>
-                                        Connect
-                                    </Button>
+                                <Button className="btn btn-primary connect-btn" color="primary" onClick={this.connect_to_ethervote}>
+                                    Connect
+                                </Button>
                             </form>
                         </div>
                     </Row>

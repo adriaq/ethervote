@@ -39,9 +39,8 @@
 }
 
 .register-btn:hover, .connect-btn:hover{
-    background-color: white;
-    color: #003852;
-    border-color: #003852;
+    background-color: #ac821e;
+    border-color: #ac821e;
 }
 
 .col-lg-6{
