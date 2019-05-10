@@ -2,10 +2,32 @@ import React, {Component} from 'react';
 import {ButtonToolbar, DropdownButton, MenuItem} from 'react-bootstrap';
 import '../styles/Header.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import swal from 'sweetalert';
+import {Button} from 'reactstrap';
+import Ethervote from "../Ethervote";
+import ReactDOM from 'react-dom';
 export default class Header extends Component{
 
+    goToHome() {
+        console.log(this.web3);
+        ReactDOM.render(<Ethervote web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
+    }
+
+
+
   render(){
+
+      var help = {
+          title: "Help",
+          text: "This is Ethervote, a blockchain based voting system. \n In this platform your organization members will be able to \
+                    organize and participate in secure votation processes.",
+          icon: "info",
+          button: {
+              text: "Understood!",
+              className: "botosweet"
+          }
+      }
+
       return(
 
       <div>
@@ -14,27 +36,11 @@ export default class Header extends Component{
                 <div className="navbar-header">
                   <a className="navbar-brand" href="/">Ethervote </a>
                 </div>
-
                 <div className="collapse navbar-collapse" >
-                    <ul className="nav navbar-nav hola">
-                        <ButtonToolbar>
-                            <DropdownButton title="Help" pullRight id="dropdown-no-caret">
-                                <MenuItem eventKey="1">
-                                    <p> You can create a new poll in the <i> Create poll </i> division </p>
-                                </MenuItem>
-                                <MenuItem divider />
-                                <MenuItem eventKey="2">
-                                    <p> You can see a list of the polls you have access to vote in the
-                                        <br/> <i> Open polls </i> division </p>
-                                </MenuItem>
-                                <MenuItem divider />
-                                <MenuItem eventKey="3">
-                                    <p> You can see a list of the polls in which you have participated
-                                        <br/>  in the <i> Results </i> division </p>
-                                </MenuItem>
-                            </DropdownButton>
-                        </ButtonToolbar>
-                    </ul>
+
+                        <Button className="btn1" onClick={() => this.goToHome()} > Home </Button>
+                        <Button className="btn2" onClick={() => {swal(help)}} > Help </Button>
+
                 </div>
             </div>
           </nav>
