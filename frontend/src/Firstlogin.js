@@ -80,31 +80,24 @@ class Firstlogin extends Component {
         const instance = ethervoteContract
             .deploy({
                 data: ethervote_source.bytecode,
-                arguments: [this.state.organitzation_name, 3600]});
-        //https://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#deploy
-        instance.send({
-            from: this.state.user_address
-        }, (error, transactionHash) => {
-            console.log("ERROR: " + error);
-        }).on('error', (error) => {
+                arguments: [this.state.organitzation_name, 3600]})
+            .send({
+                from: this.state.user_address
+            }).on('error', (error) => {
                 console.log("error!:" + error);
-            })
-            .on('transactionHash', (transactionHash) => {
+            }).on('transactionHash', (transactionHash) => {
                 console.log("transaction hash: " + transactionHash);
-            })
-            .on('receipt', (receipt) => {
+            }).on('receipt', (receipt) => {
                 console.log("new contract address: " + receipt.contractAddress); // contains the new contract address
-            })
-            .on('confirmation', (confirmationNumber, receipt) => {
-                console.log(confirmationNumber);
-            })
-            .then((newContractInstance) => {
-                console.log(newContractInstance.options.address); // instance with the new contract address
-                this.setState({ethervoteAddress: newContractInstance.options.address});
+            }).on('confirmation', (confirmationNumber, receipt) => {
+                //console.log("confirmation number: " + confirmationNumber);
+                //console.log("new contract address: " + receipt.contractAddress);
+                this.setState({ethervoteAddress: receipt.contractAddress});
+                console.log(this.state);
             });
 
 
-        console.log("adhskf; " + ethervoteContract);
+        //  console.log(instance);
     }
 
     async componentDidMount() {
