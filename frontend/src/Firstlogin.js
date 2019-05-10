@@ -77,7 +77,7 @@ class Firstlogin extends Component {
          this.setState({ethervoteAddress: instanceEthervote.options.address});
          //alert("test");*/
         let ethervoteContract = new this.props.web3.eth.Contract(ethervote_source.abi);
-        const instance = ethervoteContract
+        await ethervoteContract
             .deploy({
                 data: ethervote_source.bytecode,
                 arguments: [this.state.organitzation_name, 3600]})
@@ -94,6 +94,8 @@ class Firstlogin extends Component {
                 //console.log("new contract address: " + receipt.contractAddress);
                 this.setState({ethervoteAddress: receipt.contractAddress});
                 console.log(this.state);
+
+                ReactDOM.render(<Admin web3={this.web3} ethervoteAddres={this.state.ethervoteAddress}/>, document.getElementById('root'));
             });
 
 
