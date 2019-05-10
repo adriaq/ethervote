@@ -15,14 +15,14 @@ import Logout from './Logout';
 import Ethervote from './Ethervote';
 
 import Firstlogin from './Firstlogin';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
-
+//import { createHashHistory } from 'history'
 
 const color = {
     backgroundColor:'#ffffff'
 };
-
+//const history = createHashHistory()
 const Root = () => {
     return (
         <BrowserRouter>
