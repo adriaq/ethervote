@@ -3,6 +3,7 @@ import {ListGroup,ListGroupItem,Container,Button} from 'reactstrap';
 import {Glyphicon,Row,Col} from 'react-bootstrap';
 import './styles/User.css';
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import {getOpenedPolls, getClosedPolls} from "./web3Functions"
 
 class User2 extends Component {
@@ -70,6 +71,8 @@ class User2 extends Component {
                 </div>
 
             </div>
+
+
         );
     }
 }
