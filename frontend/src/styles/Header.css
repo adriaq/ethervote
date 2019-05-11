@@ -1,20 +1,14 @@
 .custom-navbar {
     background-color: #003852;
     height: 100px;
-    max-width: 200%;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .navbar-brand {
     color: white;
     font-family: 'Coustard', serif;
     font-size: 46px;
-}
-
-.botohome {
-    color: white;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 20px;
-    display:inline-block;
 }
 
 .btn2 {
@@ -25,16 +19,6 @@
     background-color: #003852;
     color: white;
 }
-
-
-.botodesplegable {
-    color: white;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 20px;
-    display:inline-block;
-}
-
-
 
 .navbar-nav {
     font-family: 'Noto Sans', sans-serif;
@@ -50,19 +34,24 @@
     margin-left: 65%;
 }
 
-.navbar-header > a {
-    color: white;
-    text-decoration: none;
-}
-
-.navbar-header > a:hover {
-    color: white;
-}
-
 a:hover {
     color: white;
 }
 
 .navbar-nav > li > a:hover {
     background-color: transparent;
+}
+
+img{
+    max-height: 90px;
+}
+
+.btn1:hover, .btn2:hover {
+    background-color: #ac821e;
+    border-color: #ac821e;
+}
+
+.btn1, .btn2 {
+    background-color: #003852;
+    border-color: #003852;
 }
