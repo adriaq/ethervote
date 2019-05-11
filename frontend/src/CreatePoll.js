@@ -27,8 +27,9 @@ class CreatePoll extends Component {
 
     constructor(props) {
         super(props);
-        this.ethervote = this.props.ethervote;
+        this.ethervoteAddress = this.props.ethervoteAddress;
         this.web3 = this.props.web3;
+        this.ethervote = null;
         this.counter = 1;
         this.state = {
             startDate: moment(),
@@ -43,6 +44,23 @@ class CreatePoll extends Component {
     }
 
     handleChange(date) {
+        console.log(this.state.startDate);
+        // comprovar que la data escollida sigui a partir d'avui
+        //(date);
+        let today = new Date();
+        //alert(today);
+        if (date < today) {
+            swal({
+                title: "Time alert!",
+                text: "Time travel is not possible yet. The end date must be from today.",
+                icon: "warning",
+                button: {
+                    text: "Understood!",
+                    className: "botosweet"
+                }
+            });
+        }
+
         this.setState({
             startDate: date
         });
@@ -86,6 +104,12 @@ class CreatePoll extends Component {
             ReactDOM.render(<Ethervote/>, document.getElementById('root'));
         })
     }
+
+    async componentDidMount() {
+        //console.log("carrega");
+        this.ethervote = this.web3.eth.Contract([], this.state.ethervoteAddress);
+    }
+
     render() {
 
         if (this.state.error){

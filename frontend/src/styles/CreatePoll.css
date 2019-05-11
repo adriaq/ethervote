@@ -1,3 +1,7 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 .main-window {
     margin-top: 2%;
     margin-left: 7%;
@@ -41,4 +45,21 @@
 .submit-button {
     width: 15%;
     margin: 10px;
+    background-color: #003852;
+    border-color: #003852;
+}
+
+.submit-button:hover {
+    background-color: #ac821e;
+    border-color: #ac821e;
+}
+
+.botosweet {
+    background-color: #003852;
+    color: white;
+}
+
+.botosweet:hover {
+    background-color: #ac821e;
+    color: white;
 }
