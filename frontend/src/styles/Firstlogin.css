@@ -65,3 +65,8 @@
 .link:hover{
     text-decoration: none;
 }
+
+.botosweet {
+    background-color: #003852;
+    color: white;
+}

@@ -5,8 +5,9 @@ import {Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/Firstlogin.css';
 import Admin from "./Admin";
+import swal from 'sweetalert';
 
-const ethervote_source = require('./contracts/ethervote.json')
+const ethervote_source = require('./contracts/ethervote.json');
 const ethervoteimg = require('./img/logo.png');
 
 
@@ -41,10 +42,17 @@ class Firstlogin extends Component {
 
 
     async connect_to_ethervote() {
-        let tmp_ethervote = this.web3.eth.Contract(ethervote_source.abi);
-        let myEthervoteInstance = tmp_ethervote.at(this.state.existing_ethervote_address);
+        let myEthervoteInstance = this.web3.eth.Contract([], this.state.existing_ethervote_address);
+        //let myEthervoteInstance = tmp_ethervote.at(this.state.existing_ethervote_address);
         console.log(myEthervoteInstance);
         let ethervote_name = await myEthervoteInstance.name();
+        /*
+        await myEthervoteInstance.name().call({
+            from: this.state.existing_ethervote_address
+        }, (error, result) => {
+                ethervote_name = result;
+            });
+         */
 
         await fetch('/post_ethervote', {
             method: 'POST',
@@ -84,7 +92,15 @@ class Firstlogin extends Component {
             .send({
                 from: this.state.user_address
             }).on('error', (error) => {
-                console.log("error!:" + error);
+                swal({
+                    title: "Error!",
+                    text: error,
+                    icon: "warning",
+                    button: {
+                        text: "Understood!",
+                        className: "botosweet"
+                    }
+                });
             }).on('transactionHash', (transactionHash) => {
                 console.log("transaction hash: " + transactionHash);
             }).on('receipt', (receipt) => {
@@ -93,7 +109,7 @@ class Firstlogin extends Component {
                 //console.log("confirmation number: " + confirmationNumber);
                 //console.log("new contract address: " + receipt.contractAddress);
                 this.setState({ethervoteAddress: receipt.contractAddress});
-                console.log(this.state);
+               // console.log(this.state);
 
                 ReactDOM.render(<Admin web3={this.web3} ethervoteAddres={this.state.ethervoteAddress}/>, document.getElementById('root'));
             });
@@ -106,7 +122,15 @@ class Firstlogin extends Component {
         //console.log("carrega");
         this.web3.eth.getAccounts((error, accounts) => {
             if (error) {
-                console.log(error);
+                swal({
+                    title: "Error!",
+                    text: error,
+                    icon: "warning",
+                    button: {
+                        text: "Understood!",
+                        className: "botosweet"
+                    }
+                });
             } else {
                 this.setState({ user_address: accounts[0] });
             }
