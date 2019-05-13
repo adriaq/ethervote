@@ -49,7 +49,7 @@ class Admin extends Component {
                         <Button className="btn_admin btn-generic" onClick={this.goToUser} > Go to Polls </Button><br/>
                         <Button className="btn_admin btn-generic" onClick={this.goToNewPoll}> Create a New Poll </Button><br/>
                         <Button className="btn_admin btn-generic" onClick={this.goToAddUser} > Add User</Button><br/>
-                        <Button className="btn_admin btn-generic btn-logout" href="/logout" > Log out</Button>
+
                     </div>
                 </div>
                 <Footer/>
