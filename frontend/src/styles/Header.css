@@ -11,7 +11,7 @@
     font-size: 46px;
 }
 
-.btn2 {
+.btn2, .btn3 {
     margin-left: 20px;
 }
 
@@ -31,7 +31,7 @@
 
 .navbar-collapse {
     display: inline;
-    margin-left: 65%;
+    margin-left: 50%;
 }
 
 a:hover {
@@ -51,7 +51,14 @@ img{
     border-color: #ac821e;
 }
 
-.btn1, .btn2 {
+.btn3:hover{
+    background-color: darkred;
+    border-color: darkred;
+}
+
+
+.btn1, .btn2, .btn3 {
     background-color: #003852;
     border-color: #003852;
 }
+
