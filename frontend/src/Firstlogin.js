@@ -20,9 +20,11 @@ class Firstlogin extends Component {
             ethervoteAddress: null,
             user_address: null,
             organitzation_name: null,
-            existing_ethervote_address: null
+            existing_ethervote_address: null,
+            default_voting_time: 3600
         };
         this.handleAddressChange = this.handleAddressChange.bind(this);
+        this.handleTimeChange = this.handleTimeChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.connect_to_ethervote = this.connect_to_ethervote.bind(this);
         this.onSubmitNew = this.onSubmitNew.bind(this);
@@ -34,6 +36,10 @@ class Firstlogin extends Component {
         this.setState({organitzation_name: event.target.value});
     }
 
+    handleTimeChange(event) {
+        event.preventDefault();
+        this.setState({default_voting_time: event.target.value});
+    }
 
     handleAddressChange(event) {
         event.preventDefault();
@@ -72,23 +78,12 @@ class Firstlogin extends Component {
 
     async onSubmitNew(event) {
         event.preventDefault();
-        //console.log("adreça: " + this.state.user_address);
 
-        /* let ethervoteContract = new this.props.web3.eth.Contract(ethervote_source.abi);
-         const instanceEthervote = await ethervoteContract
-             .deploy({
-                 data: ethervote_source.bytecode,
-                 arguments: [this.state.organitzation_name, 3600]})
-             .send({ from: this.state.user_address });
-         // HELP HERE, NO EXECUTA RE A PARTIR DAQUI
-         //console.log("HOLAAAAAAAAAAAA");
-         this.setState({ethervoteAddress: instanceEthervote.options.address});
-         //alert("test");*/
         let ethervoteContract = new this.props.web3.eth.Contract(ethervote_source.abi);
         await ethervoteContract
             .deploy({
                 data: ethervote_source.bytecode,
-                arguments: [this.state.organitzation_name, 3600]})
+                arguments: [this.state.organitzation_name, this.state.default_voting_time]})
             .send({
                 from: this.state.user_address
             }).on('error', (error) => {
@@ -152,6 +147,8 @@ class Firstlogin extends Component {
                                 <div className="form-group">
                                     <p className="join-text"> Join Ethervote </p>
                                     <input type="text" className="form-control" value={this.state.value} onChange={this.handleNameChange} placeholder="Enter organization's name" />
+                                    Default voting time:
+                                    <input type="text" className="form-control" value={this.state.value} onChange={this.handleTimeChange} placeholder="3600" />
                                 </div>
                                 <Button className="btn btn-primary register-btn"> Submit </Button>
                             </form>
