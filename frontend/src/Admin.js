@@ -9,13 +9,11 @@ import img_admin from './img/administrator-128.png';
 import CreatePoll from "./CreatePoll";
 import AddUser from "./AddUser";
 import User from "./User";
-import OpenPoll from "./OpenPoll";
-
 
 class Admin extends Component {
     constructor(props) {
         super(props);
-        this.ethervote = this.props.ethervote;
+        this.ethervoteAddress = this.props.ethervoteAddress;
         this.web3 = this.props.web3;
         this.goToUser = this.goToUser.bind(this);
         this.goToNewPoll = this.goToNewPoll.bind(this);
@@ -24,17 +22,17 @@ class Admin extends Component {
 
     goToUser() {
         console.log(this.web3);
-        ReactDOM.render(<User web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
+        ReactDOM.render(<User web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
     goToNewPoll() {
         console.log(this.web3);
-        ReactDOM.render(<CreatePoll web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
+        ReactDOM.render(<CreatePoll web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
     goToAddUser() {
         console.log(this.web3);
-        ReactDOM.render(<AddUser web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
+        ReactDOM.render(<AddUser web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
 

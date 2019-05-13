@@ -60,10 +60,11 @@ class CreatePoll extends Component {
                 }
             });
         }
-
-        this.setState({
-            startDate: date
-        });
+        else {
+            this.setState({
+                startDate: date
+            });
+        }
     }
 
     async handleSubmit(submittedValues){
