@@ -37,6 +37,7 @@ class Ethervote extends Component {
         this.state = {
             user_address: null,
             user_type : null,
+            owner: false,
             ethervote_address: null,
             organitzation_name: null,
             deployed: null,
@@ -63,8 +64,14 @@ class Ethervote extends Component {
                         let ethervoteInstance = new this.web3.eth.Contract(ethervote_source.abi, result.ethervote_address);
                         console.log("user addres:" +this.state.user_address);
                         // Alba a vegades falla per this.state.user_adress tarda en ferse i es queda null, pots fer magia sincrona? seria fer tot aquest fetch despres  de lo de adalt
+                        ethervoteInstance.methods.owner.call({from: this.state.user_address})
+                        .then((result) => {
+                            // si es owner posar true a la variable owner
+                            console.log(result);
+                        });
                         ethervoteInstance.methods.getPrivilege(this.state.user_address).call({from: this.state.user_address})
                         .then((result) => {
+                          //guardar al state user_type el privilegi. Es veu que retorna big number raro
                             console.log(result);
                         });
 
