@@ -42,6 +42,7 @@ export default class Header extends Component{
                         <div className="navbar-collapse" >
                             <Button className="btn1" onClick={() => this.goToHome()} > Home </Button>
                             <Button className="btn2" onClick={() => {swal(help)}} > Help </Button>
+                            <Button className="btn3" href="/logout" > Log out</Button>
                         </div>
                     </div>
                 </nav>
