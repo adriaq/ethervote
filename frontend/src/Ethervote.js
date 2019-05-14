@@ -53,14 +53,20 @@ class Ethervote extends Component {
          fetch('/get_ethervote')
             .then(res => res.json())
             .then(async (result) => {
-                    if(result.deployed_status == false) {
+                    if(result.deployed == false) {
                         this.setState({ deployed: false });
                     } else {
                         await this.setState({ deployed: result.deployed });
                         await this.setState({ ethervote_address: result.ethervote_address });
                         await this.setState({ deployed: result.organitzation_name });
                         //we create a contract with the abi and the existing address
-                        this.ethervote = new this.web3.eth.Contract(ethervote_source.abi, result.ethervote_address);
+                        let ethervoteInstance = new this.web3.eth.Contract(ethervote_source.abi, result.ethervote_address);
+                        console.log("user addres:" +this.state.user_address);
+                        // Alba a vegades falla per this.state.user_adress tarda en ferse i es queda null, pots fer magia sincrona? seria fer tot aquest fetch despres  de lo de adalt
+                        ethervoteInstance.methods.getPrivilege(this.state.user_address).call({from: this.state.user_address})
+                        .then((result) => {
+                            console.log(result);
+                        });
 
                     }
 
@@ -81,12 +87,12 @@ class Ethervote extends Component {
     render() {
         //if(this.state.deployed === null) return (<div><img className="loading" src={loading} alt="loading"/></div>);
         if (this.state.deployed) {
-            if(this.state.user_type === "owner") {return <Admin web3={this.web3} ethervote={this.ethervote}/>}
-            else if(this.state.user_type === 2) {return <User2 web3={this.web3} ethervote={this.ethervote}/>}
-            else if(this.state.user_type === 1) {return <User web3={this.web3} ethervote={this.ethervote}/>}
+            if(this.state.user_type === "owner") {return <Admin web3={this.web3} ethervote={this.ethervote}/>;}
+            else if(this.state.user_type === 2) {return <User2 web3={this.web3} ethervote={this.ethervote}/>;}
+            else if(this.state.user_type === 1) {return <User web3={this.web3} ethervote={this.ethervote}/>;}
             else {return (<div><h1>usuari invalid</h1></div>);}
         } else {
-            return <Firstlogin web3={this.web3}  getEthervote={this.getEthervote}/>
+            return <Firstlogin web3={this.web3}  getEthervote={this.getEthervote}/>;
         }
     }
 }

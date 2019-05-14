@@ -101,13 +101,32 @@ class Firstlogin extends Component {
             }).on('receipt', (receipt) => {
                 console.log("new contract address: " + receipt.contractAddress); // contains the new contract address
             }).on('confirmation', (confirmationNumber, receipt) => {
-                //console.log("confirmation number: " + confirmationNumber);
-                //console.log("new contract address: " + receipt.contractAddress);
+                //guardem l'adreça al estat
                 this.setState({ethervoteAddress: receipt.contractAddress});
-               // console.log(this.state);
 
+                //i al servidor
+                 fetch('/post_ethervote', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "organitzation_name": this.state.organitzation_name,
+                        "ethervote_address": receipt.contractAddress,
+                        "deployed": true
+                    })
+                });
+
+
+
+            })
+            .then((newContractInstance) => {
+              //hauria d'entrar aqui..
+                console.log(newContractInstance.options.address) // instance with the new contract address
                 ReactDOM.render(<Admin web3={this.web3} ethervoteAddres={this.state.ethervoteAddress}/>, document.getElementById('root'));
             });
+
 
 
         //  console.log(instance);
