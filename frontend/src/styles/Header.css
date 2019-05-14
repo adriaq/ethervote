@@ -47,13 +47,15 @@ img{
 }
 
 .btn1:hover, .btn2:hover {
-    background-color: #ac821e;
-    border-color: #ac821e;
+    background-color: #003852;
+    border-color: #003852;
+    color: #ac821e;
 }
 
 .btn3:hover{
-    background-color: darkred;
-    border-color: darkred;
+    background-color: #003852;
+    border-color: #003852;
+    color: darkred;
 }
 
 
