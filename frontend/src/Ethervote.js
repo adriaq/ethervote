@@ -43,63 +43,48 @@ class Ethervote extends Component {
             deployed: null,
         };
     }
-     async componentDidMount() {
+     componentDidMount() {
+       var that = this;
        this.web3.eth.getAccounts((error, accounts) => {
            if (error) {
                console.log(error)
            } else {
-             this.setState({ user_address: accounts[0] });
+             var user_account = accounts[0];
+
+             fetch('/get_ethervote')
+               .then(res => res.json())
+                  .then ((data) => {
+                    console.log("Comp. Didmount deployed? ");
+                    console.log(data.deployed);
+                    this.setState({ deployed: data.deployed });
+                    this.setState({ ethervote_address: data.ethervote_address });
+                    this.setState({ organitzation_name: data.organitzation_name });
+
+                    const ethervoteInstance = new that.web3.eth.Contract(ethervote_source.abi, data.ethervote_address);
+                    //ethervoteInstance.methods.getPrivilege(user_account).call().then(console.log);
+
+                  }
+                );
+             this.setState({ user_address: user_account });
            }
        });
-         fetch('/get_ethervote')
-            .then(res => res.json())
-            .then(async (result) => {
-                    if(result.deployed == false) {
-                        this.setState({ deployed: false });
-                    } else {
-                        await this.setState({ deployed: result.deployed });
-                        await this.setState({ ethervote_address: result.ethervote_address });
-                        await this.setState({ deployed: result.organitzation_name });
-                        //we create a contract with the abi and the existing address
-                        let ethervoteInstance = new this.web3.eth.Contract(ethervote_source.abi, result.ethervote_address);
-                        console.log("user addres:" +this.state.user_address);
-                        // Alba a vegades falla per this.state.user_adress tarda en ferse i es queda null, pots fer magia sincrona? seria fer tot aquest fetch despres  de lo de adalt
-                        ethervoteInstance.methods.owner.call({from: this.state.user_address})
-                        .then((result) => {
-                            // si es owner posar true a la variable owner
-                            console.log(result);
-                        });
-                        ethervoteInstance.methods.getPrivilege(this.state.user_address).call({from: this.state.user_address})
-                        .then((result) => {
-                          //guardar al state user_type el privilegi. Es veu que retorna big number raro
-                            console.log(result);
-                        });
-
-                    }
-
-            });
-            //aqui sha de setejar el tipus de account
-
-        }
 
 
-    getEthervote = async (ethervote_firstlogin) => {
-      console.log("aqui?")
-        Ethervote.ethervote = ethervote_firstlogin;
-        await this.setState({ deployed: true });
-        this.forceUpdate()
-    };
+     }
 
 
     render() {
-        //if(this.state.deployed === null) return (<div><img className="loading" src={loading} alt="loading"/></div>);
-        if (this.state.deployed) {
+      console.log("render:");
+      console.log(this.state.deployed);
+
+        if(this.state.deployed === null) return (<div><img className="loading" src={loading} alt="loading"/></div>);
+        if (this.state.deployed == true) {
             if(this.state.user_type === "owner") {return <Admin web3={this.web3} ethervote={this.ethervote}/>;}
             else if(this.state.user_type === 2) {return <User2 web3={this.web3} ethervote={this.ethervote}/>;}
             else if(this.state.user_type === 1) {return <User web3={this.web3} ethervote={this.ethervote}/>;}
             else {return (<div><h1>usuari invalid</h1></div>);}
         } else {
-            return <Firstlogin web3={this.web3}  getEthervote={this.getEthervote}/>;
+            return <Firstlogin web3={this.web3}/>;
         }
     }
 }
