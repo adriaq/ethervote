@@ -22,12 +22,15 @@ import 'react-datepicker/dist/react-datepicker.css';
 /* sweetalert import */
 import swal from 'sweetalert';
 
+/* ethervote json import */
+import ethervote_source from './contracts/ethervote.json'
+
 
 class CreatePoll extends Component {
 
     constructor(props) {
         super(props);
-        this.ethervoteAddress = this.props.ethervoteAddress;
+        //this.ethervoteAddress = this.props.ethervoteAddress;
         this.web3 = this.props.web3;
         this.ethervote = null;
         this.counter = 1;
@@ -44,7 +47,6 @@ class CreatePoll extends Component {
     }
 
     handleChange(date) {
-        console.log(this.state.startDate);
         // comprovar que la data escollida sigui a partir d'avui
         //(date);
         let today = new Date();
@@ -52,7 +54,7 @@ class CreatePoll extends Component {
         if (date < today) {
             swal({
                 title: "Time alert!",
-                text: "Time travel is not possible yet. The end date must be from today.",
+                text: "Time travel is not possible yet. The end date must be from tomorrow.",
                 icon: "warning",
                 button: {
                     text: "Understood!",
@@ -67,19 +69,43 @@ class CreatePoll extends Component {
         }
     }
 
+    /**
+     *
+     * @param submittedValues
+     * @returns {Promise<void>}
+     */
     async handleSubmit(submittedValues){
+        /*
+        - function addVoter(address _voter, int _privilege) onlyOwner public {
+        - function getPrivilege(address _voter) public view returns (int){
+        - function changePrivilege(address _voter, int _privilege) onlyOwner public {
+        - function deleteVoter(address _voter) onlyOwner public {
+        - function getNumberOfVoters() public view returns (int){
+        - function newProposal(string _name, string _description, uint _votingTime, address _creator) canCreate(_creator) public returns(bool succes) {
+        - function addOption(int _proposalID, string _name, string _description) public onlyOwner onlyCreator(_proposalID) returns(bool)  {
+        - function getNumberOfOptions(int _proposalID) public view returns(int) {
+        - function getNumberOfVotes(int _proposalID, int _n_option) public view returns(int){
+        - function getOptionName(int _proposalID, int _n_option) public view returns(string) {
+        - function hasEnded(int _proposalID) public view returns(bool) {
+        - function getNumberOfProposals() public view returns (int) {
+        - function vote(int _proposalID, int _option) public canVote(msg.sender) returns(bool){
+        - function hasVoted(address _voter, int _proposalID) public view canVote(_voter) returns(bool)
+         */
+
         let formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
 
         /* Quan l'administrador ha creat la votació, s'envia al smart contract instanciat prèviament. */
         let date          = this.state.startDate.format().slice(0,10);
-        let preProposals  = await this.ethervote.getNumberOfProposals();
+        console.log("date: " + date);
+        let preProposals  = await this.ethervote.methods.getNumberOfProposals().call();
+        console.log("preProposals: " + preProposals);
 
         /* Es crea una nova votació. Retorna proposalID o -1 si hi ha un error */
         let proposalID   = await this.ethervote.newProposal(formData.name, formData.description, { gas: (1000000) });
 
         let postProposals = await this.ethervote.getNumberOfProposals();
 
-        if (0 == -1) this.setState({ error : true });
+        if (preProposals + 1 !== postProposals) this.setState({ error : true });
         else{
             /* Recollir assignacio options i slogans del JSON */
             let options   = formData.options;
@@ -102,13 +128,15 @@ class CreatePoll extends Component {
             icon: "success",
             timer: 3000,
         }).then(function() {
-            ReactDOM.render(<Ethervote/>, document.getElementById('root'));
+            ReactDOM.render(<Ethervote web3={this.web3} ethervoteAddres={this.state.ethervoteAddress}/>, document.getElementById('root'));
         })
     }
 
     async componentDidMount() {
         //console.log("carrega");
-        this.ethervote = this.web3.eth.Contract([], this.state.ethervoteAddress);
+        await this.setState({ ethervoteAddress: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1" });
+        this.ethervote = new this.web3.eth.Contract(ethervote_source.abi, this.state.ethervoteAddress);
+        // this.ethervote = this.web3.eth.Contract([], this.state.ethervoteAddress);
     }
 
     render() {
