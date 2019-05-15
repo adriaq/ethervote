@@ -16,7 +16,9 @@ class User extends Component {
         this.ethervote = this.props.ethervote;
         this.web3 = this.props.web3;
         this.state = {
-            votations: [
+          user_address: null,
+          votacions: [],
+            votations_mock: [
                     {
                         "id":"0",
                         "name": "example glossary",
@@ -27,32 +29,7 @@ class User extends Component {
                             "description": "meh",
                             "votes": "3",
                         }
-                    },
-
-                    {
-                        "id":"1",
-                        "name": "prova2",
-                        "description": "buaaaaaaaaaaaaaaaaaaaaaa",
-                        "num_opcions": "4",
-                        "options": {
-                            "name": "S",
-                            "description": "meh",
-                            "votes": "3",
-                        }
-                    },
-
-
-                {
-                    "id":"4",
-                    "name": "prova 3",
-                    "description": "buaaaaaaaaaaaaaaaaaaaaaa",
-                    "num_opcions": "4",
-                    "options": {
-                        "name": "S",
-                        "description": "meh",
-                        "votes": "3",
                     }
-                }
 
 
             ],
@@ -67,31 +44,7 @@ class User extends Component {
                     "description": "meh",
                     "votes": "3",
                 }
-            },
 
-                {
-                    "id":"1",
-                    "name": "prova2",
-                    "description": "buaaaaaaaaaaaaaaaaaaaaaa",
-                    "num_opcions": "4",
-                    "options": {
-                        "name": "S",
-                        "description": "meh",
-                        "votes": "3",
-                    }
-                },
-
-
-                {
-                    "id":"4",
-                    "name": "prova 3",
-                    "description": "buaaaaaaaaaaaaaaaaaaaaaa",
-                    "num_opcions": "4",
-                    "options": {
-                        "name": "S",
-                        "description": "meh",
-                        "votes": "3",
-                    }
                 }],
 
             privilegeLevel: '',
@@ -112,20 +65,38 @@ class User extends Component {
         ReactDOM.render(<PollResults web3={this.web3} ethervote={this.ethervote} id={pollId}/>, document.getElementById('root'));
     }
 
+
+    componentDidMount() {
+      this.web3.eth.getAccounts((error, accounts) => {
+          if (error) {
+              console.log(error)
+          } else {
+              var user_account = accounts[0];
+              this.setState({ user_address: user_account });
+              this.ethervote.methods.getNumberOfProposals().call({from: this.state.user_address}).then(raw_n_proposals => {
+                  let n_proposals = raw_n_proposals.toString() //variable que conte el numero de proposals
+                  console.log(n_proposals);
+                  //aqui hauriem de construir les proposals i afegirles
+
+              });
+         }
+       });
+    }
+
     render() {
 
         return (
-          
+
           <div >
             <Header/>
-            <div class="container">
+            <div className="container">
               <Row className="DP">
                 <div className="col-lg-6">
 
                   <h3> OPEN POLLS </h3>
 
                   <ListGroup>
-                    {this.state.votations.map( p =>
+                    {this.state.votations_mock.map( p =>
                       <ListGroupItem className="LGI" tag="a" onClick={(e) => this.goToOpenPoll(p.id, e)} key={p.name}>
                         {p.name}
                       </ListGroupItem>)}
