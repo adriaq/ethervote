@@ -30,8 +30,6 @@ class User extends Component {
                             "votes": "3",
                         }
                     }
-
-
             ],
 
             closeVotations: [{
