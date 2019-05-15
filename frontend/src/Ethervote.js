@@ -61,7 +61,7 @@ class Ethervote extends Component {
                     this.setState({ organitzation_name: data.organitzation_name });
 
                     const ethervoteInstance = new that.web3.eth.Contract(ethervote_source.abi, data.ethervote_address);
-                    //ethervoteInstance.methods.getPrivilege(user_account).call().then(console.log);
+                    ethervoteInstance.methods.getPrivilege(user_account).call({from: this.state.user_address}).then(console.log);
 
                   }
                 );
