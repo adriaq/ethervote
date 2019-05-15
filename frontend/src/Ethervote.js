@@ -32,12 +32,11 @@ class Ethervote extends Component {
           this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
         }
 
-
-        this.ethervote = null;
         this.state = {
+            ethervote: null,
             user_address: null,
-            user_type : null,
             owner: false,
+            privilege: -1,
             ethervote_address: null,
             organitzation_name: null,
             deployed: null,
@@ -61,7 +60,18 @@ class Ethervote extends Component {
                     this.setState({ organitzation_name: data.organitzation_name });
 
                     const ethervoteInstance = new that.web3.eth.Contract(ethervote_source.abi, data.ethervote_address);
-                    ethervoteInstance.methods.getPrivilege(user_account).call({from: this.state.user_address}).then(console.log);
+                    this.setState({ ethervote: ethervoteInstance });
+
+                    ethervoteInstance.methods.getPrivilege(user_account).call({from: this.state.user_address}).then(privilege_result => {
+                        this.setState({privilege: privilege_result.toString()});
+                    });
+
+                    ethervoteInstance.methods.owner.call({from: this.state.user_address}).then(owner_address => {
+                      if(user_account == owner_address) {this.setState({ owner: true })}
+                      else {this.setState({ owner: false })}
+
+                    });
+
 
                   }
                 );
@@ -74,14 +84,11 @@ class Ethervote extends Component {
 
 
     render() {
-      console.log("render:");
-      console.log(this.state.deployed);
-
         if(this.state.deployed === null) return (<div><img className="loading" src={loading} alt="loading"/></div>);
         if (this.state.deployed == true) {
-            if(this.state.user_type === "owner") {return <Admin web3={this.web3} ethervote={this.ethervote}/>;}
-            else if(this.state.user_type === 2) {return <User2 web3={this.web3} ethervote={this.ethervote}/>;}
-            else if(this.state.user_type === 1) {return <User web3={this.web3} ethervote={this.ethervote}/>;}
+            if(this.state.owner) {return <Admin web3={this.web3} ethervote={this.ethervote}/>;}
+            else if(this.state.privilege === 2) {return <User2 web3={this.web3} ethervote={this.ethervote}/>;}
+            else if(this.state.privilege === 1) {return <User web3={this.web3} ethervote={this.ethervote}/>;}
             else {return (<div><h1>usuari invalid</h1></div>);}
         } else {
             return <Firstlogin web3={this.web3}/>;
