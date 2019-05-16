@@ -113,6 +113,7 @@ class User extends Component {
                   </Row>
 
             </div>
+              <Button className="btn btn-primary back-btn"> Back </Button>
               <div>
                     <Footer/>
                 </div>
