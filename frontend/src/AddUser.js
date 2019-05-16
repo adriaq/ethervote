@@ -62,7 +62,7 @@ class AddUser extends Component {
         - function vote(int _proposalID, int _option) public canVote(msg.sender) returns(bool){
         - function hasVoted(address _voter, int _proposalID) public view canVote(_voter) returns(bool)
          */
-        if (this.state.userPK === null) {
+        if (!this.web3.utils.isAddress(this.state.userPK)) {
             swal({
                 title: "Alert!",
                 text: "You must enter a valid address.",
@@ -74,38 +74,46 @@ class AddUser extends Component {
             });
         }
         else {
-            console.log("HOLAAAAAAAAA: " + this.state.user_address);
-            console.log("contract adress: " + this.ethervoteAddress);
-            this.ethervote.methods.getNumberOfProposals().call({from: this.state.user_address}).then(n => {
+            //console.log("HOLAAAAAAAAA: " + this.state.user_address);
+            //console.log("contract adress: " + this.ethervoteAddress);
+           /* this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
                 console.log("number of proposals: " + n);
-            });
-            this.ethervote.methods.addVoter(this.state.userPK, this.state.privilegeLevel).call()
-                .then((result, error) => {
-                    if(!error) {
-                        console.log(result);
-                        swal({
-                            title: "Info",
-                            text: "Voter added to poll!",
-                            icon: "info",
-                            button: {
-                                text: "Great!",
-                                className: "botosweet"
-                            }
-                        });
-                    }
-                    else {
-                        alert("Error adding voter");
-                        swal({
-                            title: "Error!",
-                            text: "Error adding voter to poll.",
-                            icon: "warning",
-                            button: {
-                                text: "Understood!",
-                                className: "botosweet"
-                            }
-                        });
+            });*/
+            this.ethervote.methods.addVoter(this.state.userPK, this.state.privilegeLevel).send({
+                from: this.state.user_address
+            }).on('transactionHash', (hash) => {
+                console.log(hash);
+            }).on('confirmation', (confirmationNumber, receipt) => {
+                console.log("confirmation number: " + confirmationNumber);
+                console.log("receipt: " + receipt);
+                let values = receipt.returnValues;
+                console.log("values: " + values);
+
+                swal({
+                    title: "Info",
+                    text: "Voter added to organization!",
+                    icon: "info",
+                    button: {
+                        text: "Great!",
+                        className: "botosweet"
                     }
                 });
+
+                /*this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
+                    console.log("number of voters: " + n);
+                });*/
+            }).on('error', (error) => { // If there's an out of gas error the second parameter is the receipt.
+                alert("Error adding voter");
+                swal({
+                    title: "Error!",
+                    text: error,
+                    icon: "warning",
+                    button: {
+                        text: "Understood!",
+                        className: "botosweet"
+                    }
+                });
+            });
         }
     }
 

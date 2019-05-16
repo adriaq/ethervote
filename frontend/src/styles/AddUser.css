@@ -67,6 +67,11 @@
     background-color: #003852;
 }
 
+.submit-btn:hover {
+    border-color: #ac821e;
+    background-color: #ac821e;
+}
+
 .btn-danger {
     width: 15%;
 }
