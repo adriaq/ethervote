@@ -45,6 +45,10 @@ class CreatePoll extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleRedirect = this.handleRedirect.bind(this);
     }
+    goToEth() {
+        console.log(this.web3);
+        ReactDOM.render(<Ethervote web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
+    }
 
     handleChange(date) {
         // comprovar que la data escollida sigui a partir d'avui
@@ -186,6 +190,7 @@ class CreatePoll extends Component {
 
                                     <button type="submit" className="mb-4 btn btn-primary submit-button">Submit</button>
                                 </form>
+                                <Button className="btn btn-primary back-btn"  onClick={this.goToEth} > Back </Button>
                             </div>
                         )}
                     </Form>

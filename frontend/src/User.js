@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import OpenPoll from "./OpenPoll";
 import PollResults from "./PollResults";
+import Ethervote from "./Ethervote";
 
 
 class User extends Component {
@@ -63,6 +64,10 @@ class User extends Component {
         ReactDOM.render(<PollResults web3={this.web3} ethervote={this.ethervote} id={pollId}/>, document.getElementById('root'));
     }
 
+    goToEth() {
+        console.log(this.web3);
+        ReactDOM.render(<Ethervote web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
+    }
 
     componentDidMount() {
       this.web3.eth.getAccounts((error, accounts) => {
@@ -113,7 +118,7 @@ class User extends Component {
                   </Row>
 
             </div>
-              <Button className="btn btn-primary back-btn"> Back </Button>
+              <Button className="btn btn-primary back-btn"  onClick={this.goToEth} > Back </Button>
               <div>
                     <Footer/>
                 </div>

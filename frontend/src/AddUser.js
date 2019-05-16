@@ -6,6 +6,8 @@ import img_user from './img/add-user-2-128.gif';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import swal from "sweetalert";
+import Ethervote from "./Ethervote";
+import ReactDOM from 'react-dom';
 
 const ethervote_source = require('./contracts/ethervote.json');
 
@@ -28,6 +30,13 @@ class AddUser extends Component {
         this.setState({
             userPK: event.target.value
         });
+    }
+
+
+
+    goToEth() {
+        console.log(this.web3);
+        ReactDOM.render(<Ethervote web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
     handleChange(event) {
@@ -151,7 +160,7 @@ class AddUser extends Component {
                 </div>
 
                 <div className="col-lg-12">
-                    <Button  color="danger" href="/"> Back </Button>
+                    <Button className="btn btn-primary back-btn"  onClick={this.goToEth} > Back </Button>
                 </div>
                 <br/>
                 <Footer/>
