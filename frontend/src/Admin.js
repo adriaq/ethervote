@@ -13,7 +13,7 @@ import User from "./User";
 class Admin extends Component {
     constructor(props) {
         super(props);
-        this.ethervote = this.props.ethervote
+        this.ethervoteAddress = this.props.ethervoteAddress;
         this.web3 = this.props.web3;
         this.goToUser = this.goToUser.bind(this);
         this.goToNewPoll = this.goToNewPoll.bind(this);
@@ -22,7 +22,7 @@ class Admin extends Component {
 
     goToUser() {
         console.log(this.web3);
-        ReactDOM.render(<User web3={this.web3} ethervote={this.ethervote}/>, document.getElementById('root'));
+        ReactDOM.render(<User web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
     goToNewPoll() {
@@ -34,8 +34,6 @@ class Admin extends Component {
         console.log(this.web3);
         ReactDOM.render(<AddUser web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
-
-    
 
     render() {
         return(
