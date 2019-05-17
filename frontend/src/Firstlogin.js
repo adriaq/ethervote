@@ -75,7 +75,6 @@ class Firstlogin extends Component {
                     "deployed": true
                 })
             });
-
         }
     }
 
