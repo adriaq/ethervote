@@ -47,31 +47,36 @@ class Firstlogin extends Component {
     }
 
     async connect_to_ethervote() {
-        let myEthervoteInstance = this.web3.eth.Contract([], this.state.existing_ethervote_address);
-        //let myEthervoteInstance = tmp_ethervote.at(this.state.existing_ethervote_address);
-        console.log(myEthervoteInstance);
-        let ethervote_name = await myEthervoteInstance.name();
-        /*
-        await myEthervoteInstance.name().call({
-            from: this.state.existing_ethervote_address
-        }, (error, result) => {
-                ethervote_name = result;
+        if (!this.web3.utils.isAddress(this.state.existing_ethervote_address)) {
+            swal({
+                title: "Alert!",
+                text: "You must enter a valid address.",
+                icon: "warning",
+                button: {
+                    text: "Understood!",
+                    className: "botosweet"
+                }
             });
-         */
+        }
+        else {
+            let myEthervoteInstance = this.web3.eth.Contract(ethervote_source.abi, this.state.existing_ethervote_address);
+            //let myEthervoteInstance = tmp_ethervote.at(this.state.existing_ethervote_address);
+            
+            await fetch('/post_ethervote', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    // NOM ORGANITZACIÓ SI JA EXISTEIX EL CONTRACTE?????
+                    "organitzation_name": "check",
+                    "ethervote_address": myEthervoteInstance.address,
+                    "deployed": true
+                })
+            });
 
-        await fetch('/post_ethervote', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "organitzation_name": ethervote_name,
-                "ethervote_address": myEthervoteInstance.address,
-                "deployed": true
-            })
-        });
-        this.props.getEthervote(myEthervoteInstance);
+        }
     }
 
 

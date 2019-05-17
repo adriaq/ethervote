@@ -84,7 +84,7 @@ class Ethervote extends Component {
     render() {
         if(this.state.deployed === null) return (<div><img className="loading" src={loading} alt="loading"/></div>);
         if (this.state.deployed === true) {
-            if(this.state.owner) {return <Admin web3={this.web3} ethervoteAddress={this.state.ethervote_address}/>;}
+            if(this.state.owner) {return <User2 web3={this.web3} ethervoteAddress={this.state.ethervote_address}/>;}
             else if(this.state.privilege === 2) {return <User2 web3={this.web3} ethervoteAddress={this.state.ethervote_address}/>;}
             else if(this.state.privilege === 1) {return <User web3={this.web3} ethervoteAddress={this.state.ethervote_address}/>;}
             else {return (<div><h1>usuari invalid</h1></div>);}
