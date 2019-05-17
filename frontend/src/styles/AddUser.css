@@ -79,3 +79,7 @@
 .usr-img {
     max-height: 60%;
 }
+
+.usr-img-del, .usr-img-edit {
+    max-height: 80%;
+}

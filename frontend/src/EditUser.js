@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/AddUser.css'
-import img_user from './img/add-user-2-128.gif';
+import img_user from './img/edit-user-2-128.gif';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import swal from "sweetalert";
@@ -18,7 +18,7 @@ class EditUser extends Component {
         this.web3 = this.props.web3;
         this.state = {
             userPK: null,
-            privilegeLevel: '0',
+            privilegeLevel: '1',
         };
         this.updateInputValueUser = this.updateInputValueUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -32,7 +32,6 @@ class EditUser extends Component {
         });
     }
 
-
     goToEth() {
         ReactDOM.render(<Ethervote web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
@@ -41,7 +40,6 @@ class EditUser extends Component {
         event.preventDefault();
         this.setState({privilegeLevel: event.target.value});
     }
-
 
     submitbtn() {
         /*
@@ -72,12 +70,7 @@ class EditUser extends Component {
             });
         }
         else {
-            //console.log("HOLAAAAAAAAA: " + this.state.user_address);
-            //console.log("contract adress: " + this.ethervoteAddress);
-            /* this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
-                 console.log("number of proposals: " + n);
-             });*/
-            this.ethervote.methods.addVoter(this.state.userPK, this.state.privilegeLevel).send({
+            this.ethervote.methods.changePrivilege(this.state.userPK, this.state.privilegeLevel).send({
                 from: this.state.user_address
             }).on('transactionHash', (hash) => {
                 console.log(hash);
@@ -89,21 +82,13 @@ class EditUser extends Component {
 
                 swal({
                     title: "Info",
-                    text: "Voter added to organization!",
+                    text: "Voter privilege changed!",
                     icon: "info",
                     button: {
                         text: "Great!",
                         className: "botosweet"
                     }
                 });
-
-                this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
-                    console.log("number of voters: " + n);
-                });
-                this.ethervote.methods.getPrivilege(this.state.userPK).call({from: this.state.user_address}).then(n => {
-                    console.log("user privilege: " + n);
-                });
-
             }).on('error', (error) => { // If there's an out of gas error the second parameter is the receipt.
                 alert("Error adding voter");
                 swal({
@@ -143,7 +128,7 @@ class EditUser extends Component {
 
                 <div className="row">
                     <div className="col-lg-3">
-                        <img src={img_user} alt="user"/>
+                        <img className="usr-img-edit" src={img_user} alt="user"/>
                     </div>
 
                     <div className="col-lg-9">
@@ -162,7 +147,7 @@ class EditUser extends Component {
                                 </div>
 
                                 <div className="ei">
-                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Add user</Button>
+                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Change privilege</Button>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +162,6 @@ class EditUser extends Component {
             </div>
         );
     }
-
 }
 
 export default EditUser;
