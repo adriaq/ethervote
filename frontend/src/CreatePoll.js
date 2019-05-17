@@ -51,44 +51,6 @@ class CreatePoll extends Component {
         ReactDOM.render(<Ethervote web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
-    async domore(formData) {
-        console.log('ara soc aqui');
-        let postProposals = await this.ethervote.methods.getNumberOfProposals().call(
-
-        ).on('error', (error) => {
-            console.log(error)});
-        console.log('postproposals ' + postProposals);
-        console.log(formData);
-
-        let options   = formData.options;
-        let slogans   = formData.slogans;
-        console.log(options);
-        console.log(slogans);
-        //- function addOption(int _proposalID, string _name, string _description) public onlyOwner onlyCreator(_proposalID) returns(bool)
-        let i;
-        let result;
-        console.log('estoy en el domore');
-        console.log(options.length);
-
-        result = await this.ethervote.methods.addOption(postProposals, options[0], slogans[0]).send(
-            {from: this.state.user_address}
-        ).on('transactionHash', (hash) => {
-            console.log(hash);
-        }).on('confirmation', (confirmationNumber, receipt) => {
-            console.log("confirmation number: " + confirmationNumber);
-            console.log('hem afegit opcions ok');
-        });
-        /*for (i=0; i < options.length; i++) {
-            result = await this.ethervote.methods.addOption(postProposals, options[i], slogans[i]).send(
-                {from: this.state.user_address}
-            ).on('transactionHash', (hash) => {
-                console.log(hash);
-            }).on('confirmation', (confirmationNumber, receipt) => {
-                console.log("confirmation number: " + confirmationNumber);
-                console.log('hem afegit opcions ok');
-            });
-        }*/
-    }
 
     handleChange(date) {
         // comprovar que la data escollida sigui a partir d'avui
@@ -162,24 +124,32 @@ class CreatePoll extends Component {
                 }
             ).on('transactionHash', (hash) => {
                 console.log(hash);
-            }).on('confirmation', (confirmationNumber, receipt) => {
+            }).on('confirmation', async (confirmationNumber, receipt) => {
                 console.log("confirmation number: " + confirmationNumber);
                 console.log('he fet new proposal ok');
 
-                swal({
-                    title: "Error!",
-                    text: 'Tenim problemes per posar les opcions, estamos en ello!',
-                    icon: "warning",
-                    button: {
-                        text: "Understood!",
-                        className: "botosweet"
-                    }
-                });
+                let postProposals = await this.ethervote.methods.getNumberOfProposals();
+                console.log("postProposals: " + postProposals);
+                let options   = formData.options;
+                let slogans   = formData.slogans;
+                console.log(options);
+                console.log(slogans);
 
-                //console.log('vaig a cridar a domore');
-                //this.domore(formData);
+                let i;
+                let result;
 
-                console.log('despres del domore');
+                for (i=0; i < options.length; i++) {
+
+                    result = await this.ethervote.methods.addOption(postProposals, options[i], slogans[i]).send(
+                        {from: this.state.user_address}
+                    ).on('transactionHash', (hash) => {
+                        console.log(hash);
+                    }).on('confirmation', (confirmationNumber, receipt) => {
+                        console.log("confirmation number: " + confirmationNumber);
+                        console.log('hem afegit opcion ok');
+                    });
+                }
+
             }).on('error', (error) => {
                 console.log(error);
                 this.setState({error: true});
@@ -195,16 +165,6 @@ class CreatePoll extends Component {
 
             });
         }
-
-
-
-
-            /* Per cada opció afegir-la al smart contract*/
-            //let result;
-           // for (var x in options) {
-           //     result = await this.ethervote.addOption(this.counter, options[x], slogans[x],{ gas: (1000000) });
-           // }
-           // ++this.counter;
 
         //this.handleRedirect();
     }
