@@ -11,14 +11,14 @@ import ReactDOM from 'react-dom';
 
 const ethervote_source = require('./contracts/ethervote.json');
 
-class AddUser extends Component {
+class DeleteUser extends Component {
     constructor(props) {
         super(props);
         this.ethervoteAddress = this.props.ethervoteAddress;
         this.web3 = this.props.web3;
         this.state = {
             userPK: null,
-            privilegeLevel: '1',
+            privilegeLevel: '0',
         };
         this.updateInputValueUser = this.updateInputValueUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -32,8 +32,8 @@ class AddUser extends Component {
         });
     }
 
+
     goToEth() {
-        console.log(this.web3);
         ReactDOM.render(<Ethervote web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
@@ -41,6 +41,7 @@ class AddUser extends Component {
         event.preventDefault();
         this.setState({privilegeLevel: event.target.value});
     }
+
 
     submitbtn() {
         /*
@@ -76,7 +77,6 @@ class AddUser extends Component {
             /* this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
                  console.log("number of proposals: " + n);
              });*/
-            console.log("privilegi: " + this.state.privilegeLevel);
             this.ethervote.methods.addVoter(this.state.userPK, this.state.privilegeLevel).send({
                 from: this.state.user_address
             }).on('transactionHash', (hash) => {
@@ -97,12 +97,13 @@ class AddUser extends Component {
                     }
                 });
 
-                /*  this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
-                      console.log("number of voters: " + n);
-                  });
-                  this.ethervote.methods.getPrivilege(this.state.userPK).call({from: this.state.user_address}).then(n => {
-                      console.log("user privilege: " + n);
-                  });*/
+                this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
+                    console.log("number of voters: " + n);
+                });
+                this.ethervote.methods.getPrivilege(this.state.userPK).call({from: this.state.user_address}).then(n => {
+                    console.log("user privilege: " + n);
+                });
+
             }).on('error', (error) => { // If there's an out of gas error the second parameter is the receipt.
                 alert("Error adding voter");
                 swal({
@@ -142,14 +143,15 @@ class AddUser extends Component {
 
                 <div className="row">
                     <div className="col-lg-3">
-                        <img className="usr-img" src={img_user} alt="user"/>
+                        <img src={img_user} alt="user"/>
                     </div>
 
                     <div className="col-lg-9">
                         <div className="input">
                             <div>
                                 <p> USER PUBLIC KEY </p>
-                                <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}/>
+                                <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}
+                                />
 
                                 <div className="col-lg-8">
                                     <p> PRIVILEGE LEVEL: </p>
@@ -175,6 +177,7 @@ class AddUser extends Component {
             </div>
         );
     }
+
 }
 
-export default AddUser;
+export default DeleteUser;
