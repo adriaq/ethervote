@@ -82,7 +82,7 @@ class CreatePoll extends Component {
      */
     async handleSubmit(submittedValues){
         let formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
-        console.log(formData);
+        //console.log(formData);
 
         if (isEmpty(formData)) {
             swal({
@@ -126,29 +126,29 @@ class CreatePoll extends Component {
                 console.log(hash);
             }).on('confirmation', async (confirmationNumber, receipt) => {
                 console.log("confirmation number: " + confirmationNumber);
-                console.log('he fet new proposal ok');
+                let nproposals = await this.ethervote.methods.getNumberOfProposals().call({from: this.state.user_address}).then(async postProposals => {
+                    console.log("postProposals: " + postProposals);
+                    var options   = formData.options;
+                    var slogans   = formData.slogans;
 
-                let postProposals = await this.ethervote.methods.getNumberOfProposals();
-                console.log("postProposals: " + postProposals);
-                let options   = formData.options;
-                let slogans   = formData.slogans;
-                console.log(options);
-                console.log(slogans);
+                    let i;
+                    let result;
+                    for (i=0; i < options.length; i++) {
+                      console.log("index: "+i);
+                        console.log("afegint: n:"+postProposals+", op:"+options[i]+", sl:"+slogans[i]);
+                        result = await this.ethervote.methods.addOption(postProposals, options[i], slogans[i]).send(
+                            {from: this.state.user_address}
+                        ).on('confirmation', (confirmationNumber, receipt) => {
+                            //console.log("confirmation number: " + confirmationNumber);
+                            //console.log('hem afegit opcion ok');
+                        }).on('error', (error) => {
+                          console.log(error)
+                        });
+                        console.log("arriba aqui?");
+                    }
 
-                let i;
-                let result;
+                });
 
-                for (i=0; i < options.length; i++) {
-
-                    result = await this.ethervote.methods.addOption(postProposals, options[i], slogans[i]).send(
-                        {from: this.state.user_address}
-                    ).on('transactionHash', (hash) => {
-                        console.log(hash);
-                    }).on('confirmation', (confirmationNumber, receipt) => {
-                        console.log("confirmation number: " + confirmationNumber);
-                        console.log('hem afegit opcion ok');
-                    });
-                }
 
             }).on('error', (error) => {
                 console.log(error);
@@ -164,6 +164,7 @@ class CreatePoll extends Component {
                 });
 
             });
+            console.log("proposalID: "+proposalID);
         }
 
         //this.handleRedirect();

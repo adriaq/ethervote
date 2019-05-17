@@ -44,8 +44,8 @@ class User2 extends Component {
 
     goToNewPoll() {
        // debugger
-        console.log(this.web3);
-        console.log('eps');
+        //console.log(this.web3);
+        //console.log('eps');
         ReactDOM.render(<CreatePoll web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
