@@ -30,7 +30,6 @@ class Firstlogin extends Component {
         this.onSubmitNew = this.onSubmitNew.bind(this);
     }
 
-
     handleNameChange(event) {
         event.preventDefault();
         this.setState({organitzation_name: event.target.value});
@@ -61,7 +60,7 @@ class Firstlogin extends Component {
         else {
             let myEthervoteInstance = this.web3.eth.Contract(ethervote_source.abi, this.state.existing_ethervote_address);
             //let myEthervoteInstance = tmp_ethervote.at(this.state.existing_ethervote_address);
-            
+
             await fetch('/post_ethervote', {
                 method: 'POST',
                 headers: {
