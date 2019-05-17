@@ -20,7 +20,7 @@ class Admin extends Component {
         this.goToUser = this.goToUser.bind(this);
         this.goToNewPoll = this.goToNewPoll.bind(this);
         this.goToAddUser = this.goToAddUser.bind(this);
-        this.goToEditUser = this.goToAddUser.bind(this);
+        this.goToEditUser = this.goToEditUser.bind(this);
         this.goToDeleteUser = this.goToDeleteUser.bind(this);
     }
 
