@@ -8,6 +8,8 @@ import img_admin from './img/administrator-128.png';
 
 import CreatePoll from "./CreatePoll";
 import AddUser from "./AddUser";
+import EditUser from "./EditUser";
+import DeleteUser from "./DeleteUser";
 import User from "./User";
 
 class Admin extends Component {
@@ -18,21 +20,28 @@ class Admin extends Component {
         this.goToUser = this.goToUser.bind(this);
         this.goToNewPoll = this.goToNewPoll.bind(this);
         this.goToAddUser = this.goToAddUser.bind(this);
+        this.goToEditUser = this.goToAddUser.bind(this);
+        this.goToDeleteUser = this.goToDeleteUser.bind(this);
     }
 
     goToUser() {
-        console.log(this.web3);
         ReactDOM.render(<User web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
     goToNewPoll() {
-        console.log(this.web3);
         ReactDOM.render(<CreatePoll web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
     goToAddUser() {
-        console.log(this.web3);
         ReactDOM.render(<AddUser web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
+    }
+
+    goToEditUser() {
+        ReactDOM.render(<EditUser web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
+    }
+
+    goToDeleteUser() {
+        ReactDOM.render(<DeleteUser web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
     render() {
@@ -48,14 +57,14 @@ class Admin extends Component {
                         <Button className="btn_admin btn-generic" onClick={this.goToUser} > Go to Polls </Button><br/>
                         <Button className="btn_admin btn-generic" onClick={this.goToNewPoll}> Create a New Poll </Button><br/>
                         <Button className="btn_admin btn-generic" onClick={this.goToAddUser} > Add User</Button><br/>
-
+                        <Button className="btn_admin btn-generic" onClick={this.goToEditUser} > Edit User</Button><br/>
+                        <Button className="btn_admin btn-generic" onClick={this.goToDeleteUser} > Delete User</Button><br/>
                     </div>
                 </div>
                 <Footer/>
             </div>
         );
     }
-
 }
 
 export default Admin;
