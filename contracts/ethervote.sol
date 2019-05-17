@@ -98,7 +98,7 @@ contract ethervote {
     }
 
 event addProposal(int id);
-function newProposal(string _name, string _description)  canCreate(msg.sender) public {
+function newProposal(string _name, string _description) canCreate(msg.sender) public returns(int){
     if( (bytes(_name).length > 0) &&
         (bytes(_description).length > 0)
     ){
@@ -109,8 +109,10 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
         proposals[proposalID].votingDeadline = now + defaultVotingTime;
         proposals[proposalID].exists = true;
         emit addProposal(proposalID);
+        return proposalID;
     }
     else emit addProposal(-1);
+    return (-1);
 }
 
     function getProposalName(int id) public view returns(string) {
@@ -146,7 +148,7 @@ function newProposal(string _name, string _description)  canCreate(msg.sender) p
       } else return -1;
     }
     function getName() public view returns(string) {
-      return name; 
+      return name;
     }
     function getNumberOfVotes(int _proposalID, int _n_option) public view returns(int){
       if(proposals[_proposalID].exists &&

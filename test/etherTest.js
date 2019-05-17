@@ -81,6 +81,40 @@ contract('Ethervote', function (accounts) {
         assert.equal(description, description_p)
     })
 
+    it('create 2 proposals', async function() {
+        var name = "proposal_test_1"
+        var description = "First proposal test description"
+
+        var name2 = "proposal_test_2"
+        var description2 = "Second proposal test description"
+
+        await ethervote.addVoter(voter_1, 2, {from: owner_address})
+
+        //voter_1 creates a new proposal
+        await ethervote.newProposal(name, description, {from: voter_1})
+
+        var res = await ethervote.getNumberOfProposals()
+        assert.equal(res, 1)
+
+        var name_p = await ethervote.getProposalName(1)
+        assert.equal(name, name_p)
+
+        var description_p = await ethervote.getProposalDescription(1)
+        assert.equal(description, description_p)
+
+        //voter_1 creates a new proposal
+        await ethervote.newProposal(name2, description2, {from: voter_1})
+
+        var res = await ethervote.getNumberOfProposals()
+        assert.equal(res, 2)
+
+        var name_p = await ethervote.getProposalName(res)
+        assert.equal(name2, name_p)
+
+        var description_p = await ethervote.getProposalDescription(res)
+        assert.equal(description2, description_p)
+    })
+
 
     it('add options to proposal', async function() {
         await ethervote.addVoter(voter_1, 2, {from: owner_address})
