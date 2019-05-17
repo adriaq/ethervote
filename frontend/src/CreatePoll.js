@@ -167,7 +167,7 @@ class CreatePoll extends Component {
             console.log("proposalID: "+proposalID);
         }
 
-        //this.handleRedirect();
+        this.handleRedirect();
     }
 
     handleRedirect(){
