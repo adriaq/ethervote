@@ -57,18 +57,20 @@ class Ethervote extends Component {
                         this.setState({ ethervote_address: data.ethervote_address });
                         this.setState({ organitzation_name: data.organitzation_name });
 
-                        const ethervoteInstance = new this.web3.eth.Contract(ethervote_source.abi, data.ethervote_address);
-                        this.setState({ ethervote: ethervoteInstance });
+                        if(data.deployed) {
+                            const ethervoteInstance = new this.web3.eth.Contract(ethervote_source.abi, data.ethervote_address);
+                            this.setState({ ethervote: ethervoteInstance });
 
-                        ethervoteInstance.methods.getPrivilege(user_account).call({from: this.state.user_address}).then(privilege_result => {
-                            this.setState({privilege: privilege_result.toString()});
-                        });
+                            ethervoteInstance.methods.getPrivilege(user_account).call({from: this.state.user_address}).then(privilege_result => {
+                                this.setState({privilege: privilege_result.toString()});
+                            });
 
-                        ethervoteInstance.methods.owner.call({from: this.state.user_address}).then(owner_address => {
-                            if(user_account == owner_address) {this.setState({ owner: true })}
-                            else {this.setState({ owner: false })}
+                            ethervoteInstance.methods.owner.call({from: this.state.user_address}).then(owner_address => {
+                                if(user_account == owner_address) {this.setState({ owner: true })}
+                                else {this.setState({ owner: false })}
 
-                        });
+                            });
+                          }
 
 
                     });
