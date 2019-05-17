@@ -1,9 +1,7 @@
 import React from 'react';
 import web3 from './Ethervote';
 
-var ethervote;
-
-
+var ethervote
 /************************ USER **********************/
 export const getOpenedPolls = async () => {
     let num_proposals = await ethervote.getNumberOfProposals();
