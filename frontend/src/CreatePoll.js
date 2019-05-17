@@ -133,19 +133,13 @@ class CreatePoll extends Component {
 
                     let i;
                     let result;
+                    var batch = this.web3.BatchRequest();
                     for (i=0; i < options.length; i++) {
-                      console.log("index: "+i);
-                        console.log("afegint: n:"+postProposals+", op:"+options[i]+", sl:"+slogans[i]);
-                        result = await this.ethervote.methods.addOption(postProposals, options[i], slogans[i]).send(
-                            {from: this.state.user_address}
-                        ).on('confirmation', (confirmationNumber, receipt) => {
-                            //console.log("confirmation number: " + confirmationNumber);
-                            //console.log('hem afegit opcion ok');
-                        }).on('error', (error) => {
-                          console.log(error)
-                        });
-                        console.log("arriba aqui?");
+                      batch.add(this.ethervote.methods.addOption(postProposals, options[i], slogans[i]).send({from: this.state.user_address}));
                     }
+                    batch.execute().then(result => {
+                      console.log(result);
+                    });
 
                 });
 
