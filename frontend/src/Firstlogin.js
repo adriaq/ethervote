@@ -46,7 +46,6 @@ class Firstlogin extends Component {
         this.setState({existing_ethervote_address: event.target.value});
     }
 
-
     async connect_to_ethervote() {
         let myEthervoteInstance = this.web3.eth.Contract([], this.state.existing_ethervote_address);
         //let myEthervoteInstance = tmp_ethervote.at(this.state.existing_ethervote_address);
@@ -78,58 +77,75 @@ class Firstlogin extends Component {
 
     async onSubmitNew(event) {
         event.preventDefault();
-
-        let ethervoteContract = new this.props.web3.eth.Contract(ethervote_source.abi);
-        await ethervoteContract
-            .deploy({
-                data: ethervote_source.bytecode,
-                arguments: [this.state.organitzation_name, this.state.default_voting_time]})
-            .send({
-                from: this.state.user_address
-            }).on('error', (error) => {
-                swal({
-                    title: "Error!",
-                    text: error,
-                    icon: "warning",
-                    button: {
-                        text: "Understood!",
-                        className: "botosweet"
-                    }
-                });
-            }).on('transactionHash', (transactionHash) => {
-                console.log("transaction hash: " + transactionHash);
-            }).on('receipt', (receipt) => {
-                console.log("new contract address: " + receipt.contractAddress); // contains the new contract address
-            }).on('confirmation', (confirmationNumber, receipt) => {
-                //guardem l'adreça al estat
-                this.setState({ethervoteAddress: receipt.contractAddress});
-
-                //i al servidor
-                 fetch('/post_ethervote', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        "organitzation_name": this.state.organitzation_name,
-                        "ethervote_address": receipt.contractAddress,
-                        "deployed": true
-                    })
-                });
-
-
-
-            })
-            .then((newContractInstance) => {
-              //hauria d'entrar aqui..
-                console.log(newContractInstance.options.address) // instance with the new contract address
-                ReactDOM.render(<Admin web3={this.web3} ethervoteAddres={this.state.ethervoteAddress}/>, document.getElementById('root'));
+        //console.log((typeof(this.state.default_voting_time) === "number"));
+        if (isNaN(this.state.default_voting_time)) {
+            swal({
+                title: "Error!",
+                text: "Default voting time must be a valid number.",
+                icon: "warning",
+                button: {
+                    text: "Understood!",
+                    className: "botosweet"
+                }
             });
+        }
+        else if (this.state.organitzation_name === null) {
+            swal({
+                title: "Error!",
+                text: "You must give a organization name!",
+                icon: "warning",
+                button: {
+                    text: "Understood!",
+                    className: "botosweet"
+                }
+            });
+        }
+        else {
+            let ethervoteContract = new this.props.web3.eth.Contract(ethervote_source.abi);
+            await ethervoteContract
+                .deploy({
+                    data: ethervote_source.bytecode,
+                    arguments: [this.state.organitzation_name, this.state.default_voting_time]})
+                .send({
+                    from: this.state.user_address
+                }).on('error', (error) => {
+                    swal({
+                        title: "Error!",
+                        text: error,
+                        icon: "warning",
+                        button: {
+                            text: "Understood!",
+                            className: "botosweet"
+                        }
+                    });
+                }).on('transactionHash', (transactionHash) => {
+                    console.log("transaction hash: " + transactionHash);
+                }).on('receipt', (receipt) => {
+                    console.log("new contract address: " + receipt.contractAddress); // contains the new contract address
+                }).on('confirmation', (confirmationNumber, receipt) => {
+                    //guardem l'adreça al estat
+                    this.setState({ethervoteAddress: receipt.contractAddress});
 
-
-
-        //  console.log(instance);
+                    //i al servidor
+                    fetch('/post_ethervote', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            "organitzation_name": this.state.organitzation_name,
+                            "ethervote_address": receipt.contractAddress,
+                            "deployed": true
+                        })
+                    });
+                }).then((newContractInstance) => {
+                    //hauria d'entrar aqui..
+                    console.log(newContractInstance.options.address) // instance with the new contract address
+                    ReactDOM.render(<Admin web3={this.web3} ethervoteAddres={this.state.ethervoteAddress}/>, document.getElementById('root'));
+                });
+            //  console.log(instance);
+        }
     }
 
     async componentDidMount() {
