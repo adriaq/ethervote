@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/AddUser.css'
-import img_user from './img/add-user-2-128.gif';
+import img_user from './img/delete-user-2-128.gif';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import swal from "sweetalert";
@@ -17,11 +17,9 @@ class DeleteUser extends Component {
         this.ethervoteAddress = this.props.ethervoteAddress;
         this.web3 = this.props.web3;
         this.state = {
-            userPK: null,
-            privilegeLevel: '0',
+            userPK: null
         };
         this.updateInputValueUser = this.updateInputValueUser.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.submitbtn = this.submitbtn.bind(this);
     }
 
@@ -32,16 +30,9 @@ class DeleteUser extends Component {
         });
     }
 
-
     goToEth() {
         ReactDOM.render(<Ethervote web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
-
-    handleChange(event) {
-        event.preventDefault();
-        this.setState({privilegeLevel: event.target.value});
-    }
-
 
     submitbtn() {
         /*
@@ -72,27 +63,24 @@ class DeleteUser extends Component {
             });
         }
         else {
-            //console.log("HOLAAAAAAAAA: " + this.state.user_address);
-            //console.log("contract adress: " + this.ethervoteAddress);
-            /* this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
-                 console.log("number of proposals: " + n);
-             });*/
-            this.ethervote.methods.addVoter(this.state.userPK, this.state.privilegeLevel).send({
+            this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
+                console.log("number of voters before: " + n);
+            });
+
+            this.ethervote.methods.deleteVoter(this.state.userPK).send({
                 from: this.state.user_address
             }).on('transactionHash', (hash) => {
                 console.log(hash);
             }).on('confirmation', (confirmationNumber, receipt) => {
                 console.log("confirmation number: " + confirmationNumber);
                 console.log("receipt: " + receipt);
-                let values = receipt.returnValues;
-                console.log("values: " + values);
 
                 swal({
                     title: "Info",
-                    text: "Voter added to organization!",
+                    text: "Voter deleted from your organization.",
                     icon: "info",
                     button: {
-                        text: "Great!",
+                        text: "Ok!",
                         className: "botosweet"
                     }
                 });
@@ -100,12 +88,8 @@ class DeleteUser extends Component {
                 this.ethervote.methods.getNumberOfVoters().call({from: this.state.user_address}).then(n => {
                     console.log("number of voters: " + n);
                 });
-                this.ethervote.methods.getPrivilege(this.state.userPK).call({from: this.state.user_address}).then(n => {
-                    console.log("user privilege: " + n);
-                });
 
             }).on('error', (error) => { // If there's an out of gas error the second parameter is the receipt.
-                alert("Error adding voter");
                 swal({
                     title: "Error!",
                     text: error,
@@ -120,7 +104,6 @@ class DeleteUser extends Component {
     }
 
     async componentDidMount() {
-        //console.log("carrega");
         console.log(this.ethervoteAddress);
         this.web3.eth.getAccounts((error, accounts) => {
             if (error) {
@@ -143,26 +126,19 @@ class DeleteUser extends Component {
 
                 <div className="row">
                     <div className="col-lg-3">
-                        <img src={img_user} alt="user"/>
+                        <img className="usr-img-del" src={img_user} alt="user"/>
                     </div>
 
                     <div className="col-lg-9">
                         <div className="input">
                             <div>
-                                <p> USER PUBLIC KEY </p>
-                                <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}
-                                />
-
                                 <div className="col-lg-8">
-                                    <p> PRIVILEGE LEVEL: </p>
-                                    <select className="selectpicker" value={this.state.value} onChange={this.handleChange} >
-                                        <option>1</option>
-                                        <option>2</option>
-                                    </select>
+                                    <p> PUBLIC KEY TO BE DELETED </p>
+                                    <input value={this.state.inputValueUser} onChange={evt => this.updateInputValueUser(evt)}/>
                                 </div>
 
                                 <div className="ei">
-                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Add user</Button>
+                                    <Button className="submit-btn" color="primary" onClick={this.submitbtn}>Delete user</Button>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +153,6 @@ class DeleteUser extends Component {
             </div>
         );
     }
-
 }
 
 export default DeleteUser;
