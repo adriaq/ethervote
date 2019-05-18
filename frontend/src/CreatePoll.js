@@ -82,7 +82,7 @@ class CreatePoll extends Component {
      */
     async handleSubmit(submittedValues){
         let formData = JSON.parse(JSON.stringify(submittedValues)).submittedValues;
-        console.log(formData);
+        //console.log(formData);
 
         if (isEmpty(formData)) {
             swal({
@@ -126,6 +126,7 @@ class CreatePoll extends Component {
                 console.log(hash);
             }).on('confirmation', async (confirmationNumber, receipt) => {
                 console.log("confirmation number: " + confirmationNumber);
+<<<<<<< HEAD
                 console.log('he fet new proposal ok');
 
                 /*let postProposals = await this.ethervote.methods.getNumberOfProposals();
@@ -149,6 +150,25 @@ class CreatePoll extends Component {
                         console.log('hem afegit opcion ok');
                     });
                 }*/
+=======
+                let nproposals = await this.ethervote.methods.getNumberOfProposals().call({from: this.state.user_address}).then(async postProposals => {
+                    console.log("postProposals: " + postProposals);
+                    var options   = formData.options;
+                    var slogans   = formData.slogans;
+
+                    let i;
+                    let result;
+                    var batch = this.web3.BatchRequest();
+                    for (i=0; i < options.length; i++) {
+                      batch.add(this.ethervote.methods.addOption(postProposals, options[i], slogans[i]).send({from: this.state.user_address}));
+                    }
+                    batch.execute().then(result => {
+                      console.log(result);
+                    });
+
+                });
+
+>>>>>>> 2503416f3e83ddcc5eaa13f0a0b899173167dc6d
 
             }).on('error', (error) => {
                 console.log(error);
@@ -164,9 +184,10 @@ class CreatePoll extends Component {
                 });
 
             });
+            console.log("proposalID: "+proposalID);
         }
 
-        //this.handleRedirect();
+        this.handleRedirect();
     }
 
     handleRedirect(){
