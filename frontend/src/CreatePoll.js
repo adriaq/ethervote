@@ -128,7 +128,7 @@ class CreatePoll extends Component {
                 console.log("confirmation number: " + confirmationNumber);
                 console.log('he fet new proposal ok');
 
-                let postProposals = await this.ethervote.methods.getNumberOfProposals();
+                /*let postProposals = await this.ethervote.methods.getNumberOfProposals();
                 console.log("postProposals: " + postProposals);
                 let options   = formData.options;
                 let slogans   = formData.slogans;
@@ -148,7 +148,7 @@ class CreatePoll extends Component {
                         console.log("confirmation number: " + confirmationNumber);
                         console.log('hem afegit opcion ok');
                     });
-                }
+                }*/
 
             }).on('error', (error) => {
                 console.log(error);

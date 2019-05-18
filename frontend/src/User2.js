@@ -5,6 +5,7 @@ import {Glyphicon,Row,Col} from 'react-bootstrap';
 import './styles/User.css';
 import Header from "./components/Header";
 import CreatePoll from "./CreatePoll";
+import OpenPoll from "./OpenPoll";
 const ethervote_source = require('./contracts/ethervote.json');
 
 class User2 extends Component {
@@ -19,6 +20,7 @@ class User2 extends Component {
         };
         //debugger;
         this.goToNewPoll = this.goToNewPoll.bind(this);
+        this.goOpenPoll = this.goOpenPoll.bind(this);
     }
 
     componentDidMount() {
@@ -35,6 +37,7 @@ class User2 extends Component {
                 console.log(this.ethervote);
                 this.ethervote.methods.getNumberOfProposals().call({from: this.state.user_address}).then(raw_n_proposals => {
                     let n_proposals = raw_n_proposals.toString(); //variable que conte el numero de proposals
+                    console.log('proposals')
                     console.log(n_proposals);
 
                 });
@@ -47,6 +50,10 @@ class User2 extends Component {
         console.log(this.web3);
         console.log('eps');
         ReactDOM.render(<CreatePoll web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
+    }
+
+    goOpenPoll(id) {
+        ReactDOM.render(<OpenPoll web3={this.web3} ethervoteAddress={this.ethervoteAddress} id={id}/>, document.getElementById('root'));
     }
 
     render() {
@@ -69,7 +76,6 @@ class User2 extends Component {
                         <Col xs={6}>
 
                             <h3> OPEN POLLS </h3>
-
                             <ListGroup>
                                 {this.state.votations.map( v =>
                                     <ListGroupItem tag="a" key={v.id}>
