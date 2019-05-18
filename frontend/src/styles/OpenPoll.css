@@ -6,6 +6,16 @@
     text-align: center;
 }
 
+.titol {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.enrere {
+    background-color: darkred;
+}
+
 .opcions {
     text-align: center;
     margin: auto;
@@ -21,6 +31,12 @@
     margin-top: 5%;
     margin-bottom: 3%;
 }
+
+.botosweet {
+    background-color: #003852;
+    color: white;
+}
+
 
 .text {
     margin-top: 2%;
