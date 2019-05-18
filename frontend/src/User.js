@@ -82,7 +82,7 @@ class User extends Component {
                             prop.name = nom;
                         });
 
-                        await this.ethervote.methods.getProposalDescription.call({
+                        await this.ethervote.methods.getProposalDescription(i).call({
                             from: this.state.user_address
                         }).then(des => {
                             prop.description = des;
