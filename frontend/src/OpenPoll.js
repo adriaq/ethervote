@@ -118,7 +118,6 @@ class OpenPoll extends Component {
                         swal("Encara estem implementant la votacio!", {
                             icon: "success",
                         });
-
                         //S'hauria de cridar abans de que surti com a succes, no?
                         //let asd = this.ether_vote();
                         ReactDOM.render(<Ethervote/>, document.getElementById('root'));
