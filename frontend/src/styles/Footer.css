@@ -3,3 +3,16 @@
 .navbar-footer-height {
   height: 8%;
 }
+
+.navbar51 {
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+}
+
+.btn4{
+     margin-left: 20px;
+     background-color: transparent;
+     border: none;
+     color: #A9A9A9;
+}
