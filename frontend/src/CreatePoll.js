@@ -126,8 +126,6 @@ class CreatePoll extends Component {
                 console.log(hash);
             }).on('confirmation', async (confirmationNumber, receipt) => {
                 console.log("confirmation number: " + confirmationNumber);
-<<<<<<< HEAD
-                console.log('he fet new proposal ok');
 
                 /*let postProposals = await this.ethervote.methods.getNumberOfProposals();
                 console.log("postProposals: " + postProposals);
@@ -150,8 +148,8 @@ class CreatePoll extends Component {
                         console.log('hem afegit opcion ok');
                     });
                 }*/
-=======
-                let nproposals = await this.ethervote.methods.getNumberOfProposals().call({from: this.state.user_address}).then(async postProposals => {
+
+              /*  let nproposals = await this.ethervote.methods.getNumberOfProposals().call({from: this.state.user_address}).then(async postProposals => {
                     console.log("postProposals: " + postProposals);
                     var options   = formData.options;
                     var slogans   = formData.slogans;
@@ -166,9 +164,8 @@ class CreatePoll extends Component {
                       console.log(result);
                     });
 
-                });
+                });*/
 
->>>>>>> 2503416f3e83ddcc5eaa13f0a0b899173167dc6d
 
             }).on('error', (error) => {
                 console.log(error);
