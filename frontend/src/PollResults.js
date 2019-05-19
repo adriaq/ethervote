@@ -32,21 +32,7 @@ class PollResults extends Component {
             user_address: null,
             name: null,
             description: null,
-            options: [
-                {
-                    "id": "1",
-                    "name": "Option #1",
-                    "description": "Description #1",
-                    "votes": 4,
-                },
-                {
-                    "id": "2",
-                    "name": "Option #2",
-                    "description": "Description #2",
-                    "votes": 1,
-                }
-
-            ],
+            options: [],
         };
 
         this.goToEth = this.goToEth.bind(this);
@@ -86,7 +72,7 @@ class PollResults extends Component {
                     this.setState({ description: desc });
                 });
 
-              /*  await this.ethervote.methods.getNumberOfOptions(this.state.id).call({
+                await this.ethervote.methods.getNumberOfOptions(this.state.id).call({
                     from: this.state.user_address
                 }).then(async n_options => {
                     let options = [];
@@ -119,9 +105,6 @@ class PollResults extends Component {
                         options: options
                     });
                 });
-
-                console.log("results");
-                console.log(this.state.results);*/
             }
         });
     }
