@@ -24,6 +24,7 @@ class User2 extends Component {
     }
 
     componentDidMount() {
+        
         this.ethervote = new this.web3.eth.Contract(ethervote_source.abi, this.ethervoteAddress);
         this.web3.eth.getAccounts((error, accounts) => {
             if (error) {
