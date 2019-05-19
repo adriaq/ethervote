@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 import Header from "./components/Header";
 import {ListGroup} from 'reactstrap';
@@ -7,6 +8,7 @@ import {ListGroupItemHeading} from 'reactstrap';
 import {ListGroupItemText, Col} from 'reactstrap';
 import './styles/OpenPoll.css';
 import Footer from "./components/Footer";
+import Ethervote from "./Ethervote";
 
 const ethervote_source = require('./contracts/ethervote.json');
 
@@ -30,12 +32,32 @@ class PollResults extends Component {
             user_address: null,
             name: null,
             description: null,
-            options: [],
+            options: [
+                {
+                    "id": "1",
+                    "name": "Option #1",
+                    "description": "Description #1",
+                    "votes": 4,
+                },
+                {
+                    "id": "2",
+                    "name": "Option #2",
+                    "description": "Description #2",
+                    "votes": 1,
+                }
+
+            ],
         };
+
+        this.goToEth = this.goToEth.bind(this);
+    }
+
+    goToEth() {
+        console.log(this.web3);
+        ReactDOM.render(<Ethervote web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
     async componentDidMount() {
-        console.log("HOLAAAAAAAAAAA");
         this.web3.eth.getAccounts(async (error, accounts) => {
             if (error) {
                 console.log(error);
@@ -51,7 +73,6 @@ class PollResults extends Component {
                 function getOptionName(int _proposalID, int _n_option) public view returns(string)
                 function getOptionDescription(int _proposalID, int _n_option) public view returns(string)
                  */
-                console.log("holaaaa");
 
                 await this.ethervote.methods.getProposalName(this.state.id).call({
                     from: this.state.user_address
@@ -65,7 +86,7 @@ class PollResults extends Component {
                     this.setState({ description: desc });
                 });
 
-                await this.ethervote.methods.getNumberOfOptions(this.state.id).call({
+              /*  await this.ethervote.methods.getNumberOfOptions(this.state.id).call({
                     from: this.state.user_address
                 }).then(async n_options => {
                     let options = [];
@@ -100,7 +121,7 @@ class PollResults extends Component {
                 });
 
                 console.log("results");
-                console.log(this.state.results);
+                console.log(this.state.results);*/
             }
         });
     }
@@ -123,6 +144,8 @@ class PollResults extends Component {
                         </ListGroup>
                     </Col>
                 </div>
+
+                <Button className="btn btn-primary back-btn"  onClick={this.goToEth} > Back </Button>
 
                 <Footer/>
 
