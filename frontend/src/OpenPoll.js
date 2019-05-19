@@ -146,6 +146,7 @@ class OpenPoll extends Component {
             i no podem permetre que es selecioni una opcio i sen voti una altra
         * */
         this.state.Selected = selected_value;
+        console.log(this.state.Selected);
     };
 
     render() {

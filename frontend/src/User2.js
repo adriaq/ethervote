@@ -4,6 +4,7 @@ import {ListGroup,ListGroupItem,Container,Button} from 'reactstrap';
 import {Glyphicon,Row,Col} from 'react-bootstrap';
 import './styles/User.css';
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import CreatePoll from "./CreatePoll";
 import OpenPoll from "./OpenPoll";
 const ethervote_source = require('./contracts/ethervote.json');
@@ -16,17 +17,17 @@ class User2 extends Component {
         this.ethervote = null;
         this.state = {
             votations: [],
-            closeVotations: []
+            closedVotations: []
         };
         //debugger;
         this.goToNewPoll = this.goToNewPoll.bind(this);
         this.goOpenPoll = this.goOpenPoll.bind(this);
     }
 
-    componentDidMount() {
-        
+    async componentDidMount() {
+
         this.ethervote = new this.web3.eth.Contract(ethervote_source.abi, this.ethervoteAddress);
-        this.web3.eth.getAccounts((error, accounts) => {
+        this.web3.eth.getAccounts(async (error, accounts) => {
             if (error) {
                 console.log(error)
             } else {
@@ -36,20 +37,55 @@ class User2 extends Component {
                 this.setState({ user_address: user_account });
 
                 console.log(this.ethervote);
-                this.ethervote.methods.getNumberOfProposals().call({from: this.state.user_address}).then(raw_n_proposals => {
+                this.ethervote.methods.getNumberOfProposals().call({from: this.state.user_address}).then(async raw_n_proposals => {
                     let n_proposals = raw_n_proposals.toString(); //variable que conte el numero de proposals
-                    console.log('proposals')
+                    console.log('proposals');
                     console.log(n_proposals);
 
+                    let proposals = [];
+                    let finishedProposals = [];
+
+                    for (let i = 1; i <= n_proposals; ++i) {
+                        let prop = new Object();
+                        prop.id = i;
+
+                        await this.ethervote.methods.getProposalName(i).call({
+                            from: this.state.user_address
+                        }).then(nom => {
+                            prop.name = nom;
+                        });
+
+                        await this.ethervote.methods.getProposalDescription(i).call({
+                            from: this.state.user_address
+                        }).then(des => {
+                            prop.description = des;
+                        });
+
+                        await this.ethervote.methods.hasEnded(i).call({
+                            from: this.state.user_address
+                        }).then(ended => {
+                            if (ended) {
+                                finishedProposals.push(prop);
+                            }
+                            else {
+                                proposals.push(prop);
+                            }
+                        });
+                    }
+
+                    this.setState({
+                        votations: proposals,
+                        closedVotations: finishedProposals
+                    });
+
                 });
+
+
             }
         });
      }
 
     goToNewPoll() {
-       // debugger
-        //console.log(this.web3);
-        //console.log('eps');
         ReactDOM.render(<CreatePoll web3={this.web3} ethervoteAddress={this.ethervoteAddress}/>, document.getElementById('root'));
     }
 
@@ -60,47 +96,40 @@ class User2 extends Component {
     render() {
 
         return (
-            <div>
+            <div >
                 <Header/>
-                <Container>
-                    <Row className="justify-content-md-center">
-                        <Col xs={6}>
 
-                            <h3> CREATE POLL </h3>
-                            <p id="create-explanation"> Create a poll and add the public key of the users that will
-                                have access to it.  </p>
-                            <Button color="primary" className="createPoll" onClick={this.goToNewPoll} > Create poll </Button>
-                        </Col>
-                    </Row>
-
-                    <Row className="justify-content-md-center">
-                        <Col xs={6}>
+                <div className="container">
+                    <Row className="DP">
+                        <div className="col-lg-6">
 
                             <h3> OPEN POLLS </h3>
+
                             <ListGroup>
-                                {this.state.votations.map( v =>
-                                    <ListGroupItem tag="a" key={v.id}>
-                                        {v.name} <a href={"/openPolls?"+ v.id}> <Glyphicon glyph="zoom-in" /> </a>
+                                {this.state.votations.map( p =>
+                                    <ListGroupItem className="LGI" tag="a" onClick={(e) => this.goOpenPoll(p.id)} key={p.name}>
+                                        {p.name}
                                     </ListGroupItem>)}
                             </ListGroup>
-                        </Col>
+                        </div>
                     </Row>
 
-                    <Row className="justify-content-md-center">
-                        <Col xs={6}>
+                    <Row className={"DP"}>
+                        <div className="col-lg-6">
                             <h3> RESULTS </h3>
-                            <ListGroup>
-                                <ListGroup>
-                                    {this.state.closeVotations.map(v =>
-                                        <ListGroupItem tag="a" key={v.id}>
-                                            {v.name} <a href={"/pollsResult?"+ v.id}> <Glyphicon glyph="zoom-in" /> </a>
-                                        </ListGroupItem>)}
-                                </ListGroup>
-                            </ListGroup>
-                        </Col>
+                            {this.state.closedVotations.map( p =>
+                                <ListGroupItem className="LGI2" tag="a" onClick={(e) => this.goToResults(p.id, e)} key={p.name} >
+                                    {p.name}
+                                </ListGroupItem>)}
+                        </div>
                     </Row>
-                </Container>
 
+                </div>
+                <Button color="primary" className="createPoll" onClick={this.goToNewPoll} > Create poll </Button>
+                <Button className="btn btn-primary back-btn"  onClick={this.goToEth} > Back </Button>
+                <div>
+                    <Footer/>
+                </div>
             </div>
 
 

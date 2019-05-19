@@ -108,7 +108,7 @@ class Firstlogin extends Component {
             await ethervoteContract
                 .deploy({
                     data: ethervote_source.bytecode,
-                    arguments: [this.state.organitzation_name, this.state.default_voting_time]})
+                    arguments: [this.state.organitzation_name, this.state.default_voting_time] })
                 .send({
                     from: this.state.user_address
                 }).on('error', (error) => {

@@ -40,10 +40,14 @@ h3 {
 }
 
 .createPoll {
-    font-size: 18px;
-    margin-top: 1%;
-    margin-right: 10%;
+    font-size: 16px;
     background-color: #34517e;
+    border-color: #34517e;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display: block;
+    width: 15%;
 }
 
 .back {
