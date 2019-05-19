@@ -14,7 +14,8 @@ function PollListGroupItem(props) {
     return (
         <ListGroupItem>
             <ListGroupItemHeading className="title"> {props.title} </ListGroupItemHeading>
-            <ListGroupItemText className="description"> Votes: {props.description} </ListGroupItemText>
+            <ListGroupItemText className="description"> Description: {props.description} </ListGroupItemText>
+            <ListGroupItemText className="votes"> Votes: {props.votes} </ListGroupItemText>
         </ListGroupItem>
     );
 }
@@ -22,16 +23,19 @@ function PollListGroupItem(props) {
 class PollResults extends Component {
     constructor(props) {
         super(props);
-        this.ethervote = this.props.ethervote;
+        this.ethervoteAddress = this.props.ethervoteAddress;
         this.web3 = this.props.web3;
         this.state = {
             id: this.props.id,
             user_address: null,
-            resultats: [],
+            name: null,
+            description: null,
+            options: [],
         };
     }
 
     async componentDidMount() {
+        console.log("HOLAAAAAAAAAAA");
         this.web3.eth.getAccounts(async (error, accounts) => {
             if (error) {
                 console.log(error);
@@ -47,19 +51,18 @@ class PollResults extends Component {
                 function getOptionName(int _proposalID, int _n_option) public view returns(string)
                 function getOptionDescription(int _proposalID, int _n_option) public view returns(string)
                  */
-                let poll = new Object();
-                poll.id = this.state.id;
+                console.log("holaaaa");
 
                 await this.ethervote.methods.getProposalName(this.state.id).call({
                     from: this.state.user_address
                 }).then(name => {
-                    poll.name = name;
+                    this.setState({ name: name});
                 });
 
                 await this.ethervote.methods.getProposalDescription(this.state.id).call({
                     from: this.state.user_address
                 }).then(desc => {
-                    poll.description = desc;
+                    this.setState({ description: desc });
                 });
 
                 await this.ethervote.methods.getNumberOfOptions(this.state.id).call({
@@ -91,12 +94,13 @@ class PollResults extends Component {
                         options.push(op);
                     }
 
-                    poll.options = options;
+                    this.setState({
+                        options: options
+                    });
                 });
 
-                this.setState({
-                    resultats: poll
-                });
+                console.log("results");
+                console.log(this.state.results);
             }
         });
     }
@@ -106,20 +110,19 @@ class PollResults extends Component {
             <div>
 
                 <Header/>
-
-                <p className="text"> Poll results </p>
-
-                <Col>
-                    <ListGroup className="votations">
-
-                        {this.state.resultats.map( o =>
-                            <PollListGroupItem title={o.name} description={o.votes}/>)}
-
-                    </ListGroup>
-                    <div className="btn-group-lg">
-                        <Button className="btn_admin btn-generic btn-danger" color="primary" href="/" > Back</Button>
+                <div>
+                    <div className='titol'>
+                        <h1>{this.state.name}</h1>
+                        <h4>{this.state.description}</h4>
                     </div>
-                </Col>
+
+                    <Col>
+                        <ListGroup className="votations">
+                            {this.state.options.map( o =>
+                                <PollListGroupItem title={o.name} description={o.description} votes={o.votes}/>)}
+                        </ListGroup>
+                    </Col>
+                </div>
 
                 <Footer/>
 
@@ -130,3 +133,6 @@ class PollResults extends Component {
 }
 
 export default PollResults;
+/*
+
+ */
