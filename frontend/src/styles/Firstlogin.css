@@ -2,7 +2,7 @@
     display: block;
     margin: auto;
     padding-top: 2%;
-    height: 230px;
+    max-height: 30%;
 }
 
 .blockchain-text {
