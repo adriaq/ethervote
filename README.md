@@ -1,4 +1,4 @@
-# Ethervote: A blockchain base voting system
+# Ethervote: A blockchain based voting system
 
 Ethervote es una plataforma online que permet crear Organitzacions on diferents usuaris poden crear i votar propostes. Aquest procés d'informació és realitzarà a la Blockchain d'Ethereum gràcies a les característiques que explicarem més endavant.
 
